@@ -2,6 +2,7 @@ package es.falvad01.unileon.Solitario;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -9,6 +10,8 @@ import java.awt.event.ActionListener;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JButton;
+import javax.swing.JRadioButton;
+import javax.swing.JLabel;
 
 public class VentanaPrincipal extends JFrame implements ActionListener {
 
@@ -24,17 +27,16 @@ public class VentanaPrincipal extends JFrame implements ActionListener {
 	private JPanel historial;
 	private JPanel ayuda;
 
-	/*Botones principales*/
-	
+	/* Botones principales */
+
 	private JButton btnArchivo;
 	private JButton btnEditar;
 	private JButton btnHistorial;
 	private JButton btnAyuda;
-	
-	JButton btnNewButton;
-	JButton btnNewButton_1;
-	private JPanel panel;
-	
+	private JLabel lblEditar;
+	private JLabel lblHistorial;
+	private JLabel lblAyuda;
+	private JLabel lblAyuda_1;
 
 	public VentanaPrincipal() {
 
@@ -59,7 +61,27 @@ public class VentanaPrincipal extends JFrame implements ActionListener {
 
 		getContentPane().setLayout(null);
 
-///////////////////////////PANELES/////////////////////////////////////////
+		ayuda = new JPanel();
+		ayuda.setBackground(Color.MAGENTA);
+		ayuda.setBounds(10, 142, 614, 330);
+		getContentPane().add(ayuda);
+		ayuda.setLayout(null);
+		
+		
+
+		historial = new JPanel();
+		historial.setBackground(Color.CYAN);
+		historial.setBounds(10, 142, 614, 330);
+		getContentPane().add(historial);
+		historial.setLayout(null);
+
+		editar = new JPanel();
+		editar.setBackground(Color.BLUE);
+		editar.setBounds(10, 142, 614, 330);
+		getContentPane().add(editar);
+		editar.setLayout(null);
+
+		/////////////////////////// PANELES/////////////////////////////////////////
 		archivo = new JPanel();
 		archivo.setBackground(Color.YELLOW);
 		archivo.setBounds(10, 142, 614, 330);
@@ -67,21 +89,8 @@ public class VentanaPrincipal extends JFrame implements ActionListener {
 		archivo.setLayout(null);
 		archivo.setVisible(true);
 
-		editar = new JPanel();
-		editar.setBackground(Color.BLUE);
-		editar.setBounds(10, 142, 614, 330);
-		getContentPane().add(editar);
-		editar.setLayout(null);
-		editar.setVisible(false);
-		
-		ayuda = new JPanel();
-		ayuda.setBounds(281, 105, 10, 10);
-		getContentPane().add(ayuda);
-		ayuda.setLayout(null);
-		
-		
 ///////////////////////////BOTONES/////////////////////////////////////////
-		
+
 		btnArchivo = new JButton("Archivo");
 		btnArchivo.setBounds(10, 32, buttonW, buttonH);
 		getContentPane().add(btnArchivo);
@@ -91,42 +100,61 @@ public class VentanaPrincipal extends JFrame implements ActionListener {
 		btnEditar.setBounds(163, 32, buttonW, buttonH);
 		getContentPane().add(btnEditar);
 		btnEditar.addActionListener(this);
-		
-		
-		
+
 		btnHistorial = new JButton("Historial");
 		btnHistorial.setBounds(336, 32, buttonW, buttonH);
 		getContentPane().add(btnHistorial);
+		btnHistorial.addActionListener(this);
 
 		btnAyuda = new JButton("Ayuda");
 		btnAyuda.setBounds(496, 32, buttonW, buttonH);
 		getContentPane().add(btnAyuda);
-		
-		panel = new JPanel();
-		panel.setBounds(206, 108, 10, 10);
-		getContentPane().add(panel);
-		panel.setLayout(null);
+		btnAyuda.addActionListener(this);
 		
 		
-
+		
 		initArchivoComponents(); // Llamamos a los componentes de cada panel
 		initEditarComponents();
+		initHistorialComponenets();
+		initAyudaComponents();
 
 	}
 
 	private void initArchivoComponents() {
 
-		btnNewButton = new JButton("New button");
-		btnNewButton.setBounds(10, 11, buttonW, buttonH);
-		archivo.add(btnNewButton);
+		JLabel lblArchivo = new JLabel("ARCHIVO");
+		lblArchivo.setFont(new Font("Tahoma", Font.PLAIN, 24));
+		lblArchivo.setBounds(10, 264, 165, 66);
+		archivo.add(lblArchivo);
+		
 
 	}
 
 	private void initEditarComponents() {
 
-		btnNewButton_1 = new JButton("New button");
-		btnNewButton_1.setBounds(46, 41, buttonW, buttonH);
-		editar.add(btnNewButton_1);
+		lblEditar = new JLabel("EDITAR");
+		lblEditar.setForeground(Color.WHITE);
+		lblEditar.setFont(new Font("Tahoma", Font.PLAIN, 24));
+		lblEditar.setBounds(10, 194, 225, 114);
+		editar.add(lblEditar);
+		editar.setVisible(false);
+
+	}
+
+	private void initHistorialComponenets() {
+		lblHistorial = new JLabel("HISTORIAL");
+		lblHistorial.setFont(new Font("Tahoma", Font.PLAIN, 24));
+		lblHistorial.setBounds(20, 231, 171, 88);
+		historial.add(lblHistorial);
+
+	}
+
+	private void initAyudaComponents() {
+		lblAyuda_1 = new JLabel("AYUDA");
+		lblAyuda_1.setFont(new Font("Tahoma", Font.PLAIN, 24));
+		lblAyuda_1.setBounds(10, 200, 200, 130);
+		ayuda.add(lblAyuda_1);
+
 	}
 
 	@Override
@@ -135,12 +163,28 @@ public class VentanaPrincipal extends JFrame implements ActionListener {
 		if (e.getSource() == btnArchivo) {
 			archivo.setVisible(true);
 			editar.setVisible(false);
+			historial.setVisible(false);
+			ayuda.setVisible(false);
 
 		} else if (e.getSource() == btnEditar) {
 			archivo.setVisible(false);
 			editar.setVisible(true);
+			historial.setVisible(false);
+			ayuda.setVisible(false);
+
+		}else if(e.getSource() == btnHistorial) {
+			archivo.setVisible(false);
+			editar.setVisible(false);
+			historial.setVisible(true);
+			ayuda.setVisible(false);
+
+		}else if(e.getSource() == btnAyuda) {
+			archivo.setVisible(false);
+			editar.setVisible(false);
+			historial.setVisible(false);
+			ayuda.setVisible(true);
+
 		}
 
 	}
-
 }
