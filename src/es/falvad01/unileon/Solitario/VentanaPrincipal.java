@@ -7,15 +7,17 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JButton;
-import javax.swing.JRadioButton;
 import javax.swing.JLabel;
-import javax.swing.AbstractAction;
-import javax.swing.Action;
+import javax.swing.JOptionPane;
 import javax.swing.JComboBox;
+import javax.swing.JFileChooser;
+
+
 
 public class VentanaPrincipal extends JFrame implements ActionListener {
 
@@ -39,13 +41,17 @@ public class VentanaPrincipal extends JFrame implements ActionListener {
 	private JLabel lblEditar;
 	private JLabel lblHistorial;
 	private JLabel lblAyuda;
+
+	private JComboBox comboBox;
+	private String gameSelected;
+
+	private JButton btnNuevo;
+	private JButton btnCargar;
+	private JButton btnSalvar;
+	private JButton btnSalvarComo;
+	private JButton btnSalir;
 	
-	
-	JComboBox comboBox;
-	String gameSelected;
-	private JButton btnNewButton_4;
-	
-	
+	File loadGame;
 
 	public VentanaPrincipal() {
 
@@ -74,30 +80,21 @@ public class VentanaPrincipal extends JFrame implements ActionListener {
 
 		getContentPane().setLayout(null);
 		Image backGround = screen.getImage("etc/images/interface(backGround.jpg");
-		
+
+//////////////////////////PANELES/////////////////////////////////////////
+
 		archivo = new JPanel();
 		archivo.setBackground(Color.YELLOW);
 		archivo.setBounds(10, 0, 624, 510);
 		getContentPane().add(archivo);
 		archivo.setLayout(null);
 		archivo.setVisible(false);
-		
-				
-				
-				
-
-		
-
-		
-
-		/////////////////////////// PANELES/////////////////////////////////////////
 
 		menu = new JPanel();
 		menu.setBackground(null);
 		menu.setBounds(10, 0, 624, 510);
 		getContentPane().add(menu);
 		menu.setLayout(null);
-		menu.setVisible(true);
 
 		editar = new JPanel();
 		editar.setBackground(Color.BLUE);
@@ -117,10 +114,8 @@ public class VentanaPrincipal extends JFrame implements ActionListener {
 		getContentPane().add(ayuda);
 		ayuda.setLayout(null);
 
-
-
-		initMenuComponents();
-		initArchivoComponents(); // Llamamos a los componentes de cada panel
+		initMenuComponents(); // Llamamos a los componentes de cada panel
+		initArchivoComponents();
 		initEditarComponents();
 		initHistorialComponenets();
 		initAyudaComponents();
@@ -152,8 +147,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener {
 	}
 
 	private void initArchivoComponents() {
-		
-		
+
 		JButton atras = new JButton("Atras");
 		atras.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -168,35 +162,37 @@ public class VentanaPrincipal extends JFrame implements ActionListener {
 		});
 		atras.setBounds(10, 11, 112, 37);
 		archivo.add(atras);
-		
-		
-		 comboBox = new JComboBox();
+
+		comboBox = new JComboBox();
 		comboBox.setBounds(43, 124, 122, 20);
 		archivo.add(comboBox);
+		comboBox.addItem("--");
 		comboBox.addItem("Saltos");
 		comboBox.addItem("Clasico");
-		
-		JButton btnNewButton = new JButton("Nuevo");
-		btnNewButton.setBounds(214, 123, 157, 23);
-		archivo.add(btnNewButton);
-		
-		JButton btnNewButton_1 = new JButton("Cargar");
-		btnNewButton_1.setBounds(214, 181, 157, 23);
-		archivo.add(btnNewButton_1);
-		
-		JButton btnNewButton_2 = new JButton("Salvar");
-		btnNewButton_2.setBounds(214, 243, 157, 23);
-		archivo.add(btnNewButton_2);
-		
-		JButton btnNewButton_3 = new JButton("Salvar como");
-		btnNewButton_3.setBounds(214, 318, 157, 23);
-		archivo.add(btnNewButton_3);
-		
-		btnNewButton_4 = new JButton("Salir");
-		btnNewButton_4.setBounds(200, 409, 171, 23);
-		archivo.add(btnNewButton_4);
 		comboBox.addActionListener(this);
-		
+
+		btnNuevo = new JButton("Nuevo");
+		btnNuevo.setBounds(214, 123, 157, 23);
+		archivo.add(btnNuevo);
+		btnNuevo.addActionListener(this);
+
+		btnCargar = new JButton("Cargar");
+		btnCargar.setBounds(214, 181, 157, 23);
+		archivo.add(btnCargar);
+		btnCargar.addActionListener(this);
+
+		btnSalvar = new JButton("Salvar");
+		btnSalvar.setBounds(214, 243, 157, 23);
+		archivo.add(btnSalvar);
+
+		btnSalvarComo = new JButton("Salvar como");
+		btnSalvarComo.setBounds(214, 318, 157, 23);
+		archivo.add(btnSalvarComo);
+
+		btnSalir = new JButton("Salir");
+		btnSalir.setBounds(214, 379, 157, 23);
+		archivo.add(btnSalir);
+		btnSalir.addActionListener(this);
 
 	}
 
@@ -217,7 +213,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener {
 				editar.setVisible(false);
 				historial.setVisible(false);
 				ayuda.setVisible(false);
-				
+
 				setTitle("Solitario");
 
 			}
@@ -241,7 +237,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener {
 				editar.setVisible(false);
 				historial.setVisible(false);
 				ayuda.setVisible(false);
-				
+
 				setTitle("Solitario");
 
 			}
@@ -265,7 +261,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener {
 				editar.setVisible(false);
 				historial.setVisible(false);
 				ayuda.setVisible(false);
-				
+
 				setTitle("Solitario");
 
 			}
@@ -284,7 +280,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener {
 			editar.setVisible(false);
 			historial.setVisible(false);
 			ayuda.setVisible(false);
-			
+
 			setTitle("Solitario-Archivo");
 
 		} else if (e.getSource() == btnEditar) {
@@ -294,7 +290,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener {
 			editar.setVisible(true);
 			historial.setVisible(false);
 			ayuda.setVisible(false);
-			
+
 			setTitle("Solitario-Editar");
 
 		} else if (e.getSource() == btnHistorial) {
@@ -304,7 +300,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener {
 			editar.setVisible(false);
 			historial.setVisible(true);
 			ayuda.setVisible(false);
-			
+
 			setTitle("Solitario-Historial");
 
 		} else if (e.getSource() == btnAyuda) {
@@ -314,16 +310,66 @@ public class VentanaPrincipal extends JFrame implements ActionListener {
 			editar.setVisible(false);
 			historial.setVisible(false);
 			ayuda.setVisible(true);
-			
+
 			setTitle("Solitario-Ayuda");
 
 		}
-		
-		
-		if(e.getSource() == comboBox) {
+		/////////////////// BOTONES SUBMENU ARCHIVO////////////////////////////////
+
+		if (e.getSource() == btnNuevo) {
+
+			if (gameSelected == null || gameSelected.equals("--")) {
+				System.out.println("Modo de juego no permitido"); //TODO METER EXCEPCION
+			} else {
+				System.out.println(gameSelected);
+				// TODO DESDE AQUI LANZARIAMOS AL MODO DE JUEGO CORRESPONDIENTE
+
+				if (gameSelected == "Saltos") {
+
+					System.out.println("Juego saltos cargando");
+
+				} else if (gameSelected == "Clasico") {
+
+					System.out.println("Juego clasico cargando");
+
+				}
+
+			}
+
+		} else if (e.getSource() == btnCargar) {
 			
-			gameSelected = (String) comboBox.getSelectedItem();
+			System.out.println("Cargar archivo");
+
+			JFileChooser select = new JFileChooser();
+			select.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
 			
+			int i = select.showSaveDialog(this);
+			
+			loadGame = select.getSelectedFile();
+			
+			if((loadGame == null) || !(loadGame.getName().substring(loadGame.getName().lastIndexOf(".")+1).equals("txt"))){
+				JOptionPane.showMessageDialog(this, "Tipo de archivo incorrecto", "Tipo de archivo incorrecto", JOptionPane.ERROR_MESSAGE);
+			}else {
+				System.out.println(loadGame.getPath());
+				//TODO DESDE AQUI MANDAMOS LA RUTA DEL ARCHIVO PARA CARGARLO EN EL JUEGO
+			}
+			
+			System.out.println(loadGame.getPath());
+			
+			
+		} else if (e.getSource() == btnSalvar) {
+
+		} else if (e.getSource() == btnSalvarComo) {
+
+		} else if (e.getSource() == btnSalir) {
+			System.out.println("SALIENDO");
+			System.exit(0);
+		}
+
+		if (e.getSource() == comboBox) {
+
+			gameSelected = (String) comboBox.getSelectedItem(); // Guardamos la opcion e juego que queremos en un string
+
 		}
 
 	}
