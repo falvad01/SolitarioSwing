@@ -19,6 +19,9 @@ import javax.swing.JFileChooser;
 
 public class VentanaPrincipal extends JFrame implements ActionListener {
 
+	// TODO REVISAR LAYOUT DE LA VENTANA, SERIA MAS EFECTIVO PARA EL USUARIO MENUS
+	// DESPLEGABLES EN LA PARTE SUPERIOR DE LA VENTANA
+
 	Toolkit screen;
 	private int screenHeight;
 	private int screenWith;
@@ -53,7 +56,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener {
 	File saveGame;
 
 	Baraja baraja;
-	VentanaJuego vJuego;
+	VentanaTablero vJuego;
 
 	public VentanaPrincipal() {
 
@@ -336,7 +339,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener {
 					System.out.println(baraja.toString());
 					baraja.barajarE();
 					System.out.println(baraja.toString());
-					
+
 				} else if (gameSelected == "Clasico") {
 
 					System.out.println("Juego clasico cargando");
@@ -345,9 +348,9 @@ public class VentanaPrincipal extends JFrame implements ActionListener {
 					System.out.println(baraja.toString());
 					baraja.barajarF();
 					System.out.println(baraja.toString());
-					
-					vJuego = new VentanaJuego();
-					
+
+					vJuego = new VentanaTablero();
+
 					vJuego.setVisible(true);
 					vJuego.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 

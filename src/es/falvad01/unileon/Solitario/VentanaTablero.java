@@ -4,9 +4,9 @@ import java.awt.Image;
 
 import javax.swing.JFrame;
 
-public class VentanaJuego extends JFrame {
+public class VentanaTablero extends JFrame {
 
-	public VentanaJuego() {
+	public VentanaTablero() {
 		
 		setBounds(1024 / 4, 768 / 6, 900, 550);
 

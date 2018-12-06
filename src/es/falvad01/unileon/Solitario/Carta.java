@@ -1,7 +1,7 @@
 package es.falvad01.unileon.Solitario;
 
 import java.awt.Image;
-
+//TODO FALTA EL ATRIBUTO COLOR, POR LO QUE CONVENDRIA HACER DOS CLASES CARTA PARA CAD TIPO DE CARTA
 public class Carta {
 
 	private char palo;
