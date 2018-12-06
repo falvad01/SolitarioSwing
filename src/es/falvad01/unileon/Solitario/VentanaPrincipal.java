@@ -17,8 +17,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 
-
-
 public class VentanaPrincipal extends JFrame implements ActionListener {
 
 	Toolkit screen;
@@ -50,8 +48,11 @@ public class VentanaPrincipal extends JFrame implements ActionListener {
 	private JButton btnSalvar;
 	private JButton btnSalvarComo;
 	private JButton btnSalir;
-	
+
 	File loadGame;
+	File saveGame;
+	
+	Baraja baraja;
 
 	public VentanaPrincipal() {
 
@@ -79,7 +80,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener {
 	private void initComponents() {
 
 		getContentPane().setLayout(null);
-		Image backGround = screen.getImage("etc/images/interface(backGround.jpg");
+		Image backGround = screen.getImage("etc/images/interface/backGround.jpg");
 
 //////////////////////////PANELES/////////////////////////////////////////
 
@@ -188,6 +189,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener {
 		btnSalvarComo = new JButton("Salvar como");
 		btnSalvarComo.setBounds(214, 318, 157, 23);
 		archivo.add(btnSalvarComo);
+		btnSalvarComo.addActionListener(this);
 
 		btnSalir = new JButton("Salir");
 		btnSalir.setBounds(214, 379, 157, 23);
@@ -319,7 +321,9 @@ public class VentanaPrincipal extends JFrame implements ActionListener {
 		if (e.getSource() == btnNuevo) {
 
 			if (gameSelected == null || gameSelected.equals("--")) {
-				System.out.println("Modo de juego no permitido"); //TODO METER EXCEPCION
+				System.out.println("Modo de juego no permitido"); // TODO METER EXCEPCION
+				JOptionPane.showMessageDialog(this, "Modo de juego no permitido", "Modo de juego no permitido",
+						JOptionPane.ERROR_MESSAGE);
 			} else {
 				System.out.println(gameSelected);
 				// TODO DESDE AQUI LANZARIAMOS AL MODO DE JUEGO CORRESPONDIENTE
@@ -327,43 +331,73 @@ public class VentanaPrincipal extends JFrame implements ActionListener {
 				if (gameSelected == "Saltos") {
 
 					System.out.println("Juego saltos cargando");
+					baraja = new Baraja(Juego.Saltos);
+					System.out.println(baraja.toString());
 
 				} else if (gameSelected == "Clasico") {
 
 					System.out.println("Juego clasico cargando");
+					
+					 baraja = new Baraja(Juego.Clasico);
+					 System.out.println(baraja.toString());
+					 
+					 
 
 				}
 
 			}
 
 		} else if (e.getSource() == btnCargar) {
-			
+
 			System.out.println("Cargar archivo");
 
 			JFileChooser select = new JFileChooser();
 			select.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
-			
-			int i = select.showSaveDialog(this);
-			
+
+			int i = select.showSaveDialog(this);// Cargamos el archivo
+
 			loadGame = select.getSelectedFile();
-			
-			if((loadGame == null) || !(loadGame.getName().substring(loadGame.getName().lastIndexOf(".")+1).equals("txt"))){
-				JOptionPane.showMessageDialog(this, "Tipo de archivo incorrecto", "Tipo de archivo incorrecto", JOptionPane.ERROR_MESSAGE);
-			}else {
+
+			if ((loadGame == null)
+					|| !(loadGame.getName().substring(loadGame.getName().lastIndexOf(".") + 1).equals("txt"))) {
+				JOptionPane.showMessageDialog(this, "Tipo de archivo incorrecto", "Tipo de archivo incorrecto",
+						JOptionPane.ERROR_MESSAGE);// Comprobamos que la extension del archivo sea la correcta
+			} else {
 				System.out.println(loadGame.getPath());
-				//TODO DESDE AQUI MANDAMOS LA RUTA DEL ARCHIVO PARA CARGARLO EN EL JUEGO
+				// TODO DESDE AQUI MANDAMOS LA RUTA DEL ARCHIVO PARA CARGARLO EN EL JUEGO
 			}
-			
-			System.out.println(loadGame.getPath());
-			
-			
+
+			// System.out.println(loadGame.getPath());
+
 		} else if (e.getSource() == btnSalvar) {
 
-		} else if (e.getSource() == btnSalvarComo) {
+			// TODO AQUI DEBERIA LLEGAR LA RUTA DEL ULTIMO ARCHIVO JUGADO
 
+		} else if (e.getSource() == btnSalvarComo) {
+			/*
+			 * JFileChooser save = new JFileChooser();
+			 * 
+			 * if (save.showSaveDialog(null) == save.APPROVE_OPTION) {
+			 * 
+			 * saveGame = save.getSelectedFile();
+			 * 
+			 * if (new File(saveGame.getPath()).exists()) {
+			 * 
+			 * if (JOptionPane.OK_OPTION == JOptionPane.showConfirmDialog(this,
+			 * "El fichero existe,deseas reemplazarlo?", "Titulo",
+			 * JOptionPane.YES_NO_OPTION)) {
+			 * 
+			 * }
+			 * 
+			 * } }
+			 */
 		} else if (e.getSource() == btnSalir) {
-			System.out.println("SALIENDO");
-			System.exit(0);
+
+			if (JOptionPane.showConfirmDialog(rootPane, "¿Desea cerrar el programa?", "¿Desea cerrar el programa?",
+					JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) { // Pregunta si esta seguro de que desea
+																			// salir
+				System.exit(0);
+			}
 		}
 
 		if (e.getSource() == comboBox) {
