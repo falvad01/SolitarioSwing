@@ -1,6 +1,6 @@
 package es.falvad01.unileon.Solitario;
 
-public enum Juego {
+public enum EJuego {
 	
 	Saltos,Clasico
 

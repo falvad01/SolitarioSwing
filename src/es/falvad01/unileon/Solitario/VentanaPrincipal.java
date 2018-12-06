@@ -51,8 +51,9 @@ public class VentanaPrincipal extends JFrame implements ActionListener {
 
 	File loadGame;
 	File saveGame;
-	
+
 	Baraja baraja;
+	VentanaJuego vJuego;
 
 	public VentanaPrincipal() {
 
@@ -63,7 +64,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener {
 
 		// setBounds(panelWith / 2, panelHeight / 2, panelWith, panelHeight);
 
-		setBounds(1024 / 4, 768 / 4, 650, 550);
+		setBounds(1024 / 4, 768 / 6, 650, 550);
 
 		setTitle("Solitario");
 
@@ -331,17 +332,24 @@ public class VentanaPrincipal extends JFrame implements ActionListener {
 				if (gameSelected == "Saltos") {
 
 					System.out.println("Juego saltos cargando");
-					baraja = new Baraja(Juego.Saltos);
+					baraja = new Baraja(EJuego.Saltos);
 					System.out.println(baraja.toString());
-
+					baraja.barajarE();
+					System.out.println(baraja.toString());
+					
 				} else if (gameSelected == "Clasico") {
 
 					System.out.println("Juego clasico cargando");
+
+					baraja = new Baraja(EJuego.Clasico);
+					System.out.println(baraja.toString());
+					baraja.barajarF();
+					System.out.println(baraja.toString());
 					
-					 baraja = new Baraja(Juego.Clasico);
-					 System.out.println(baraja.toString());
-					 
-					 
+					vJuego = new VentanaJuego();
+					
+					vJuego.setVisible(true);
+					vJuego.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 
 				}
 

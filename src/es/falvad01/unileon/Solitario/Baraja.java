@@ -2,13 +2,9 @@ package es.falvad01.unileon.Solitario;
 
 import java.awt.Image;
 
-import javax.sound.midi.Synthesizer;
-
-import com.sun.media.sound.SimpleSoundbank;
-
 public class Baraja {
 
-	private Juego juego;
+	private EJuego juego;
 	private Carta[] baraja;
 	private int next;
 
@@ -16,7 +12,7 @@ public class Baraja {
 	 * 
 	 * @param juego
 	 */
-	public Baraja(Juego juego) {
+	public Baraja(EJuego juego) {
 		this.next = 0;
 		setJuego(juego);
 
@@ -25,7 +21,7 @@ public class Baraja {
 			this.baraja = new Carta[40];
 			crearBarajaE();
 
-		} else if (this.juego == Juego.Clasico) {
+		} else if (this.juego == EJuego.Clasico) {
 
 			this.baraja = new Carta[52];
 			crearBarajaF();
@@ -37,7 +33,7 @@ public class Baraja {
 	 * 
 	 * @param juego
 	 */
-	public void setJuego(Juego juego) {
+	public void setJuego(EJuego juego) {
 		this.juego = juego;
 	}
 
@@ -83,12 +79,13 @@ public class Baraja {
 	}
 
 	private void crearBarajaE() {
+
 		Carta carta;
 		Image sprite;
 		StringBuilder path = new StringBuilder();
 
 		char[] paloE = { 'O', 'C', 'E', 'B' };
-		char[] numeroE = { 'A', '2', '3', '4', '5', '6', '7', 'S', 'C', 'R'};
+		char[] numeroE = { 'A', '2', '3', '4', '5', '6', '7', 'S', 'C', 'R' };
 
 		for (int i = 0; i < paloE.length; i++) {
 			for (int j = 0; j < numeroE.length; j++) {
@@ -104,16 +101,55 @@ public class Baraja {
 			}
 		}
 
+	}
+
+	public void barajarF() {
+
+		int random;
+		Carta buffer = new Carta('Z', 'Z');
+
+		int[] randomArray = new int[52];
+		for (int i = 0; i < baraja.length; i++) {
+
+			random = (int) (Math.random() * 51) + 1 - 1;
+
+			randomArray[i] = random;
+
+			buffer = baraja[random];
+			baraja[random] = baraja[i];
+			baraja[i] = buffer;
+
+		}
+
+	}
+
+	public void barajarE() {
+
+		int random;
+		Carta buffer = new Carta('H', 'H');
+
+		int[] randomArray = new int[40];
+		for (int i = 0; i < baraja.length; i++) {
+
+			random = (int) (Math.random() * 39) + 1 - 1;
+
+			randomArray[i] = random;
+
+			buffer = baraja[random];
+			baraja[random] = baraja[i];
+			baraja[i] = buffer;
+
+		}
 
 	}
 
 	public String toString() {
 
 		StringBuilder out = new StringBuilder();
-		
+
 		for (int i = 0; i < baraja.length; i++) {
-			
-			out.append(" " + baraja[i]);
+
+			out.append(baraja[i] + " ");
 		}
 
 		return out.toString();
