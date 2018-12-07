@@ -8,16 +8,23 @@ import javax.swing.JPanel;
 public class PanelClasico extends JPanel {
 
 	private JPanel clasico;
-	private int PWIDTH;
-	private int PHEIGH;
+	
+	Baraja baraja;
+	private Carta[] ABaraja;
 
-	public PanelClasico(JPanel panel, int h, int w) {
+	public PanelClasico(JPanel panel) {
 
 		this.clasico = panel;
-		this.PHEIGH = h;
-		this.PWIDTH = w;
-
 		
+		
+		baraja = new Baraja(EJuego.Clasico);
+		baraja.barajarF();
+		ABaraja = baraja.getBaraja();
+		
+		for(int i = 0; i < ABaraja.length; i++) {
+			System.out.print(" " + ABaraja[i]);
+		}
+
 	}
 
 	public void initComponents() {
@@ -27,6 +34,11 @@ public class PanelClasico extends JPanel {
 		lblClasico.setBounds(10, 439, 93, 61);
 		clasico.add(lblClasico);
 
+	}
+	
+	public void obtenerBaraja() {
+		
+		
 	}
 
 }

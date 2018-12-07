@@ -8,14 +8,12 @@ import javax.swing.JPanel;
 public class PanelSaltos extends JPanel {
 
 	private JPanel saltos;
-	private int PWIDTH;
-	private int PHEIGH;
+	
 
-	public PanelSaltos(JPanel panel, int h, int w) {
+	public PanelSaltos(JPanel panel) {
 
 		this.saltos = panel;
-		this.PHEIGH = h;
-		this.PWIDTH = w;
+		
 
 	}
 	

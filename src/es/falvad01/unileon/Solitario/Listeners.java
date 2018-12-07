@@ -46,10 +46,10 @@ public class Listeners implements ActionListener {
 			juegoClasico.setVisible(false);
 			juegoSaltos.setVisible(true);
 
-			baraja = new Baraja(EJuego.Saltos);
-			System.out.println(baraja.toString());
-			baraja.barajarE();
-			System.out.println(baraja.toString());
+			//baraja = new Baraja(EJuego.Saltos);
+			//System.out.println(baraja.toString());
+			//baraja.barajarE();
+			//System.out.println(baraja.toString());
 
 		} else if (e.getActionCommand().equals("Cargar")) {
 

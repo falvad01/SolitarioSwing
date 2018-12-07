@@ -71,7 +71,7 @@ public class VentanaPrincipal extends JFrame {
 		getContentPane().setLayout(null);
 		
 		juegoSaltos = new JPanel();
-		PanelSaltos saltos = new PanelSaltos(juegoSaltos, PHEIGH, PWIDTH);
+		PanelSaltos saltos = new PanelSaltos(juegoSaltos);
 		juegoSaltos.setBackground(new Color(0, 120, 0));
 		juegoSaltos.setBounds(0, 0, PHEIGH , PWIDTH);
 		juegoSaltos.setLayout(null);
@@ -80,7 +80,7 @@ public class VentanaPrincipal extends JFrame {
 		
 		
 		juegoClasico = new JPanel();
-		PanelClasico clasico = new PanelClasico(juegoClasico,PHEIGH , PWIDTH);
+		PanelClasico clasico = new PanelClasico(juegoClasico);
 		
 		juegoClasico.setBackground(new Color(0, 128, 0));
 		juegoClasico.setBounds(0, 0, PHEIGH , PWIDTH);
@@ -100,7 +100,7 @@ public class VentanaPrincipal extends JFrame {
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
 
-		archivo = new JMenu("Archivo");
+		archivo = new JMenu("Archivo");	
 		menuBar.add(archivo);
 
 			nuevo = new JMenu("Nuevo");
