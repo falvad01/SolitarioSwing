@@ -19,8 +19,7 @@ import javax.swing.JFileChooser;
 
 public class VentanaPrincipal extends JFrame implements ActionListener {
 
-	// TODO REVISAR LAYOUT DE LA VENTANA, SERIA MAS EFECTIVO PARA EL USUARIO MENUS
-	// DESPLEGABLES EN LA PARTE SUPERIOR DE LA VENTANA
+	
 
 	Toolkit screen;
 	private int screenHeight;

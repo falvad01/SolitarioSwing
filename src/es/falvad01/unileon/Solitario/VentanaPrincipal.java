@@ -1,23 +1,13 @@
 package es.falvad01.unileon.Solitario;
 
-import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.File;
-
-import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import java.awt.Color;
-import javax.swing.JTextField;
-import java.awt.Font;
 
 public class VentanaPrincipal extends JFrame {
 
@@ -46,15 +36,12 @@ public class VentanaPrincipal extends JFrame {
 	private JMenuItem btnEstadisticas;
 	private JMenuItem btnEstadisticasFichero;
 	
+	private JMenuItem btnInfo;
+	
 	JPanel juegoClasico;
 	JPanel juegoSaltos;
-
-
-	
-	
-	
 	Listeners listen;
-	private JLabel lblSaltos;
+	
 
 	public VentanaPrincipal() {
 
@@ -79,32 +66,33 @@ public class VentanaPrincipal extends JFrame {
 
 	private void initComponents() {
 
+		
+		
 		getContentPane().setLayout(null);
 		
 		juegoSaltos = new JPanel();
-		juegoSaltos.setBackground(new Color(0, 255, 0));
+		PanelSaltos saltos = new PanelSaltos(juegoSaltos, PHEIGH, PWIDTH);
+		juegoSaltos.setBackground(new Color(0, 120, 0));
 		juegoSaltos.setBounds(0, 0, PHEIGH , PWIDTH);
 		juegoSaltos.setLayout(null);
 		juegoSaltos.setVisible(false);
+		saltos.initComponets();
 		
-		initPanelJuegoSaltos();
 		
 		juegoClasico = new JPanel();
+		PanelClasico clasico = new PanelClasico(juegoClasico,PHEIGH , PWIDTH);
+		
 		juegoClasico.setBackground(new Color(0, 128, 0));
 		juegoClasico.setBounds(0, 0, PHEIGH , PWIDTH);
 		juegoClasico.setLayout(null);
 		juegoClasico.setVisible(false);
-		
-		initPanelJuegoClasico();
-		
+		clasico.initComponents();
 		
 	
 		getContentPane().add(juegoClasico);
 		getContentPane().add(juegoSaltos);
 		
-		
-		
-		
+	
 		listen = new Listeners(this.getContentPane(),juegoClasico,juegoSaltos);
 		
 		
@@ -175,23 +163,9 @@ public class VentanaPrincipal extends JFrame {
 		
 		ayuda = new JMenu("Ayuda");
 		menuBar.add(ayuda);
-		ayuda.addActionListener(listen);
+			btnInfo = new JMenuItem("Informacion");
+			ayuda.add(btnInfo);
+			btnInfo.addActionListener(listen);
 
-	}
-
-	private void initPanelJuegoClasico() {
-		JLabel lblClasico = new JLabel("Clasico");
-		lblClasico.setFont(new Font("Tahoma", Font.PLAIN, 26));
-		lblClasico.setBounds(10, 439, 93, 61);
-		juegoClasico.add(lblClasico);
-		
-	}
-
-	private void initPanelJuegoSaltos() {
-		lblSaltos = new JLabel("Saltos");
-		lblSaltos.setFont(new Font("Tahoma", Font.PLAIN, 26));
-		lblSaltos.setBounds(0, 417, 173, 80);
-		juegoSaltos.add(lblSaltos);// TODO Auto-generated method stub
-		
 	}
 }

@@ -1,21 +1,11 @@
 package es.falvad01.unileon.Solitario;
 
-import java.awt.Color;
 import java.awt.Container;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.Image;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-
-import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.JButton;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 
 public class Listeners implements ActionListener {
@@ -25,16 +15,16 @@ public class Listeners implements ActionListener {
 
 	Baraja baraja;
 	Container panel;
-	
+
 	JPanel juegoClasico;
 	JPanel juegoSaltos;
 
-	public Listeners(Container container,JPanel juegoClasico,JPanel juegoSaltos) {
+	public Listeners(Container container, JPanel juegoClasico, JPanel juegoSaltos) {
 
 		this.panel = container;
 		this.juegoClasico = juegoClasico;
 		this.juegoSaltos = juegoSaltos;
-		
+
 	}
 
 	@Override
@@ -55,7 +45,7 @@ public class Listeners implements ActionListener {
 
 			juegoClasico.setVisible(false);
 			juegoSaltos.setVisible(true);
-			
+
 			baraja = new Baraja(EJuego.Saltos);
 			System.out.println(baraja.toString());
 			baraja.barajarE();
@@ -119,6 +109,15 @@ public class Listeners implements ActionListener {
 		/////////////////////////////// HISTORIAL/////////////////////////////////////////
 
 		/////////////////////////////// AYUDA/////////////////////////////////////////
+
+		if (e.getActionCommand().equals("Informacion")) {
+			// TODO REVISAR ESTE MENSAJE DE MIERDA
+			JOptionPane.showMessageDialog(panel,
+					"APLICACION DESARROLADA POR EL ALUMNO FRANCISCO JAVIER ALVAREZ, PARA LA ASIGNATURA PROGRAMACION II, \n "
+							+ "LA CUAL CONSISTE EN LA PROGRAMACION DE UN JUEGO DE CARTAS LLAMADO SOLITARIO EN DOS DE SUS VARIANTES, MODO CLASICO Y MODO SALTOS \n"
+							+ "EL JUEGO DISPONE DE LA FUNCION DE CREAR CUALQUIERA DE LOS DOS JUEGOS Y DE GUARDARLOS, A SU VEZ TAMBIEN CUETA CON UN SITEMA SENCILLO DE ESTADISTICAS POR PARTIDA Y EN GLOBAL");
+
+		}
 
 	}
 
