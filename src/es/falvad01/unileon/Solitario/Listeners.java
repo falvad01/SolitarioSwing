@@ -12,6 +12,7 @@ public class Listeners implements ActionListener {
 
 	File loadGame;
 	File saveGame;
+	EJuego juego = null;
 
 	Baraja baraja;
 	Container panel;
@@ -19,11 +20,16 @@ public class Listeners implements ActionListener {
 	JPanel juegoClasico;
 	JPanel juegoSaltos;
 
+	PanelClasico pClasico;
+	PanelSaltos pSaltos;
+
 	public Listeners(Container container, JPanel juegoClasico, JPanel juegoSaltos) {
 
 		this.panel = container;
 		this.juegoClasico = juegoClasico;
 		this.juegoSaltos = juegoSaltos;
+		pClasico = new PanelClasico(juegoClasico);
+		pSaltos = new PanelSaltos(juegoSaltos);
 
 	}
 
@@ -32,24 +38,18 @@ public class Listeners implements ActionListener {
 
 		/////////////////////////////// ARCHIVO/////////////////////////////////////////
 		if (e.getActionCommand().equals("Clasico")) {
-
+			juego = EJuego.Clasico;
 			juegoClasico.setVisible(true);
 			juegoSaltos.setVisible(false);
 
-			baraja = new Baraja(EJuego.Clasico);
-			System.out.println(baraja.toString());
-			baraja.barajarF();
-			System.out.println(baraja.toString());
+			pClasico.prueba();
 
 		} else if (e.getActionCommand().equals("Saltos")) {
-
+			juego = EJuego.Saltos;
 			juegoClasico.setVisible(false);
 			juegoSaltos.setVisible(true);
 
-			//baraja = new Baraja(EJuego.Saltos);
-			//System.out.println(baraja.toString());
-			//baraja.barajarE();
-			//System.out.println(baraja.toString());
+			pSaltos.prueba();
 
 		} else if (e.getActionCommand().equals("Cargar")) {
 
@@ -58,7 +58,7 @@ public class Listeners implements ActionListener {
 			JFileChooser select = new JFileChooser();
 			select.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
 
-			int i = select.showSaveDialog(panel);// Cargamos el archivo
+			int i = select.showOpenDialog(panel);// Cargamos el archivo
 
 			loadGame = select.getSelectedFile();
 
@@ -68,33 +68,38 @@ public class Listeners implements ActionListener {
 						JOptionPane.ERROR_MESSAGE);// Comprobamos que la extension del archivo sea la correcta
 			} else {
 				System.out.println(loadGame.getPath());
-				// TODO DESDE AQUI MANDAMOS LA RUTA DEL ARCHIVO PARA CARGARLO EN EL JUEGO
+				// TODO DESDE AQUI MANDAMOS LA RUTA DEL ARCHIVO PARA CARGARLO EN EL PANEL DEL
+				// JUEGO
 			}
-
-			// System.out.println(loadGame.getPath());
 
 		} else if (e.getActionCommand().equals("Salvar")) {
 
-			// TODO AQUI DEBERIA LLEGAR LA RUTA DEL ULTIMO ARCHIVO JUGADO
+			String ruta;
+
+			if (juego == EJuego.Clasico) {
+				ruta = pClasico.getRutaJuego();
+				if (ruta == null) {// actua como guardar como
+					guardarComo();
+				} else if (ruta != null) {
+					pClasico.guardar(ruta);
+
+				}
+
+			} else if (juego == EJuego.Saltos) {
+				ruta = pSaltos.getRutaJuego();
+				if (ruta == null) {// actua como guardar como
+					guardarComo();
+				} else if (ruta != null) {
+					pSaltos.guardar(ruta);
+
+				}
+
+			}
 
 		} else if (e.getActionCommand().equals("Salvar Como")) {
-			/*
-			 * JFileChooser save = new JFileChooser();
-			 * 
-			 * if (save.showSaveDialog(null) == save.APPROVE_OPTION) {
-			 * 
-			 * saveGame = save.getSelectedFile();
-			 * 
-			 * if (new File(saveGame.getPath()).exists()) {
-			 * 
-			 * if (JOptionPane.OK_OPTION == JOptionPane.showConfirmDialog(this,
-			 * "El fichero existe,deseas reemplazarlo?", "Titulo",
-			 * JOptionPane.YES_NO_OPTION)) {
-			 * 
-			 * }
-			 * 
-			 * } }
-			 */
+
+			guardarComo();
+
 		} else if (e.getActionCommand().equals("Salir")) {
 
 			if (JOptionPane.showConfirmDialog(panel, "¿Desea cerrar el programa?", "¿Desea cerrar el programa?",
@@ -119,6 +124,42 @@ public class Listeners implements ActionListener {
 
 		}
 
+	}
+
+	private void guardarComo() {
+
+		JFileChooser save = new JFileChooser();
+
+		if (save.showSaveDialog(null) == save.APPROVE_OPTION) {
+			saveGame = save.getSelectedFile();
+			if (juego == EJuego.Clasico) {
+
+				if (new File(saveGame.getPath()).exists()) {
+
+					if (JOptionPane.YES_NO_OPTION == JOptionPane.showConfirmDialog(panel,
+							"El fichero existe,deseas reemplazarlo?", "Titulo", JOptionPane.YES_NO_OPTION)) {
+
+						pClasico.guardar(saveGame.getAbsolutePath());
+
+						System.out.println(saveGame.getAbsolutePath());
+					}
+				}
+
+			} else if (juego == EJuego.Saltos) {
+
+				if (new File(saveGame.getPath()).exists()) {
+
+					if (JOptionPane.YES_NO_OPTION == JOptionPane.showConfirmDialog(panel,
+							"El fichero existe,deseas reemplazarlo?", "Titulo", JOptionPane.YES_NO_OPTION)) {
+
+						pSaltos.guardar(saveGame.getAbsolutePath());
+
+						System.out.println(saveGame.getAbsolutePath());
+					}
+				}
+			}
+
+		}
 	}
 
 }

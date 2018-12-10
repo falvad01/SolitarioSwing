@@ -57,21 +57,24 @@ public class Baraja {
 
 		Carta carta;
 		Image sprite;
-		StringBuilder path = new StringBuilder();
+		StringBuilder pathBuilder = new StringBuilder();
+		String path;
 
 		char[] paloF = { 'C', 'D', 'H', 'S' };
 		char[] numeroF = { 'A', '2', '3', '4', '5', '6', '7', '8', '9', 'T', 'J', 'Q', 'K' };
 
 		for (int i = 0; i < paloF.length; i++) {
 			for (int j = 0; j < numeroF.length; j++) {
-				path.append("etc/images/french/" + paloF[i] + "" + numeroF[j] + ".jpg"); // Obtenemos la ruta de la
-																							// imagen
+				pathBuilder.append("etc/images/french/" + paloF[i] + "" + numeroF[j] + ".jpg"); // Obtenemos la ruta de
+																								// la imagen
 
-				// TODO CARGAR LA IMAGEN ASOCIADA A CADA CARTA
-				carta = new Carta(paloF[i], numeroF[j]/* ,sprite */);
+				path = pathBuilder.toString();
+				
+				// TODO REVISAR LA RUTA, ALGUNA PUEDE FALTAR
+				carta = new Carta(paloF[i], numeroF[j], path);
 				baraja[next++] = carta;
 
-				path = new StringBuilder();
+				pathBuilder = new StringBuilder();
 
 			}
 		}
@@ -82,21 +85,23 @@ public class Baraja {
 
 		Carta carta;
 		Image sprite;
-		StringBuilder path = new StringBuilder();
-
+		StringBuilder pathBuilder = new StringBuilder();
+		String path;
 		char[] paloE = { 'O', 'C', 'E', 'B' };
 		char[] numeroE = { 'A', '2', '3', '4', '5', '6', '7', 'S', 'C', 'R' };
 
 		for (int i = 0; i < paloE.length; i++) {
 			for (int j = 0; j < numeroE.length; j++) {
-				path.append("etc/images/french/" + paloE[i] + "" + numeroE[j] + ".jpg"); // Obtenemos la ruta de la
-																							// imagen
+				pathBuilder.append("etc/images/french/" + paloE[i] + "" + numeroE[j] + ".jpg"); // Obtenemos la ruta de
+																								// la imagen
 
-				// TODO CARGAR LA IMAGEN ASOCIADA A CADA CARTA
-				carta = new Carta(paloE[i], numeroE[j]/* ,sprite */);
+				path = pathBuilder.toString();
+
+				// TODO REVISAR LAS RUTAS DE LAS IMAGENES, ALGUNA PUEDE FALTAR
+				carta = new Carta(paloE[i], numeroE[j], path);
 				baraja[next++] = carta;
 
-				path = new StringBuilder();
+				pathBuilder = new StringBuilder();
 
 			}
 		}
@@ -106,7 +111,7 @@ public class Baraja {
 	public void barajarF() {
 
 		int random;
-		Carta buffer = new Carta('Z', 'Z');
+		Carta buffer = new Carta('Z', 'Z', null);
 
 		int[] randomArray = new int[52];
 		for (int i = 0; i < baraja.length; i++) {
@@ -126,7 +131,7 @@ public class Baraja {
 	public void barajarE() {
 
 		int random;
-		Carta buffer = new Carta('H', 'H');
+		Carta buffer = new Carta('H', 'H', null);
 
 		int[] randomArray = new int[40];
 		for (int i = 0; i < baraja.length; i++) {
