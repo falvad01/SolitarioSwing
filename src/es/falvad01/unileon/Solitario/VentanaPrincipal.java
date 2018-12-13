@@ -9,6 +9,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import java.awt.Color;
 
+@SuppressWarnings("serial")
 public class VentanaPrincipal extends JFrame {
 
 	Toolkit screen;

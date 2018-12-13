@@ -2,12 +2,14 @@ package es.falvad01.unileon.Solitario;
 
 import java.awt.Image;
 
+import javax.swing.ImageIcon;
+
 //TODO FALTA EL ATRIBUTO COLOR, POR LO QUE CONVENDRIA HACER DOS CLASES CARTA PARA CAD TIPO DE CARTA
 public class Carta {
 
 	private char palo;
 	private char numero;
-	private String ruta;
+	private ImageIcon imagen;
 
 	/**
 	 * 
@@ -15,12 +17,15 @@ public class Carta {
 	 * @param num
 	 */
 
-	public Carta(char palo, char num, String ruta) {
+	public Carta(char palo, char num, ImageIcon imagen) {
 
 		setPalo(palo);
 		setNumero(num);
+		setImage(imagen);
 
 	}
+
+	
 
 	/**
 	 * 
@@ -41,15 +46,15 @@ public class Carta {
 	 * 
 	 * @return
 	 */
-	public String getRuta() {
-		return ruta;
+	public ImageIcon getImage() {
+		return this.imagen;
 	}
 	/**
 	 * 
 	 * @param ruta
 	 */
-	public void setRuta(String ruta) {
-		this.ruta = ruta;
+	public void setImage(ImageIcon image) {
+		this.imagen = image;
 	}
 
 	/**

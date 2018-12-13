@@ -5,6 +5,11 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
+
+import javax.imageio.ImageIO;
 
 /**
  * TODO TENER EN CUANTA CUANDO SE CLIKA EN UNA CARTA PERO NO SE CLICA EN OTR, ESE METODO DE ESPERA HAY QUE REFLEJARLO, HAY QUE TENER EN CUENTA EL ESTADO DE LA APLICACION
@@ -15,14 +20,14 @@ import java.io.PrintWriter;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import com.sun.prism.Graphics;
-
 public class PanelClasico extends JPanel {
 
 	private JPanel clasico;
 	private Baraja baraja;
 	private Carta[] ABaraja;
 	private String rutaJuego = null;
+	BufferedImage[] cartaImageArray;
+	Graphics2D g;
 
 	public PanelClasico(JPanel panel) {
 
@@ -44,24 +49,32 @@ public class PanelClasico extends JPanel {
 
 	}
 
-	public void obtenerBaraja() {
+	public void prueba() {
+		
+		baraja.crearBarajaF();
+		ABaraja = baraja.getBaraja();
+		for (int i = 0; i < ABaraja.length; i++) {
+			System.out.print(ABaraja[i] + " ");
+		}
 		baraja.barajarF();
 		ABaraja = baraja.getBaraja();
-
-	}
-
-	public void prueba() {
-		obtenerBaraja();
+		
 		System.out.println("ESTO ES UN METODO DE PRUEBA");
 		for (int i = 0; i < ABaraja.length; i++) {
 			System.out.print(ABaraja[i] + " ");
 		}
 		System.out.println("/n");
 
+		paint(g);
+
 	}
 
-	private void paint(Graphics g) {
+	public void paint(Graphics2D g) {
 
+		System.out.println("Clasico");
+		Graphics2D g2d = (Graphics2D) g;// Graficos en 2d
+
+		// g2d.drawImage(ABaraja[0].getImage(), 10, 20,this);// Pintamos la imagen
 	}
 
 	public void guardar(String saveGame) {
