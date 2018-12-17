@@ -1,20 +1,19 @@
 package es.falvad01.unileon.Solitario;
 
+import java.awt.Color;
 import java.awt.Font;
-import java.io.File;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-
-import javafx.scene.image.Image;
-
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.image.*;
 
 public class PanelSaltos extends JPanel {
 
@@ -24,6 +23,7 @@ public class PanelSaltos extends JPanel {
 	private String rutaJuego = null;
 	BufferedImage cartaImage;
 	Graphics2D g;
+	private JButton[] Abotones = new JButton[40];
 
 	public PanelSaltos(JPanel panel) {
 
@@ -37,22 +37,22 @@ public class PanelSaltos extends JPanel {
 	}
 
 	public void prueba() {
-		
-		
-		
+
 		baraja.crearBarajaE();
 		baraja.barajarE();
 		ABaraja = baraja.getBaraja();
-		
-		
-		
+
 		System.out.println("ESTO ES UN METODO DE PRUEBA");
+
 		for (int i = 0; i < ABaraja.length; i++) {
 			System.out.print(ABaraja[i] + " ");
 		}
+
 		System.out.println("/n");
 
-		paint(g);
+		repaint();
+		pintarCartas();
+
 	}
 
 	public void initComponets() {
@@ -64,12 +64,51 @@ public class PanelSaltos extends JPanel {
 
 	}
 
-	public void paint(Graphics2D g) {
+	public void paint(Graphics g) {
 
 		System.out.println("HOLAAAA");
-		Graphics2D g2d = (Graphics2D) g;// Graficos en 2d
+		super.paint(g);
 
-		g2d.drawImage(ABaraja[0].getImage().getImage(), 10, 20, null);// Pintamos la imagen
+		// Graphics2D g2d = (Graphics2D) g;// Graficos en 2d
+
+		g.setColor(Color.red);
+		g.fillOval(300, 300, 100, 100);
+
+		// g.drawImage(ABaraja[0].getImage().getImage(),40,40,this);
+
+	}
+
+	public void pintarCartas() {
+
+		StringBuilder nombre = new StringBuilder();
+
+		for (int i = 0; i < Abotones.length; i++) {
+
+			nombre.append("Carta");
+			nombre.append(i);
+
+			Image img = ABaraja[i].getImageIcon().getImage();
+
+			img = img.getScaledInstance(90, 120, Image.SCALE_SMOOTH);
+
+			ImageIcon icono = new ImageIcon(img);
+
+			if (i < 10) {
+				Abotones[i] = new JButton(nombre.toString());
+				Abotones[i].setBounds(10 + (i * 95), 10, 90, 120);
+				saltos.add(Abotones[i]);
+				Abotones[i].setIcon(icono);
+			} else {
+				Abotones[i] = new JButton(nombre.toString());
+				Abotones[i].setBounds(900, 370, 90, 120);
+				saltos.add(Abotones[i]);
+				Abotones[i].setIcon(icono);
+			}
+
+			nombre.delete(0, nombre.length());
+
+		}
+
 	}
 
 	public void guardar(String saveGame) {

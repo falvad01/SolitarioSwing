@@ -1,10 +1,6 @@
 package es.falvad01.unileon.Solitario;
 
 import java.awt.Image;
-import java.io.File;
-import java.io.IOException;
-
-import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
 public class Baraja {
@@ -62,16 +58,15 @@ public class Baraja {
 		for (int i = 0; i < paloF.length; i++) {
 			for (int j = 0; j < numeroF.length; j++) {
 
-				pathBuilder.append("etc/images/french/" + paloF[i] + "" + numeroF[j] + ".jpg"); // Obtenemos la ruta de
+				pathBuilder.append("etc/images/french/" + numeroF[i] + "" + paloF[j] + ".jpg"); // Obtenemos la ruta de
 																								// la imagen
 
 				path = pathBuilder.toString();
-				
+
 				// imagen = new ImageIcon(getClass().getResource(path));
 
-
 				// TODO REVISAR LA RUTA, ALGUNA PUEDE FALTAR
-				carta = new Carta(paloF[i], numeroF[j],imagen);
+				carta = new Carta(numeroF[i], paloF[j], imagen);
 
 				baraja[next++] = carta;
 
@@ -95,19 +90,22 @@ public class Baraja {
 		char[] paloE = { 'O', 'C', 'E', 'B' };
 		char[] numeroE = { 'A', '2', '3', '4', '5', '6', '7', 'S', 'C', 'R' };
 
-		for (int i = 0; i < paloE.length; i++) {
-			for (int j = 0; j < numeroE.length; j++) {
-				//TODO REVISAR RUTA
-				pathBuilder.append("imagenes/barajaE/" + paloE[i] + "" + numeroE[j] + ".jpg"); // Obtenemos la ruta de
-																									// la imagen
+		for (int j = 0; j < paloE.length; j++) {
+			for (int i = 0; i < numeroE.length; i++) {
+				// TODO REVISAR RUTA
+				pathBuilder.append("/imagenesBarajaE/" + numeroE[i] + "" + paloE[j] + ".jpg"); // Obtenemos la ruta de
+																								// la imagen
 
 				path = pathBuilder.toString();
-				
-				imagen = new ImageIcon(getClass().getResource(path));
+				System.out.println(path);
+				try {
+					imagen = new ImageIcon(getClass().getResource(path));
+				} catch (Exception e) {
+					System.out.println("Carta no encontrada");
+				}
 
-			
-				carta = new Carta(paloE[i], numeroE[j],imagen);
-				
+				carta = new Carta(numeroE[i], paloE[j], imagen);
+
 				baraja[next++] = carta;
 
 				pathBuilder = new StringBuilder();
@@ -120,7 +118,7 @@ public class Baraja {
 	public void barajarF() {
 
 		int random;
-		Carta buffer = new Carta('Z', 'Z',null);
+		Carta buffer = new Carta('Z', 'Z', null);
 
 		int[] randomArray = new int[52];
 		for (int i = 0; i < baraja.length; i++) {
@@ -140,7 +138,7 @@ public class Baraja {
 	public void barajarE() {
 
 		int random;
-		Carta buffer = new Carta('H', 'H',null);
+		Carta buffer = new Carta('H', 'H', null);
 
 		int[] randomArray = new int[40];
 		for (int i = 0; i < baraja.length; i++) {

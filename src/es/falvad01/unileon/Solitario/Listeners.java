@@ -8,7 +8,6 @@ import javax.swing.JPanel;
 import javax.swing.JOptionPane;
 import javax.swing.JFileChooser;
 
-
 public class Listeners implements ActionListener {
 
 	File loadGame;
@@ -51,6 +50,8 @@ public class Listeners implements ActionListener {
 			juegoSaltos.setVisible(true);
 
 			pSaltos.prueba();
+			
+			
 
 		} else if (e.getActionCommand().equals("Cargar")) {
 
@@ -110,11 +111,11 @@ public class Listeners implements ActionListener {
 			}
 		}
 
-		/////////////////////////////// EDITAR/////////////////////////////////////////
+		/////////////////////////////// EDITAR//////////////////////////////////////////
 
-		/////////////////////////////// HISTORIAL/////////////////////////////////////////
+		/////////////////////////////// HISTORIAL///////////////////////////////////////
 
-		/////////////////////////////// AYUDA/////////////////////////////////////////
+		/////////////////////////////// AYUDA///////////////////////////////////////////
 
 		if (e.getActionCommand().equals("Informacion")) {
 			// TODO REVISAR ESTE MENSAJE DE MIERDA
@@ -125,7 +126,7 @@ public class Listeners implements ActionListener {
 
 		}
 
-	}
+	}// Fin del metodo listener
 
 	private void guardarComo() {
 
@@ -159,8 +160,8 @@ public class Listeners implements ActionListener {
 					}
 				}
 			}
-
 		}
-	}
+
+	}// Fin del metodo guardarComo
 
 }
