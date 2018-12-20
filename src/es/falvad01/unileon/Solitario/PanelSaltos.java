@@ -123,35 +123,37 @@ public class PanelSaltos extends JPanel implements ActionListener {
 
 			if (i < 10) {// fila 1
 
-				arrayBotones[i][0] = new JButton(nombre.toString());
-				arrayBotones[i][0].setBounds(20 + (i1 * 95), 10, 90, 120);
+				arrayBotones[0][i] = new JButton(nombre.toString());
+				arrayBotones[0][i].setBounds(20 + (i1 * 95), 10, 90, 120);
 				i1++;
 			} else if (i >= 10 && i < 20) { // fila 2
 
-				arrayBotones[i][0] = new JButton(nombre.toString());
-				arrayBotones[i][0].setBounds(20 + (i2 * 95), 130, 90, 120);
+				arrayBotones[0][i] = new JButton(nombre.toString());
+				arrayBotones[0][i].setBounds(20 + (i2 * 95), 130, 90, 120);
 				i2++;
 
 			} else if (i >= 20 && i < 30) {// fila 3
 
-				arrayBotones[i][0] = new JButton(nombre.toString());
-				arrayBotones[i][0].setBounds(20 + (i3 * 95), 250, 90, 120);
+				arrayBotones[0][i] = new JButton(nombre.toString());
+				arrayBotones[0][i].setBounds(20 + (i3 * 95), 250, 90, 120);
 				i3++;
 
 			} else if (i >= 30 && i < 40) {// fila 4
 
-				arrayBotones[i][0] = new JButton(nombre.toString());
-				arrayBotones[i][0].setBounds(20 + (i4 * 95), 370, 90, 120);
+				arrayBotones[0][i] = new JButton(nombre.toString());
+				arrayBotones[0][i].setBounds(20 + (i4 * 95), 370, 90, 120);
 				i4++;
 			}
 
-			saltos.add(arrayBotones[i][0]);
-			arrayBotones[i][0].setIcon(icono);
-			arrayBotones[i][0].addActionListener(this);
+			saltos.add(arrayBotones[0][i]);
+			arrayBotones[0][i].setIcon(icono);
+			arrayBotones[0][i].addActionListener(this);
 
 			nombre.delete(0, nombre.length());
 
 		}
+		
+		printMatrix();
 
 	}
 
@@ -178,36 +180,36 @@ public class PanelSaltos extends JPanel implements ActionListener {
 		}
 
 		if (primeraPulsacion && segundaPulsacion) {
-			posToMove = posCartaAMover - posCartaDestino;
+			posToMove = posCartaAMover - posCartaDestino;//Calculamos cuantas posiciones movemos las cartas
 			System.out.println("Posiciones a mover " + posToMove);
 
-			if (posToMove == 1) {
+			if (posToMove == 1) {//Valido por un movimiento
 				System.out.println("JUGADA VALIDA POR MOVIMIENTOS, movemos 1");
-				Point point = arrayBotones[posCartaDestino][0].getLocation(); // Guardamos la posicion de donde tenemos
+				Point point = arrayBotones[0][posCartaDestino].getLocation(); // Guardamos la posicion de donde tenemos
 																				// que mover la carta
 			
 				Carta cartaAMover = buscaCarta(strAMover);
 				Carta cartaDestino = buscaCarta(strDestino);
 
 				if (cartaAMover.getNumero() == cartaDestino.getNumero()
-						|| cartaAMover.getPalo() == cartaDestino.getPalo()) {
+						|| cartaAMover.getPalo() == cartaDestino.getPalo()) { // La combinacion de cartas es correcta
 
 					System.out.println("CARTA COORECTA");
 					System.out.println(cartaAMover.toString() + "->" + cartaDestino.toString());
 					
-					arrayBotones[posCartaAMover][0].setLocation(point);// Movemos la carta a la posicion de la carta destino
+					arrayBotones[0][posCartaAMover].setLocation(point);// Movemos la carta a la posicion de la carta destino
 
 				} else {
-					System.out.println("JUGADA INCORRECTA");
+					System.out.println("JUGADA INCORRECTA");//La combinacion de cartas no es correcta
 				}
 
 				
 
-			} else if (posToMove == 3) {
+			} else if (posToMove == 3) {//Valido por dos movimientos
 
 				System.out.println("JUGADA VALIDA POR MOVIMIENTOS, movemos 3");
 
-			} else {
+			} else {//No valido por movimientos
 
 				System.out.println("JUGADA NO VALIDA, movimientos incorrectos");
 
@@ -216,6 +218,24 @@ public class PanelSaltos extends JPanel implements ActionListener {
 			segundaPulsacion = false;
 		}
 
+	}
+	
+	private void comprobarMoviminetos(int posY, int posAMover) {
+		
+		
+		if(posAMover == 1) {
+			
+			
+			
+			
+			
+		}else if(posAMover == 3) {
+			
+			
+			
+			
+			
+		}	
 	}
 
 	private Carta buscaCarta(String cartaStr) {
@@ -243,7 +263,7 @@ public class PanelSaltos extends JPanel implements ActionListener {
 		int ret = -1;
 		for (int i = 0; i < 40; i++) {
 
-			if (arrayBotones[i][0].getLabel().equals(carta)) {
+			if (arrayBotones[0][i].getLabel().equals(carta)) {
 
 				ret = i;
 
@@ -271,5 +291,33 @@ public class PanelSaltos extends JPanel implements ActionListener {
 		}
 
 	}
+	
+	public void printMatrix() {
+
+		/**
+		 * DEBUG
+		 */
+		for (int x = 0; x < arrayBotones.length; x++) {
+			System.out.print("|");
+			for (int y = 0; y < arrayBotones[x].length; y++) {
+				if (arrayBotones[x][y] != null) {
+					System.out.print(arrayBotones[x][y].getLabel());
+				}
+				if (y != arrayBotones[x].length - 1) {
+
+					System.out.print("\t");
+
+				}
+			}
+
+			System.out.println("");
+
+		}
+
+		/**
+		 * FIN DEBUG
+		 */
+
+}
 
 }
