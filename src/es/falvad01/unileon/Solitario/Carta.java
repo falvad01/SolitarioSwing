@@ -24,6 +24,11 @@ public class Carta {
 		setImage(imagen);
 
 	}
+	
+	public Carta(char num, char palo) {
+		setNumero(num);
+		setPalo(palo);
+	}
 
 	
 
