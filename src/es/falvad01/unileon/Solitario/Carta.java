@@ -6,7 +6,7 @@ import javax.swing.ImageIcon;
 
 //TODO FALTA EL ATRIBUTO COLOR, POR LO QUE CONVENDRIA HACER DOS CLASES CARTA PARA CAD TIPO DE CARTA
 public class Carta {
-	
+
 	private char numero;
 	private char palo;
 	private ImageIcon imagen;
@@ -18,19 +18,18 @@ public class Carta {
 	 */
 
 	public Carta(char num, char palo, ImageIcon imagen) {
-		
+
 		setNumero(num);
-		setPalo(palo);		
+		setPalo(palo);
 		setImage(imagen);
 
 	}
-	
-	public Carta(char num, char palo) {
-		setNumero(num);
-		setPalo(palo);
-	}
 
-	
+	public Carta(Carta carta) {
+		this.numero = carta.getNumero();
+		this.palo = carta.getPalo();
+		this.imagen = carta.getImageIcon();
+	}
 
 	/**
 	 * 
@@ -47,6 +46,7 @@ public class Carta {
 	private void setPalo(char palo) {
 		this.palo = palo;
 	}
+
 	/**
 	 * 
 	 * @return
@@ -54,6 +54,7 @@ public class Carta {
 	public ImageIcon getImageIcon() {
 		return this.imagen;
 	}
+
 	/**
 	 * 
 	 * @param ruta

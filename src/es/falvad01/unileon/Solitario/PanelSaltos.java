@@ -14,12 +14,14 @@ import java.awt.image.BufferedImage;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.lang.management.BufferPoolMXBean;
 
 import javax.swing.AbstractButton;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.plaf.synth.SynthSpinnerUI;
 
 public class PanelSaltos extends JPanel implements ActionListener {
 
@@ -36,8 +38,8 @@ public class PanelSaltos extends JPanel implements ActionListener {
 	boolean primeraPulsacion = false;
 	boolean segundaPulsacion = false;
 
-	String cartaAMover;
-	String cartaDestino;
+	String strAMover;
+	String strDestino;
 
 	int posToMove;
 	int posCartaAMover = 0;
@@ -159,19 +161,19 @@ public class PanelSaltos extends JPanel implements ActionListener {
 		if ((primeraPulsacion) && (!segundaPulsacion)) {
 
 			segundaPulsacion = true;
-			cartaDestino = ((JButton) e.getSource()).getLabel();
-			posCartaDestino = posicion(cartaDestino);
+			strDestino = ((JButton) e.getSource()).getLabel();
+			posCartaDestino = posicion(strDestino);
 			System.out.println("POS: " + posCartaDestino);
-			System.out.println("Destino:" + cartaDestino);
+			System.out.println("Destino:" + strDestino);
 			System.out.println();
 		}
 
 		if (!primeraPulsacion) {
 			primeraPulsacion = true;
-			cartaAMover = ((JButton) e.getSource()).getLabel();
-			posCartaAMover = posicion(cartaAMover);
-			System.out.println("POS: " + posCartaDestino);
-			System.out.println("Origen:" + cartaAMover);
+			strAMover = ((JButton) e.getSource()).getLabel();
+			posCartaAMover = posicion(strAMover);
+			System.out.println("POS: " + posCartaAMover);
+			System.out.println("Origen: " + strAMover);
 			System.out.println();
 		}
 
@@ -182,56 +184,63 @@ public class PanelSaltos extends JPanel implements ActionListener {
 			if (posToMove == 1) {
 				System.out.println("JUGADA VALIDA POR MOVIMIENTOS, movemos 1");
 				Point point = arrayBotones[posCartaDestino][0].getLocation(); // Guardamos la posicion de donde tenemos
-																				// que mover la carta	
-				/**
-				 * TODO EN VEZ DE HACER TODA ESTA MIERDA, YA TENOG UN ARRAY DE CARTAS CON LAS CARTAS AOSICADAS A LAS IMAGENES, SOLO TENGO QUE BUSCAR EN ESE ARRAY LAS CARTAS PASANDOLES EL STRING DE PALO Y CARTA Y6 DEVOLVERLOS, ASI SIGO JUGANDO CON EL OBJETO CARTA ORIGINAL
-				 * TODO PARA ELLO TENGO QUE CREAR UN COSNTRUCTOR DE COPIA EN LA CLASE CARTA
-				 * 
-				 * 
-				 */
-				String[] partsAMover = cartaAMover.split("");
+																				// que mover la carta
+			
+				Carta cartaAMover = buscaCarta(strAMover);
+				Carta cartaDestino = buscaCarta(strDestino);
 
-				String[] partsDestino = cartaDestino.split("");
+				if (cartaAMover.getNumero() == cartaDestino.getNumero()
+						|| cartaAMover.getPalo() == cartaDestino.getPalo()) {
 
-				Carta aMover = new Carta(partsAMover[0].charAt(0), partsAMover[1].charAt(0));
-				Carta destino = new Carta(partsDestino[0].charAt(0), partsDestino[1].charAt(0));
-
-				System.out.println(aMover.toString() + "->" + destino.toString());
-
-				if ((aMover.getNumero() == destino.getNumero()) || (aMover.getPalo() == destino.getPalo())) {
-					
+					System.out.println("CARTA COORECTA");
+					System.out.println(cartaAMover.toString() + "->" + cartaDestino.toString());
 					
 					arrayBotones[posCartaAMover][0].setLocation(point);// Movemos la carta a la posicion de la carta destino
 
-				}else {
-					System.out.println("JUGADA NO VALIDA, LAS CARTAS NO CUADRAN");
+				} else {
+					System.out.println("JUGADA INCORRECTA");
 				}
 
 				
 
 			} else if (posToMove == 3) {
+
 				System.out.println("JUGADA VALIDA POR MOVIMIENTOS, movemos 3");
 
 			} else {
-				System.out.println("JUGADA NO VALIDA");
-			}
 
+				System.out.println("JUGADA NO VALIDA, movimientos incorrectos");
+
+			}
 			primeraPulsacion = false;
 			segundaPulsacion = false;
-
 		}
 
 	}
-	
-	private void checkMoves() {
-		
-		//TODO MIRAR LA PRACTCA 1 
-		
+
+	private Carta buscaCarta(String cartaStr) {
+
+		String[] parts = cartaStr.split("");
+
+		char chtNum = parts[0].charAt(0);
+		char chtPalo = parts[1].charAt(0);
+		Carta cartaRt = null;
+
+		for (int i = 0; i < ABaraja.length; i++) {
+
+			if (ABaraja[i].getNumero() == chtNum && ABaraja[i].getPalo() == chtPalo) {
+
+				cartaRt = new Carta(ABaraja[i]);// Copiamos la carta
+			}
+
+		}
+
+		return cartaRt;
 	}
 
 	private int posicion(String carta) {
 
-		int ret = 0;
+		int ret = -1;
 		for (int i = 0; i < 40; i++) {
 
 			if (arrayBotones[i][0].getLabel().equals(carta)) {
