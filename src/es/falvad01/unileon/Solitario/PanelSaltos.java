@@ -1,25 +1,19 @@
 package es.falvad01.unileon.Solitario;
 
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.Image;
-import java.awt.Point;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+
 
 public class PanelSaltos extends JPanel implements ActionListener {
 
@@ -133,19 +127,19 @@ public class PanelSaltos extends JPanel implements ActionListener {
 
 			nombre.delete(0, nombre.length());
 
-		
-
 		}
-		
-		ImageIcon nul = new ImageIcon(getClass().getResource("/imagenesBarajaE/reversoE.jpg"));
-
+		ImageIcon nul = null;
+		try {
+			nul = new ImageIcon(getClass().getResource("/imagenesBarajaE/reversoE.jpg"));
+		} catch (Exception e) {
+			System.out.println("CArta no encontrada");
+		}
 		for (int j = 1; j < 40; j++) {
 			for (int k = 0; k < 40; k++) {
-					
-				matrizBotones[j][k] = new JButton("Nulo");
+
+				matrizBotones[j][k] = new JButton("NuLo");
 				matrizBotones[j][k].setIcon(nul);
-				
-				
+
 			}
 		}
 
@@ -181,8 +175,7 @@ public class PanelSaltos extends JPanel implements ActionListener {
 
 			if (posToMove == 1) {// Valido por un movimiento
 				System.out.println("JUGADA VALIDA POR MOVIMIENTOS, movemos 1");
-				Point point = matrizBotones[0][posCartaDestino].getLocation(); // Guardamos la posicion de donde tenemos
-																				// que mover la carta
+				
 
 				Carta cartaAMover = buscaCarta(strAMover);
 				Carta cartaDestino = buscaCarta(strDestino);
@@ -202,6 +195,18 @@ public class PanelSaltos extends JPanel implements ActionListener {
 			} else if (posToMove == 3) {// Valido por dos movimientos
 
 				System.out.println("JUGADA VALIDA POR MOVIMIENTOS, movemos 3");
+				
+				Carta cartaAMover = buscaCarta(strAMover);
+				Carta cartaDestino = buscaCarta(strDestino);
+
+				if (cartaAMover.getNumero() == cartaDestino.getNumero()
+						|| cartaAMover.getPalo() == cartaDestino.getPalo()) { // La combinacion de cartas es correcta
+
+					System.out.println("CARTA COORECTA");
+					System.out.println(cartaAMover.toString() + "->" + cartaDestino.toString());
+
+					comprobarMoviminetos(posCartaAMover, posToMove);
+				}
 
 			} else {// No valido por movimientos
 
@@ -218,52 +223,63 @@ public class PanelSaltos extends JPanel implements ActionListener {
 
 		if (posAMover == 1) {
 
-			if (matrizBotones[1][horizontal].getLabel() != "Nulo") {
+			if (matrizBotones[1][horizontal].getLabel() != "NuLo") {
 
-				moveDown(horizontal - 1, 0);
-				moveLeft(horizontal, 0);
-				moveUp(horizontal, 0);
+				iconoAbajo(horizontal - 1);
+				iconoIzquierda(horizontal,1);
+				iconoArriba(horizontal);
 
 			} else {
 
-				// TODO no funciona bien
-				// MOVIMIENTOS GRAFICOS
-				iconoAbajo(horizontal-1);
-				iconoIzquierda(horizontal);
+				iconoAbajo(horizontal - 1);
+				iconoIzquierda(horizontal,1);
 				todosIconosIzquierda(horizontal);
-				matrizBotones[0][posToDelete--].setVisible(false);
-				//matrizBotones[0][posToDelete].setLabel("");
-				//matrizBotones[0][posToDelete].setVisible(false);
-				
+				matrizBotones[0][posToDelete].setVisible(false);
+				matrizBotones[0][posToDelete--] = null;
 
-				// MOVIMIETOS INTERNOS
-				// moveDown(horizontal - 1, 0);
-				// moveLeft(horizontal, 0);
-				// moveAllLeft(horizontal, 0);
-
-				// matrizBotones[0][posToDelete] = null;
 			}
 
 		} else if (posAMover == 3) {
+			
+			if (matrizBotones[1][horizontal + 3].getLabel() != "NuLo") {
+
+				iconoAbajo(horizontal - 1);
+				iconoIzquierda(horizontal,3);
+				iconoArriba(horizontal);
+
+			} else {
+
+				iconoAbajo(horizontal - 3);
+				iconoIzquierda(horizontal,3);
+				todosIconosIzquierda(horizontal);
+				matrizBotones[0][posToDelete].setVisible(false);
+				matrizBotones[0][posToDelete--] = null;
+
+			}
 
 		}
 		printMatrix();
 
 	}
 
-	private void iconoIzquierda(int horizontal) {
+	private void iconoIzquierda(int horizontal, int mover) {
 
-		matrizBotones[0][horizontal - 1].setIcon(matrizBotones[0][horizontal].getIcon());
-		matrizBotones[0][horizontal - 1].setLabel(matrizBotones[0][horizontal].getLabel());
+		matrizBotones[0][horizontal - mover].setIcon(matrizBotones[0][horizontal].getIcon());
+		matrizBotones[0][horizontal - mover].setLabel(matrizBotones[0][horizontal].getLabel());
 
 	}
 
 	private void todosIconosIzquierda(int horizontal) {
 
-		for (int i = horizontal; i < 39; i++) {
+		for (int i = 0; i < 39; i++) {
+			for (int j = horizontal; j < 39; j++) {
 
-			matrizBotones[0][i].setIcon(matrizBotones[0][i + 1].getIcon());
-			matrizBotones[0][i].setLabel(matrizBotones[0][i + 1].getLabel());
+				if (matrizBotones[i][j+1] != null) {
+
+					matrizBotones[i][j].setIcon(matrizBotones[i][j + 1].getIcon());
+					matrizBotones[i][j].setLabel(matrizBotones[i][j + 1].getLabel());
+				}
+			}
 		}
 	}
 
@@ -280,40 +296,18 @@ public class PanelSaltos extends JPanel implements ActionListener {
 
 	}
 
-	private void moveAllLeft(int horizontal, int vertical) {
-
-		for (int j = 0; j < 39; j++) {
-			for (int i = horizontal; i < 39; i++) {
-				matrizBotones[j][i] = matrizBotones[j][i + 1]; // Movemos a la izquierda toda la baraja
-			}
-		}
-
-	}
-
-	private void moveLeft(int horizontal, int vertical) {
-
-		matrizBotones[vertical][horizontal - 1] = matrizBotones[vertical][horizontal];
-
-	}
-
-	private void moveDown(int horizontal, int vertical) {
-
-		for (int i = 39; i >= 0; i--) {
-			if (i < 39) {
-				matrizBotones[i + 1][horizontal] = matrizBotones[i][horizontal];
-			}
-		}
-
-	}
-
-	private void moveUp(int horizontal, int vertical) {
+	private void iconoArriba(int horizontal) {
 
 		for (int i = 0; i < 40; i++) {
-			matrizBotones[i][horizontal] = matrizBotones[i + 1][horizontal]; // Subimos las que tenia debajo la que
-																				// movimos
-			// a la izquierda
+
+			matrizBotones[i][horizontal].setIcon(matrizBotones[i + 1][horizontal].getIcon());
+			matrizBotones[i][horizontal].setLabel(matrizBotones[i + 1][horizontal].getLabel());
+
 		}
+
 	}
+	
+	
 
 	private Carta buscaCarta(String cartaStr) {
 
@@ -381,10 +375,9 @@ public class PanelSaltos extends JPanel implements ActionListener {
 		for (int x = 0; x < matrizBotones.length; x++) {
 			System.out.print("|");
 			for (int y = 0; y < matrizBotones[x].length; y++) {
+
 				if (matrizBotones[x][y] != null) {
 					System.out.print(matrizBotones[x][y].getLabel());
-				} else {
-					System.out.print("Null");
 				}
 				if (y != matrizBotones[x].length - 1) {
 
