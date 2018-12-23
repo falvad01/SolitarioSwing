@@ -133,8 +133,20 @@ public class PanelSaltos extends JPanel implements ActionListener {
 
 			nombre.delete(0, nombre.length());
 
-			int componentes = this.getComponentCount();
+		
 
+		}
+		
+		ImageIcon nul = new ImageIcon(getClass().getResource("/imagenesBarajaE/reversoE.jpg"));
+
+		for (int j = 1; j < 40; j++) {
+			for (int k = 0; k < 40; k++) {
+					
+				matrizBotones[j][k] = new JButton("Nulo");
+				matrizBotones[j][k].setIcon(nul);
+				
+				
+			}
 		}
 
 		printMatrix();
@@ -206,7 +218,7 @@ public class PanelSaltos extends JPanel implements ActionListener {
 
 		if (posAMover == 1) {
 
-			if (matrizBotones[1][horizontal] != null) {
+			if (matrizBotones[1][horizontal].getLabel() != "Nulo") {
 
 				moveDown(horizontal - 1, 0);
 				moveLeft(horizontal, 0);
@@ -214,18 +226,22 @@ public class PanelSaltos extends JPanel implements ActionListener {
 
 			} else {
 
+				// TODO no funciona bien
+				// MOVIMIENTOS GRAFICOS
+				iconoAbajo(horizontal-1);
+				iconoIzquierda(horizontal);
+				todosIconosIzquierda(horizontal);
+				matrizBotones[0][posToDelete--].setVisible(false);
+				//matrizBotones[0][posToDelete].setLabel("");
+				//matrizBotones[0][posToDelete].setVisible(false);
 				
 
 				// MOVIMIETOS INTERNOS
-				moveDown(horizontal - 1, 0);
-				moveLeft(horizontal, 0);
-				moveAllLeft(horizontal, 0);
-				matrizBotones[0][posToDelete--] = null;
-				
-				// MOVIMIENTOS GRAFICOS
-				iconoIzquierda(horizontal);
-				todosIconosIzquierda(horizontal);
-				matrizBotones[0][posToDelete].setIcon(null);
+				// moveDown(horizontal - 1, 0);
+				// moveLeft(horizontal, 0);
+				// moveAllLeft(horizontal, 0);
+
+				// matrizBotones[0][posToDelete] = null;
 			}
 
 		} else if (posAMover == 3) {
@@ -237,21 +253,31 @@ public class PanelSaltos extends JPanel implements ActionListener {
 
 	private void iconoIzquierda(int horizontal) {
 
-		
-
-			matrizBotones[0][horizontal-1].setIcon(matrizBotones[0][horizontal].getIcon());
-			matrizBotones[0][horizontal-1].setLabel(matrizBotones[0][horizontal].getLabel());
-		
+		matrizBotones[0][horizontal - 1].setIcon(matrizBotones[0][horizontal].getIcon());
+		matrizBotones[0][horizontal - 1].setLabel(matrizBotones[0][horizontal].getLabel());
 
 	}
-	
+
 	private void todosIconosIzquierda(int horizontal) {
-		
-		for(int i = horizontal; i < 39; i++) {
-			
-			matrizBotones[0][i].setIcon(matrizBotones[0][i+1].getIcon());
-			matrizBotones[0][i].setLabel(matrizBotones[0][i+1].getLabel());
+
+		for (int i = horizontal; i < 39; i++) {
+
+			matrizBotones[0][i].setIcon(matrizBotones[0][i + 1].getIcon());
+			matrizBotones[0][i].setLabel(matrizBotones[0][i + 1].getLabel());
 		}
+	}
+
+	private void iconoAbajo(int horizontal) {
+
+		for (int i = 39; i >= 0; i--) {
+			if (i < 39) {
+
+				matrizBotones[i + 1][horizontal].setIcon(matrizBotones[i][horizontal].getIcon());
+				matrizBotones[i + 1][horizontal].setLabel(matrizBotones[i][horizontal].getLabel());
+
+			}
+		}
+
 	}
 
 	private void moveAllLeft(int horizontal, int vertical) {
@@ -307,7 +333,7 @@ public class PanelSaltos extends JPanel implements ActionListener {
 		}
 
 		return cartaRt;
-	} 
+	}
 
 	private int posicion(String carta) {
 

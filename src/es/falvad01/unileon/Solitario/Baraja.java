@@ -99,7 +99,7 @@ public class Baraja {
 																								// la imagen
 
 				path = pathBuilder.toString();
-				System.out.println(path);
+				//System.out.println(path);
 				try {
 					imagen = new ImageIcon(getClass().getResource(path));
 				} catch (Exception e) {
