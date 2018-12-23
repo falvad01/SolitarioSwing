@@ -94,7 +94,7 @@ public class Baraja {
 
 		for (int j = 0; j < paloE.length; j++) {
 			for (int i = 0; i < numeroE.length; i++) {
-				// TODO REVISAR RUTA
+				
 				pathBuilder.append("/imagenesBarajaE/" + numeroE[i] + "" + paloE[j] + ".jpg"); // Obtenemos la ruta de
 																								// la imagen
 

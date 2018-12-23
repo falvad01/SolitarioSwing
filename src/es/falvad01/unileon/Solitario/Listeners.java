@@ -49,7 +49,7 @@ public class Listeners implements ActionListener {
 			juegoClasico.setVisible(false);
 			juegoSaltos.setVisible(true);
 
-			pSaltos.prueba();
+			pSaltos.iniciarJuego();
 			
 			
 
