@@ -50,8 +50,6 @@ public class Listeners implements ActionListener {
 			juegoSaltos.setVisible(true);
 
 			pSaltos.iniciarJuego();
-			
-			
 
 		} else if (e.getActionCommand().equals("Cargar")) {
 
@@ -130,6 +128,7 @@ public class Listeners implements ActionListener {
 
 	private void guardarComo() {
 
+		System.out.println("LISTENRS GUARDAR COMO");
 		JFileChooser save = new JFileChooser();
 
 		if (save.showSaveDialog(null) == save.APPROVE_OPTION) {
@@ -145,6 +144,12 @@ public class Listeners implements ActionListener {
 
 						System.out.println(saveGame.getAbsolutePath());
 					}
+				} else {
+					
+					pClasico.guardar(saveGame.getAbsolutePath());
+
+					System.out.println(saveGame.getAbsolutePath());
+
 				}
 
 			} else if (juego == EJuego.Saltos) {
@@ -158,6 +163,10 @@ public class Listeners implements ActionListener {
 
 						System.out.println(saveGame.getAbsolutePath());
 					}
+				}else {
+					pSaltos.guardar(saveGame.getAbsolutePath());
+
+					System.out.println(saveGame.getAbsolutePath());
 				}
 			}
 		}

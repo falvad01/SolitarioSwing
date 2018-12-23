@@ -231,9 +231,10 @@ public class PanelSaltos extends JPanel implements ActionListener {
 		}
 
 	}
+
 	/**
 	 * 
-	 * @param horizontal  ES LA CARTA QUE SE TIENE QUE MOVER
+	 * @param horizontal ES LA CARTA QUE SE TIENE QUE MOVER
 	 * @param posAMover
 	 */
 	private void comprobarMoviminetos(int horizontal, int posAMover) {
@@ -280,12 +281,12 @@ public class PanelSaltos extends JPanel implements ActionListener {
 	}
 
 	private void iconoIzquierda(int horizontal, int mover) {
-		
+
 		System.out.println("Izquierda");
 
 		matrizBotones[0][horizontal - mover].setIcon(matrizBotones[0][horizontal].getIcon());
 		matrizBotones[0][horizontal - mover].setLabel(matrizBotones[0][horizontal].getLabel());
-		
+
 		printMatrix();
 
 	}
@@ -318,7 +319,7 @@ public class PanelSaltos extends JPanel implements ActionListener {
 	}
 
 	private void iconoArriba(int horizontal) {
-		
+
 		System.out.println("ARRIBA");
 
 		for (int i = 0; i < 39; i++) {
@@ -328,7 +329,7 @@ public class PanelSaltos extends JPanel implements ActionListener {
 				matrizBotones[i][horizontal].setLabel(matrizBotones[i + 1][horizontal].getLabel());
 			}
 		}
-		
+
 		printMatrix();
 
 	}
@@ -375,10 +376,24 @@ public class PanelSaltos extends JPanel implements ActionListener {
 
 		rutaJuego = saveGame;
 
+		System.out.println("GUARDANDO");
+
 		try {
 			FileWriter fichero = new FileWriter(rutaJuego);
 			PrintWriter pw = new PrintWriter(fichero);
 			pw.println("Solitario Saltos");
+
+			for (int x = 0; x < 39; x++) {
+				for (int y = 39; y >= 0; y--) {
+
+					if (matrizBotones[y][x] != null) {
+						if(matrizBotones[y][x].getLabel().equals("NuLo") == false)
+						pw.print(matrizBotones[y][x].getLabel());
+					}
+				}
+				
+				pw.println();
+			}
 
 			// TODO ESCRIBIR AQUI TODO LO QUE SE VAYA A GUARDAR EN EL ARCHIVO
 
