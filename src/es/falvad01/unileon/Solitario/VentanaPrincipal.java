@@ -72,7 +72,7 @@ public class VentanaPrincipal extends JFrame {
 		juegoSaltos.setBounds(0, 0, PHEIGH, PWIDTH);
 		juegoSaltos.setLayout(null);
 		juegoSaltos.setVisible(false);
-		saltos.initComponets();
+		
 
 		juegoClasico = new JPanel();
 		PanelClasico clasico = new PanelClasico(juegoClasico);
@@ -81,7 +81,7 @@ public class VentanaPrincipal extends JFrame {
 		juegoClasico.setBounds(0, 0, PHEIGH, PWIDTH);
 		juegoClasico.setLayout(null);
 		juegoClasico.setVisible(false);
-		clasico.initComponents();
+		
 
 		getContentPane().add(juegoClasico);
 		getContentPane().add(juegoSaltos);
@@ -142,7 +142,7 @@ public class VentanaPrincipal extends JFrame {
 		btnEstadisticas = new JMenuItem("Estadisticas");
 		historial.add(btnEstadisticas);
 		btnEstadisticas.addActionListener(listen);
-		btnEstadisticasFichero = new JMenuItem("Estadisticas FIchero");
+		btnEstadisticasFichero = new JMenuItem("Estadisticas Fichero");
 		historial.add(btnEstadisticasFichero);
 		btnEstadisticasFichero.addActionListener(listen);
 

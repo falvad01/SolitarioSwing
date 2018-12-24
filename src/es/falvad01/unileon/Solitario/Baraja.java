@@ -8,7 +8,9 @@ import javax.swing.ImageIcon;
 public class Baraja {
 
 	private EJuego juego;
-	private Carta[] baraja;
+	private CartaEspañola[] barajaEspañola;
+	private CartaFrancesa[] barajaFrancesa;
+	
 	private int next;
 
 	/**
@@ -33,26 +35,30 @@ public class Baraja {
 	 * 
 	 * @return
 	 */
-	public Carta[] getBaraja() {
-		return baraja;
+	public CartaEspañola[] getBarajaEspañola() {
+		return barajaEspañola;
+	}
+	
+	public CartaFrancesa[] getBarajaFrancesa() {
+		return barajaFrancesa;
 	}
 
 	/**
 	 * 
 	 * @param baraja
 	 */
-	public void setBaraja(Carta[] baraja) {
-		this.baraja = baraja;
+	public void setBaraja(CartaEspañola[] baraja) {
+		this.barajaEspañola = baraja;
 	}
 
 	public void crearBarajaF() {
 		System.out.println("CREAR BARAJA FRANCESA");
-		Carta carta;
-		Image sprite;
+		CartaFrancesa carta;
 		StringBuilder pathBuilder = new StringBuilder();
 		String path;
-		baraja = new Carta[52];
+		barajaFrancesa = new CartaFrancesa[52];
 		ImageIcon imagen = null;
+		ImageIcon reverso = null;
 
 		char[] paloF = { 'C', 'D', 'H', 'S' };
 		char[] numeroF = { 'A', '2', '3', '4', '5', '6', '7', '8', '9', 'T', 'J', 'Q', 'K' };
@@ -60,17 +66,24 @@ public class Baraja {
 		for (int i = 0; i < paloF.length; i++) {
 			for (int j = 0; j < numeroF.length; j++) {
 
-				pathBuilder.append("etc/images/french/" + numeroF[i] + "" + paloF[j] + ".jpg"); // Obtenemos la ruta de
+				pathBuilder.append("/imagenesBarajaF/" + numeroF[j] + "" + paloF[i] + ".png"); // Obtenemos la ruta de
 																								// la imagen
-
 				path = pathBuilder.toString();
+				
+				try {
+					imagen = new ImageIcon(getClass().getResource(path));
+				} catch (Exception e) {
+					System.out.println("Carta no encontrada");
+				}
+				
+				try {
+					reverso = new ImageIcon(getClass().getResource("/imagenesBarajaF/reversoF.jpg"));
+				} catch (Exception e) {
+					System.out.println("Reverso no encontrada");
+				}
+				carta = new CartaFrancesa(numeroF[j], paloF[i], imagen, reverso);
 
-				// imagen = new ImageIcon(getClass().getResource(path));
-
-				// TODO REVISAR LA RUTA, ALGUNA PUEDE FALTAR
-				carta = new Carta(numeroF[i], paloF[j], imagen);
-
-				baraja[next++] = carta;
+				barajaFrancesa[next++] = carta;
 
 				pathBuilder = new StringBuilder();
 
@@ -82,11 +95,10 @@ public class Baraja {
 	public void crearBarajaE() {
 		System.out.println("CREAR BARAJA ESPAÑOLA");
 
-		Carta carta;
-		Image sprite;
+		CartaEspañola carta;
 		StringBuilder pathBuilder = new StringBuilder();
 		String path;
-		baraja = new Carta[40];
+		barajaEspañola = new CartaEspañola[40];
 		ImageIcon imagen = null;
 
 		char[] paloE = { 'O', 'C', 'E', 'B' };
@@ -106,9 +118,9 @@ public class Baraja {
 					System.out.println("Carta no encontrada");
 				}
 
-				carta = new Carta(numeroE[i], paloE[j], imagen);
+				carta = new CartaEspañola(numeroE[i], paloE[j], imagen);
 
-				baraja[next++] = carta;
+				barajaEspañola[next++] = carta;
 
 				pathBuilder = new StringBuilder();
 
@@ -120,18 +132,18 @@ public class Baraja {
 	public void barajarF() {
 
 		int random;
-		Carta buffer = new Carta('Z', 'Z', null);
+		CartaFrancesa buffer = new CartaFrancesa('Z', 'Z', null,null);
 
 		int[] randomArray = new int[52];
-		for (int i = 0; i < baraja.length; i++) {
+		for (int i = 0; i < barajaFrancesa.length; i++) {
 
 			random = (int) (Math.random() * 51) + 1 - 1;
 
 			randomArray[i] = random;
 
-			buffer = baraja[random];
-			baraja[random] = baraja[i];
-			baraja[i] = buffer;
+			buffer = barajaFrancesa[random];
+			barajaFrancesa[random] = barajaFrancesa[i];
+			barajaFrancesa[i] = buffer;
 
 		}
 
@@ -140,18 +152,18 @@ public class Baraja {
 	public void barajarE() {
 
 		int random;
-		Carta buffer = new Carta('H', 'H', null);
+		CartaEspañola buffer = new CartaEspañola('H', 'H', null);
 
 		int[] randomArray = new int[40];
-		for (int i = 0; i < baraja.length; i++) {
+		for (int i = 0; i < barajaEspañola.length; i++) {
 
 			random = (int) (Math.random() * 39) + 1 - 1;
 
 			randomArray[i] = random;
 
-			buffer = baraja[random];
-			baraja[random] = baraja[i];
-			baraja[i] = buffer;
+			buffer = barajaEspañola[random];
+			barajaEspañola[random] = barajaEspañola[i];
+			barajaEspañola[i] = buffer;
 
 		}
 
@@ -161,9 +173,9 @@ public class Baraja {
 
 		StringBuilder out = new StringBuilder();
 
-		for (int i = 0; i < baraja.length; i++) {
+		for (int i = 0; i < barajaEspañola.length; i++) {
 
-			out.append(baraja[i] + " ");
+			out.append(barajaEspañola[i] + " ");
 		}
 
 		return out.toString();

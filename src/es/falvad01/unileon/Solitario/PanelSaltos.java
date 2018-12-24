@@ -6,27 +6,28 @@ import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
-import javax.swing.border.EtchedBorder;
 
-//TODO SOMBREAR LA CARTA PULSADA
-//TODO HAY ALGUN BUG QUE HACE QUE SALGA EL REVERSO DE LA CARTA, DEBUGUEAR, AL MOVER ARRIBA Y MOVER 3 LAS CARTAS QUE SE ENCUENTRAN DEBAJO DESAPARECEN
+//TODO REFACTORIZAR NOMBRES
+//TODO CENTRAR LA IMAGEN DE LOS BOTONES
+//TODO COMENTAR EL CODIGO
 
 @SuppressWarnings({ "deprecation", "serial" })
 public class PanelSaltos extends JPanel implements ActionListener {
 
 	private JPanel saltos;
 	private Baraja baraja;
-	private Carta[] ABaraja;
+	private CartaEspañola[] ABaraja;
 
 	private String rutaJuego = null;
 	BufferedImage cartaImage;
@@ -45,26 +46,41 @@ public class PanelSaltos extends JPanel implements ActionListener {
 
 	int posToDelete = 39;
 
+	boolean flagIntentos = false;
+	
+	StringBuilder jugadas;
+	/**
+	 * 
+	 * @param panel
+	 * 
+	 * Contructor de clase
+	 */
 	public PanelSaltos(JPanel panel) {
 		// setPreferredSize(new Dimension(200, 200));
 		setBackground(Color.red);
 		setOpaque(true);
 		this.saltos = panel;
 		this.baraja = new Baraja(EJuego.Saltos);
+		jugadas = new StringBuilder();
 
 	}
-
+	/**
+	 * 
+	 * @return
+	 */
 	public String getRutaJuego() {
 		return this.rutaJuego;
 	}
-
-	public void iniciarJuego() {
+	/**
+	 * 
+	 */
+	public void iniciarJuegoSaltos() {
 
 		baraja.crearBarajaE();
 		baraja.barajarE();
-		ABaraja = baraja.getBaraja();
+		ABaraja = baraja.getBarajaEspañola();
 
-		System.out.println("ESTO ES UN METODO DE PRUEBA");
+		
 
 		for (int i = 0; i < ABaraja.length; i++) {
 			System.out.print(ABaraja[i] + " ");
@@ -74,15 +90,6 @@ public class PanelSaltos extends JPanel implements ActionListener {
 
 		repaint();
 		pintarCartas();
-
-	}
-
-	public void initComponets() {
-
-		JLabel lblSaltos = new JLabel("Saltos");
-		lblSaltos.setFont(new Font("Tahoma", Font.PLAIN, 26));
-		lblSaltos.setBounds(0, 417, 173, 80);
-		saltos.add(lblSaltos);
 
 	}
 
@@ -151,7 +158,7 @@ public class PanelSaltos extends JPanel implements ActionListener {
 			}
 		}
 
-		printMatrix();
+		// printMatrix();
 
 	}
 
@@ -190,14 +197,17 @@ public class PanelSaltos extends JPanel implements ActionListener {
 			if (posToMove == 1) {// Valido por un movimiento
 				System.out.println("JUGADA VALIDA POR MOVIMIENTOS, movemos 1");
 
-				Carta cartaAMover = buscaCarta(strAMover);
-				Carta cartaDestino = buscaCarta(strDestino);
+				CartaEspañola cartaAMover = buscaCarta(strAMover);
+				CartaEspañola cartaDestino = buscaCarta(strDestino);
 
 				if (cartaAMover.getNumero() == cartaDestino.getNumero()
 						|| cartaAMover.getPalo() == cartaDestino.getPalo()) { // La combinacion de cartas es correcta
 
 					System.out.println("CARTA COORECTA");
 					System.out.println(cartaAMover.toString() + "->" + cartaDestino.toString());
+					jugadas.append(cartaAMover.toString() + "-" + cartaDestino.toString());
+					jugadas.append(System.getProperty("line.separator"));
+					System.out.println(jugadas.toString());
 
 					comprobarMoviminetos(posCartaAMover, posToMove);
 
@@ -209,8 +219,8 @@ public class PanelSaltos extends JPanel implements ActionListener {
 
 				System.out.println("JUGADA VALIDA POR MOVIMIENTOS, movemos 3");
 
-				Carta cartaAMover = buscaCarta(strAMover);
-				Carta cartaDestino = buscaCarta(strDestino);
+				CartaEspañola cartaAMover = buscaCarta(strAMover);
+				CartaEspañola cartaDestino = buscaCarta(strDestino);
 
 				if (cartaAMover.getNumero() == cartaDestino.getNumero()
 						|| cartaAMover.getPalo() == cartaDestino.getPalo()) { // La combinacion de cartas es correcta
@@ -276,8 +286,7 @@ public class PanelSaltos extends JPanel implements ActionListener {
 			}
 
 		}
-		printMatrix();
-
+		// printMatrix();
 	}
 
 	private void iconoIzquierda(int horizontal, int mover) {
@@ -287,7 +296,7 @@ public class PanelSaltos extends JPanel implements ActionListener {
 		matrizBotones[0][horizontal - mover].setIcon(matrizBotones[0][horizontal].getIcon());
 		matrizBotones[0][horizontal - mover].setLabel(matrizBotones[0][horizontal].getLabel());
 
-		printMatrix();
+		
 
 	}
 
@@ -330,23 +339,23 @@ public class PanelSaltos extends JPanel implements ActionListener {
 			}
 		}
 
-		printMatrix();
+		;
 
 	}
 
-	private Carta buscaCarta(String cartaStr) {
+	private CartaEspañola buscaCarta(String cartaStr) {
 
 		String[] parts = cartaStr.split("");
 
 		char chtNum = parts[0].charAt(0);
 		char chtPalo = parts[1].charAt(0);
-		Carta cartaRt = null;
+		CartaEspañola cartaRt = null;
 
 		for (int i = 0; i < ABaraja.length; i++) {
 
 			if (ABaraja[i].getNumero() == chtNum && ABaraja[i].getPalo() == chtPalo) {
 
-				cartaRt = new Carta(ABaraja[i]);// Copiamos la carta
+				cartaRt = new CartaEspañola(ABaraja[i]);// Copiamos la carta
 			}
 
 		}
@@ -387,16 +396,13 @@ public class PanelSaltos extends JPanel implements ActionListener {
 				for (int y = 39; y >= 0; y--) {
 
 					if (matrizBotones[y][x] != null) {
-						if(matrizBotones[y][x].getLabel().equals("NuLo") == false)
-						pw.print(matrizBotones[y][x].getLabel());
+						if (matrizBotones[y][x].getLabel().equals("NuLo") == false)
+							pw.print(matrizBotones[y][x].getLabel());
 					}
 				}
-				
+
 				pw.println();
 			}
-
-			// TODO ESCRIBIR AQUI TODO LO QUE SE VAYA A GUARDAR EN EL ARCHIVO
-
 			fichero.close();
 
 		} catch (IOException e) {
@@ -404,6 +410,51 @@ public class PanelSaltos extends JPanel implements ActionListener {
 			e.printStackTrace();
 		}
 
+	}
+
+	public void sumarEstadisticas() {
+
+		String fichero = "./Estadisticas/Estadisticas.txt";
+		String[] linea = new String[6];
+
+		try {
+			FileReader fr = new FileReader(fichero);
+			BufferedReader br = new BufferedReader(fr);
+
+			for (int i = 0; i < 6; i++) {
+
+				linea[i] = br.readLine();
+
+			}
+
+			int intentos = Integer.parseInt(linea[1]);
+			int interntosExito = Integer.parseInt(linea[2]);
+
+			if (!flagIntentos) {
+				intentos++;
+				flagIntentos = true;
+
+				// TODO BUSCAR COMO ACTUALIZAR ESTOS DOS PARAMETROS
+
+			}
+
+			// TODO PONER CONDICION DE INTENTO CON EXITO
+
+		} catch (Exception a) {
+			System.out.println("Error leyendo fichero " + fichero + ": " + a);
+		}
+
+	}
+	
+	public void cargarJuego() {
+		
+		//TODO METODO PARA CARGAR LOS DATOS DEL ARCHIVO DEL JUEGO
+	}
+	
+	public void limpiarPanel() {
+		
+		//TODO AQUI SE REINICIARIAN TODAS LA VARIABLES, Y SE ELIMINARIAN LOS BOTONES PARA EMEPZAR UN JUEGO NUEVO
+		
 	}
 
 	public void printMatrix() {

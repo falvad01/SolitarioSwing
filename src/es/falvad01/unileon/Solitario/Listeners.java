@@ -3,9 +3,16 @@ package es.falvad01.unileon.Solitario;
 import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
+
 import javax.swing.JPanel;
+
+import jdk.nashorn.internal.ir.JoinPredecessorExpression;
+
 import javax.swing.JOptionPane;
+import javax.print.attribute.standard.JobKOctetsProcessed;
 import javax.swing.JFileChooser;
 
 public class Listeners implements ActionListener {
@@ -42,14 +49,14 @@ public class Listeners implements ActionListener {
 			juegoClasico.setVisible(true);
 			juegoSaltos.setVisible(false);
 
-			pClasico.prueba();
+			pClasico.iniciarJuegoClasico();
 
 		} else if (e.getActionCommand().equals("Saltos")) {
 			juego = EJuego.Saltos;
 			juegoClasico.setVisible(false);
 			juegoSaltos.setVisible(true);
 
-			pSaltos.iniciarJuego();
+			pSaltos.iniciarJuegoSaltos();
 
 		} else if (e.getActionCommand().equals("Cargar")) {
 
@@ -113,16 +120,59 @@ public class Listeners implements ActionListener {
 
 		/////////////////////////////// HISTORIAL///////////////////////////////////////
 
-		/////////////////////////////// AYUDA///////////////////////////////////////////
+		if (e.getActionCommand().equals("Estadisticas")) {
 
-		if (e.getActionCommand().equals("Informacion")) {
-			// TODO REVISAR ESTE MENSAJE DE MIERDA
-			JOptionPane.showMessageDialog(panel,
-					"APLICACION DESARROLADA POR EL ALUMNO FRANCISCO JAVIER ALVAREZ, PARA LA ASIGNATURA PROGRAMACION II, \n "
-							+ "LA CUAL CONSISTE EN LA PROGRAMACION DE UN JUEGO DE CARTAS LLAMADO SOLITARIO EN DOS DE SUS VARIANTES, MODO CLASICO Y MODO SALTOS \n"
-							+ "EL JUEGO DISPONE DE LA FUNCION DE CREAR CUALQUIERA DE LOS DOS JUEGOS Y DE GUARDARLOS, A SU VEZ TAMBIEN CUETA CON UN SITEMA SENCILLO DE ESTADISTICAS POR PARTIDA Y EN GLOBAL");
+			String fichero = "./Estadisticas/Estadisticas.txt";
+			String[] linea = new String[6];
 
-		}
+			try {
+				FileReader fr = new FileReader(fichero);
+				BufferedReader br = new BufferedReader(fr);
+
+				for (int i = 0; i < 6; i++) {
+
+					linea[i] = br.readLine();
+
+				}
+
+				StringBuilder message = new StringBuilder();
+				message.append(linea[0]);
+				message.append(System.getProperty("line.separator"));
+				message.append("---------------------");
+				message.append(System.getProperty("line.separator"));
+				message.append("Intentos realizados " + linea[1]);
+				message.append(System.getProperty("line.separator"));
+				message.append("Partidas Ganadas " + linea[2]);
+				message.append(System.getProperty("line.separator"));
+				message.append(System.getProperty("line.separator"));
+				message.append(linea[3]);
+				message.append(System.getProperty("line.separator"));
+				message.append("---------------------");
+				message.append(System.getProperty("line.separator"));
+				message.append("Intentos realizados " + linea[4]);
+				message.append(System.getProperty("line.separator"));
+				message.append("Partidas Ganadas " + linea[5]);
+				message.append(System.getProperty("line.separator"));
+
+				JOptionPane.showMessageDialog(panel, message.toString());
+
+				fr.close();
+			} catch (Exception a) {
+				System.out.println("Error leyendo fichero " + fichero + ": " + a);
+			}
+
+		} else if (e.getActionCommand().equals("Estadisticas Fichero"))
+
+			/////////////////////////////// AYUDA///////////////////////////////////////////
+
+			if (e.getActionCommand().equals("Informacion")) {
+				// TODO REVISAR ESTE MENSAJE DE MIERDA
+				JOptionPane.showMessageDialog(panel,
+						"APLICACION DESARROLADA POR EL ALUMNO FRANCISCO JAVIER ALVAREZ, PARA LA ASIGNATURA PROGRAMACION II, \n "
+								+ "LA CUAL CONSISTE EN LA PROGRAMACION DE UN JUEGO DE CARTAS LLAMADO SOLITARIO EN DOS DE SUS VARIANTES, MODO CLASICO Y MODO SALTOS \n"
+								+ "EL JUEGO DISPONE DE LA FUNCION DE CREAR CUALQUIERA DE LOS DOS JUEGOS Y DE GUARDARLOS, A SU VEZ TAMBIEN CUETA CON UN SITEMA SENCILLO DE ESTADISTICAS POR PARTIDA Y EN GLOBAL");
+
+			}
 
 	}// Fin del metodo listener
 
@@ -145,7 +195,7 @@ public class Listeners implements ActionListener {
 						System.out.println(saveGame.getAbsolutePath());
 					}
 				} else {
-					
+
 					pClasico.guardar(saveGame.getAbsolutePath());
 
 					System.out.println(saveGame.getAbsolutePath());
@@ -163,7 +213,7 @@ public class Listeners implements ActionListener {
 
 						System.out.println(saveGame.getAbsolutePath());
 					}
-				}else {
+				} else {
 					pSaltos.guardar(saveGame.getAbsolutePath());
 
 					System.out.println(saveGame.getAbsolutePath());
