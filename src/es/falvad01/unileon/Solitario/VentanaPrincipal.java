@@ -81,7 +81,7 @@ public class VentanaPrincipal extends JFrame {
 		juegoClasico.setBounds(0, 0, PHEIGH, PWIDTH);
 		juegoClasico.setLayout(null);
 		juegoClasico.setVisible(false);
-		
+		     
 
 		getContentPane().add(juegoClasico);
 		getContentPane().add(juegoSaltos);

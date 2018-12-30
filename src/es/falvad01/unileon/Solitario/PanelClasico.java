@@ -46,6 +46,9 @@ public class PanelClasico extends JPanel {
 	private JButton[] monton6;
 	private JButton[] monton7;
 
+	private ImageIcon[] icono;
+	private ImageIcon reverso;
+
 	public PanelClasico(JPanel panel) {
 
 		this.clasico = panel;
@@ -65,6 +68,7 @@ public class PanelClasico extends JPanel {
 		monton5 = new JButton[52];
 		monton6 = new JButton[52];
 		monton7 = new JButton[52];
+		icono = new ImageIcon[52];
 
 	}
 
@@ -90,6 +94,7 @@ public class PanelClasico extends JPanel {
 	private void pintarCartas() {
 
 		StringBuilder nombre = new StringBuilder();
+
 		int i1 = 0;
 		int i2 = 0;
 		int i3 = 0;
@@ -103,73 +108,229 @@ public class PanelClasico extends JPanel {
 			nombre.append(ABaraja[i]);
 
 			Image img = ABaraja[i].getImagen().getImage();
+			Image imgReverso = ABaraja[i].getReverso().getImage();
 
-			img = img.getScaledInstance(95, 120, Image.SCALE_SMOOTH);
+			img = img.getScaledInstance(90, 120, Image.SCALE_SMOOTH);
+			imgReverso = imgReverso.getScaledInstance(90, 120, Image.SCALE_SMOOTH);
 
-			ImageIcon icono = new ImageIcon(img);
+			icono[i] = new ImageIcon(img);
+			reverso = new ImageIcon(imgReverso);
 
-			if (i < 23) {
+			if (i < 23) {// Baraja Principal
 				barajaInicial[i] = new JButton(nombre.toString());
-				// System.out.println(nombre.toString());
-				System.out.println(i);
+				barajaInicial[i].setIcon(icono[i]);
+				barajaInicial[0].setBounds(20, 10, 90, 120);
+				clasico.add(barajaInicial[0]);
 
-			} else if (i == 23) {
-				
+			} else if (i == 23) { // Baraja Descartes
+
 				barajaDescartes[0] = new JButton(nombre.toString());
-				//System.out.println(nombre.toString());
-				System.out.println(i);
-				
-			} else if (i == 24) {
-				
+				barajaDescartes[0].setIcon(icono[i]);
+				barajaDescartes[0].setBounds(125, 10, 90, 120);
+				clasico.add(barajaDescartes[0]);
+
+			} else if (i == 24) { // MOntones de cartas
+
 				monton1[i1] = new JButton(nombre.toString());
-			//	System.out.println(nombre.toString());
-				System.out.println(i);
+				
+				monton1[i1].setBounds(20, 135, 90, 120);
+
+				if (i1 == 0) {
+					monton1[i1].setIcon(icono[i]);
+				} else {
+					monton1[i1].setIcon(reverso);
+					monton1[i1].setEnabled(false);
+				}
+				clasico.add(monton1[i1]);
 				i1++;
-				
+
 			} else if (i > 24 && i < 27) {
-				
+
 				monton2[i2] = new JButton(nombre.toString());
-				System.out.println("f2-" + i2);
+				
+				monton2[i2].setBounds(125, 155 - (i2 * 20), 90, 120);
+				
+				if (i2 == 0) {
+					monton2[i2].setIcon(icono[i]);
+				} else {
+					monton2[i2].setIcon(reverso);
+					monton2[i2].setEnabled(false);
+				}
+				clasico.add(monton2[i2]);
 				i2++;
-				System.out.println(i);
-				
-			} else if (i >= 28 && i <= 30) {
-				
+
+			} else if (i >= 27 && i <= 29) {
+
 				monton3[i3] = new JButton(nombre.toString());
-				System.out.println("f3-" + i3);
+				
+				monton3[i3].setBounds(230, 175 - (i3 * 20), 90, 120);
+				
+				if (i3 == 0) {
+					monton3[i3].setIcon(icono[i]);
+				} else {
+					monton3[i3].setIcon(reverso);
+					monton3[i3].setEnabled(false);
+				}
+				clasico.add(monton3[i3]);
 				i3++;
-				System.out.println(i);
-				
-			} else if (i >= 31 && i <= 34) {
-				
+
+			} else if (i >= 30 && i <= 33) {
+
 				monton4[i4] = new JButton(nombre.toString());
-				System.out.println("f4-" + i4);
+				
+				monton4[i4].setBounds(335, 195 - (i4 * 20), 90, 120);
+				if (i4 == 0) {
+					monton4[i4].setIcon(icono[i]);
+				} else {
+					monton4[i4].setIcon(reverso);
+					monton4[i4].setEnabled(false);
+				}
+				clasico.add(monton4[i4]);
 				i4++;
-				System.out.println(i);
-				
-			} else if (i >= 35 && i <= 39) {
-				
+
+			} else if (i >= 34 && i <= 38) {
+
 				monton5[i5] = new JButton(nombre.toString());
-				System.out.println("f5-" + i5);
+				
+				monton5[i5].setBounds(440, 215 - (i5 * 20), 90, 120);
+				if (i5 == 0) {
+					monton5[i5].setIcon(icono[i]);
+				} else {
+					monton5[i5].setIcon(reverso);
+					monton5[i5].setEnabled(false);
+				}
+				clasico.add(monton5[i5]);
 				i5++;
-				System.out.println(i);
-				
-			} else if (i >= 40 && i <= 45) {
-				
+
+			} else if (i >= 39 && i <= 44) {
+
 				monton6[i6] = new JButton(nombre.toString());
-				System.out.println("f6-" + i6);
+				
+				monton6[i6].setBounds(545, 235 - (i6 * 20), 90, 120);
+				if (i6 == 0) {
+					monton6[i6].setIcon(icono[i]);
+				} else {
+					monton6[i6].setIcon(reverso);
+					monton6[i6].setEnabled(false);
+				}
+				clasico.add(monton6[i6]);
 				i6++;
-				System.out.println(i);
-				
-			} else if (i >= 46 && i < 52) {
-				//TODO FALLA AQUI, NO SUBE A F7-6
+
+			} else if (i >= 45 && i <= 51) {
+
 				monton7[i7] = new JButton(nombre.toString());
-				System.out.println("f7-" + i7);
-				i7++;
-				System.out.println(i);
 				
-			} 
+				monton7[i7].setBounds(650, 255 - (i7 * 20), 90, 120);
+				if (i7 == 0) {
+					monton7[i7].setIcon(icono[i]);
+				} else {
+					monton7[i7].setIcon(reverso);
+					monton7[i7].setEnabled(false);
+				}
+				clasico.add(monton7[i7]);
+				i7++;
+
+			}
+
+			nombre.delete(0, nombre.length());
 		}
+		
+		
+		fin1[0] = new JButton("º1º");
+		fin1[0].setBounds(335,10,90,120);
+		clasico.add(fin1[0]);
+		
+		fin2[0] = new JButton("º2º");
+		fin2[0].setBounds(440,10,90,120);
+		clasico.add(fin2[0]);
+		
+		fin3[0] = new JButton("º3º");
+		fin3[0].setBounds(545,10,90,120);
+		clasico.add(fin3[0]);
+		
+		fin4[0] = new JButton("º4º");
+		fin4[0].setBounds(650,10,90,120);
+		clasico.add(fin4[0]);
+
+		/* DEBUSG */
+		System.out.println("Baraja inicial");
+		for (int i = 0; i < barajaInicial.length; i++) {
+			if (barajaInicial[i] != null) {
+				System.out.print(barajaInicial[i].getLabel() + " ");
+
+			}
+		}
+
+		System.out.println();
+		System.out.println("Baraja descartes");
+		for (int i = 0; i < barajaDescartes.length; i++) {
+			if (barajaDescartes[i] != null) {
+				System.out.print(barajaDescartes[i].getLabel() + " ");
+			}
+		}
+
+		barajaInicial[0].setBounds(20, 10, 90, 120);
+		clasico.add(barajaInicial[0]);
+
+		System.out.println();
+		System.out.println("Monton 1");
+		for (int i = 0; i < monton1.length; i++) {
+			if (monton1[i] != null) {
+				System.out.print(monton1[i].getLabel() + " ");
+			}
+		}
+
+		System.out.println();
+		System.out.println("Monton 2");
+		for (int i = 0; i < monton2.length; i++) {
+			if (monton2[i] != null) {
+
+				System.out.print(monton2[i].getLabel() + " ");
+			}
+		}
+
+		System.out.println();
+		System.out.println("Monton 3");
+		for (int i = 0; i < monton3.length; i++) {
+			if (monton3[i] != null) {
+				System.out.print(monton3[i].getLabel() + " ");
+			}
+		}
+		System.out.println();
+		System.out.println("Monton 4");
+
+		for (int i = 0; i < monton4.length; i++) {
+			if (monton4[i] != null) {
+				System.out.print(monton4[i].getLabel() + " ");
+			}
+		}
+
+		System.out.println();
+		System.out.println("Monton 5");
+		for (int i = 0; i < monton5.length; i++) {
+
+			if (monton5[i] != null) {
+				System.out.print(monton5[i].getLabel() + " ");
+			}
+		}
+
+		System.out.println();
+		System.out.println("Monton 6");
+		for (int i = 0; i < monton6.length; i++) {
+			if (monton6[i] != null) {
+				System.out.print(monton6[i].getLabel() + " ");
+			}
+		}
+
+		System.out.println();
+		System.out.println("Monton 7");
+
+		for (int i = 0; i < monton7.length; i++) {
+			if (monton7[i] != null) {
+				System.out.print(monton7[i].getLabel() + " ");
+			}
+		}
+		/* FIN DEBUG */
 
 	}
 
