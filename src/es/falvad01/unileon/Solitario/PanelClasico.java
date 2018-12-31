@@ -21,6 +21,7 @@ import javax.swing.JButton;
 
 import javax.swing.JPanel;
 import javax.swing.border.Border;
+
 @SuppressWarnings("deprecation")
 public class PanelClasico extends JPanel implements ActionListener {
 
@@ -55,9 +56,12 @@ public class PanelClasico extends JPanel implements ActionListener {
 
 	private String mazoAMover;
 	private String mazoDestino;
-	
+
 	private int posCartaAMover = 0;
 	private int posCartaDestino = 0;
+
+	CartaFrancesa cartaAMover;
+	CartaFrancesa cartaDestino;
 
 	public PanelClasico(JPanel panel) {
 
@@ -102,7 +106,6 @@ public class PanelClasico extends JPanel implements ActionListener {
 
 	}
 
-	
 	private void pintarCartas() {
 
 		StringBuilder nombre = new StringBuilder();
@@ -132,9 +135,7 @@ public class PanelClasico extends JPanel implements ActionListener {
 				barajaInicial[i] = new JButton(nombre.toString());
 				barajaInicial[i].setIcon(icono[i]);
 				barajaInicial[0].setBounds(20, 10, 90, 120);
-				clasico.add(barajaInicial[0]);
-				// TODO FALLO AL PULSAR ESTE BOTON
-				barajaInicial[0].addActionListener(this);
+				
 
 			} else if (i == 23) { // Baraja Descartes
 
@@ -282,85 +283,10 @@ public class PanelClasico extends JPanel implements ActionListener {
 		clasico.add(fin4[0]);
 		fin4[0].addActionListener(this);
 
-		/* DEBUSG */
-		System.out.println("Baraja inicial");
-		for (int i = 0; i < barajaInicial.length; i++) {
-			if (barajaInicial[i] != null) {
-				System.out.print(barajaInicial[i].getLabel() + " ");
-
-			}
-		}
-
-		System.out.println();
-		System.out.println("Baraja descartes");
-		for (int i = 0; i < barajaDescartes.length; i++) {
-			if (barajaDescartes[i] != null) {
-				System.out.print(barajaDescartes[i].getLabel() + " ");
-			}
-		}
-
-		barajaInicial[0].setBounds(20, 10, 90, 120);
+		printArrays();
 		clasico.add(barajaInicial[0]);
-
-		System.out.println();
-		System.out.println("Monton 1");
-		for (int i = 0; i < monton1.length; i++) {
-			if (monton1[i] != null) {
-				System.out.print(monton1[i].getLabel() + " ");
-			}
-		}
-
-		System.out.println();
-		System.out.println("Monton 2");
-		for (int i = 0; i < monton2.length; i++) {
-			if (monton2[i] != null) {
-
-				System.out.print(monton2[i].getLabel() + " ");
-			}
-		}
-
-		System.out.println();
-		System.out.println("Monton 3");
-		for (int i = 0; i < monton3.length; i++) {
-			if (monton3[i] != null) {
-				System.out.print(monton3[i].getLabel() + " ");
-			}
-		}
-		System.out.println();
-		System.out.println("Monton 4");
-
-		for (int i = 0; i < monton4.length; i++) {
-			if (monton4[i] != null) {
-				System.out.print(monton4[i].getLabel() + " ");
-			}
-		}
-
-		System.out.println();
-		System.out.println("Monton 5");
-		for (int i = 0; i < monton5.length; i++) {
-
-			if (monton5[i] != null) {
-				System.out.print(monton5[i].getLabel() + " ");
-			}
-		}
-
-		System.out.println();
-		System.out.println("Monton 6");
-		for (int i = 0; i < monton6.length; i++) {
-			if (monton6[i] != null) {
-				System.out.print(monton6[i].getLabel() + " ");
-			}
-		}
-
-		System.out.println();
-		System.out.println("Monton 7");
-
-		for (int i = 0; i < monton7.length; i++) {
-			if (monton7[i] != null) {
-				System.out.print(monton7[i].getLabel() + " ");
-			}
-		}
-		/* FIN DEBUG */
+		// TODO FALLO AL PULSAR ESTE BOTON
+		barajaInicial[0].addActionListener(this);
 
 	}
 
@@ -373,9 +299,11 @@ public class PanelClasico extends JPanel implements ActionListener {
 
 			segundaPulsacion = true;
 			strDestino = ((JButton) e.getSource()).getLabel();
-			mazoDestino = buscarMonton(strDestino);
+			mazoDestino = buscarMazo(strDestino);
 			posCartaDestino = buscarPosicion(strDestino);
-			System.out.println(mazoDestino  + " " + posCartaDestino);
+			cartaDestino = buscaCarta(strDestino);
+			System.out.println(mazoDestino + " " + posCartaDestino);
+
 			System.out.println("Destino:" + strDestino);
 			System.out.println();
 		}
@@ -383,8 +311,18 @@ public class PanelClasico extends JPanel implements ActionListener {
 		if (!primeraPulsacion) {
 			primeraPulsacion = true;
 			strAMover = ((JButton) e.getSource()).getLabel();
-			mazoAMover = buscarMonton(strAMover);
+			mazoAMover = buscarMazo(strAMover);
 			posCartaAMover = buscarPosicion(strAMover);
+			cartaAMover = buscaCarta(strAMover);
+			
+			//TODO BUSCAR LA FORMA DE HACER LO QUE PREGUNTP XIAN Y SOLUCIONO CON $
+			//TODO SOMBREAR EN LOS MANTONES LAS CARTAS QUE NO ESTA  DESABILITADAS CON .isEnabled()
+		//	for(int i = 0; i < mazoAMover.getClass().getName().length();i++) {
+				
+			//}
+			
+			
+			
 			System.out.println(mazoAMover + " " + posCartaAMover);
 			System.out.println("Origen: " + strAMover);
 			System.out.println();
@@ -392,6 +330,63 @@ public class PanelClasico extends JPanel implements ActionListener {
 		}
 
 		if (primeraPulsacion && segundaPulsacion) {
+
+			switch (mazoAMover) {
+			case "barajaInicial":
+				System.out.println("HOla");
+				if (mazoDestino == "monton1" || mazoDestino == "monton2" || mazoDestino == "monton3" || mazoDestino == "monton4"
+						|| mazoDestino == "monton5" || mazoDestino == "monton6" || mazoDestino == "monton7") {
+					
+					System.out.println(mazoAMover + "->" +  mazoDestino);
+
+				} else if (mazoDestino == "fin1" || mazoDestino == "fin2" || mazoDestino == "fin3"
+						|| mazoDestino == "fin4") {
+					System.out.println(mazoAMover + "->" +  mazoDestino);
+
+
+				}else if(mazoDestino == "barajaInicial") {
+					System.out.println("ERROR, NO SE PUEDE MOVER UNA BARAJA A SI MISMA");
+				}
+
+				break;
+
+			case "barajaDescartes":
+
+				break;
+			case "monton1":
+
+				break;
+			case "monton2":
+
+				break;
+			case "monton3":
+
+				break;
+			case "monton4":
+
+				break;
+			case "monton5":
+
+				break;
+			case "monton6":
+
+				break;
+			case "monton7":
+
+				break;
+
+			case "fin1":
+			case "fin2":
+			case "fin3":
+			case "fin4":
+				System.out.println("ERROR, NO SE PEUDE SACAR NADA DE ESTOS MAZOS");
+				break;
+
+			default:
+
+				System.out.println("ERROR INESPERADO A OCURRIDO");
+				break;
+			}
 
 			primeraPulsacion = false;
 			segundaPulsacion = false;
@@ -419,7 +414,7 @@ public class PanelClasico extends JPanel implements ActionListener {
 		return cartaRt;
 	}
 
-	private String buscarMonton(String carta) {
+	private String buscarMazo(String carta) {
 
 		String ret = "Error";
 
@@ -472,7 +467,6 @@ public class PanelClasico extends JPanel implements ActionListener {
 		return ret;
 	}
 
-	
 	private int buscarPosicion(String carta) {
 
 		int ret = -1;
@@ -544,6 +538,88 @@ public class PanelClasico extends JPanel implements ActionListener {
 			e.printStackTrace();
 		}
 
+	}
+
+	private void printArrays() {
+		/* DEBUSG */
+		System.out.println("Baraja inicial");
+		for (int i = 0; i < barajaInicial.length; i++) {
+			if (barajaInicial[i] != null) {
+				System.out.print(barajaInicial[i].getLabel() + " ");
+
+			}
+		}
+
+		System.out.println();
+		System.out.println("Baraja descartes");
+		for (int i = 0; i < barajaDescartes.length; i++) {
+			if (barajaDescartes[i] != null) {
+				System.out.print(barajaDescartes[i].getLabel() + " ");
+			}
+		}
+
+		
+
+		System.out.println();
+		System.out.println("Monton 1");
+		for (int i = 0; i < monton1.length; i++) {
+			if (monton1[i] != null) {
+				System.out.print(monton1[i].getLabel() + " ");
+			}
+		}
+
+		System.out.println();
+		System.out.println("Monton 2");
+		for (int i = 0; i < monton2.length; i++) {
+			if (monton2[i] != null) {
+
+				System.out.print(monton2[i].getLabel() + " ");
+			}
+		}
+
+		System.out.println();
+		System.out.println("Monton 3");
+		for (int i = 0; i < monton3.length; i++) {
+			if (monton3[i] != null) {
+				System.out.print(monton3[i].getLabel() + " ");
+			}
+		}
+		System.out.println();
+		System.out.println("Monton 4");
+
+		for (int i = 0; i < monton4.length; i++) {
+			if (monton4[i] != null) {
+				System.out.print(monton4[i].getLabel() + " ");
+			}
+		}
+
+		System.out.println();
+		System.out.println("Monton 5");
+		for (int i = 0; i < monton5.length; i++) {
+
+			if (monton5[i] != null) {
+				System.out.print(monton5[i].getLabel() + " ");
+			}
+		}
+
+		System.out.println();
+		System.out.println("Monton 6");
+		for (int i = 0; i < monton6.length; i++) {
+			if (monton6[i] != null) {
+				System.out.print(monton6[i].getLabel() + " ");
+			}
+		}
+
+		System.out.println();
+		System.out.println("Monton 7");
+
+		for (int i = 0; i < monton7.length; i++) {
+			if (monton7[i] != null) {
+				System.out.print(monton7[i].getLabel() + " ");
+			}
+		}
+		System.out.println();
+		/* FIN DEBUG */
 	}
 
 }
