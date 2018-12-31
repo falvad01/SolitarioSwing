@@ -30,23 +30,23 @@ public class PanelSaltos extends JPanel implements ActionListener {
 	private CartaEspañola[] ABaraja;
 
 	private String rutaJuego = null;
-	BufferedImage cartaImage;
+	private BufferedImage cartaImage;
 
 	private JButton[][] matrizBotones = new JButton[40][40];
 
-	boolean primeraPulsacion = false;
-	boolean segundaPulsacion = false;
+	private boolean primeraPulsacion = false;
+	private boolean segundaPulsacion = false;
 
-	String strAMover;
-	String strDestino;
+	private String strAMover;
+	private String strDestino;
 
-	int posToMove;
-	int posCartaAMover = 0;
-	int posCartaDestino = 0;
+	private int posToMove;
+	private int posCartaAMover = 0;
+	private int posCartaDestino = 0;
 
-	int posToDelete = 39;
+	private int posToDelete = 39;
 
-	boolean flagIntentos = false;
+	private boolean flagIntentos = false;
 	
 	StringBuilder jugadas;
 	/**
@@ -365,7 +365,7 @@ public class PanelSaltos extends JPanel implements ActionListener {
 
 	private int posicion(String carta) {
 
-		System.out.println("CARTA EN POSICION" + carta);
+		
 
 		int ret = -1;
 		for (int i = 0; i < 40; i++) {
