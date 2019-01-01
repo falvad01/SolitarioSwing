@@ -89,10 +89,10 @@ public class CartaFrancesa {
 
 	}
 
-	public int establecerValor(CartaFrancesa carta) {
+	public int establecerValor() {
 
-		int ret = -1;
-		switch (carta.getNum()) {
+		int ret = 0;
+		switch (this.getNum()) {
 		case 'A':
 			ret = 1;
 			break;
@@ -134,7 +134,7 @@ public class CartaFrancesa {
 			break;
 
 		default:
-			ret = -1;
+			ret = 0;
 			break;
 		}
 

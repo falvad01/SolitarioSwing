@@ -135,7 +135,6 @@ public class PanelClasico extends JPanel implements ActionListener {
 				barajaInicial[i] = new JButton(nombre.toString());
 				barajaInicial[i].setIcon(icono[i]);
 				barajaInicial[0].setBounds(20, 10, 90, 120);
-				
 
 			} else if (i == 23) { // Baraja Descartes
 
@@ -263,22 +262,22 @@ public class PanelClasico extends JPanel implements ActionListener {
 			nombre.delete(0, nombre.length());
 		}
 
-		fin1[0] = new JButton("º1º");
+		fin1[0] = new JButton("F");
 		fin1[0].setBounds(335, 10, 90, 120);
 		clasico.add(fin1[0]);
 		fin1[0].addActionListener(this);
 
-		fin2[0] = new JButton("º2º");
+		fin2[0] = new JButton("F");
 		fin2[0].setBounds(440, 10, 90, 120);
 		clasico.add(fin2[0]);
 		fin2[0].addActionListener(this);
 
-		fin3[0] = new JButton("º3º");
+		fin3[0] = new JButton("F");
 		fin3[0].setBounds(545, 10, 90, 120);
 		clasico.add(fin3[0]);
 		fin3[0].addActionListener(this);
 
-		fin4[0] = new JButton("º4º");
+		fin4[0] = new JButton("F");
 		fin4[0].setBounds(650, 10, 90, 120);
 		clasico.add(fin4[0]);
 		fin4[0].addActionListener(this);
@@ -314,15 +313,14 @@ public class PanelClasico extends JPanel implements ActionListener {
 			mazoAMover = buscarMazo(strAMover);
 			posCartaAMover = buscarPosicion(strAMover);
 			cartaAMover = buscaCarta(strAMover);
-			
-			//TODO BUSCAR LA FORMA DE HACER LO QUE PREGUNTP XIAN Y SOLUCIONO CON $
-			//TODO SOMBREAR EN LOS MANTONES LAS CARTAS QUE NO ESTA  DESABILITADAS CON .isEnabled()
-		//	for(int i = 0; i < mazoAMover.getClass().getName().length();i++) {
-				
-			//}
-			
-			
-			
+
+			// TODO BUSCAR LA FORMA DE HACER LO QUE PREGUNTP XIAN Y SOLUCIONO CON $
+			// TODO SOMBREAR EN LOS MANTONES LAS CARTAS QUE NO ESTA DESABILITADAS CON
+			// .isEnabled()
+			// for(int i = 0; i < mazoAMover.getClass().getName().length();i++) {
+
+			// }
+
 			System.out.println(mazoAMover + " " + posCartaAMover);
 			System.out.println("Origen: " + strAMover);
 			System.out.println();
@@ -331,51 +329,314 @@ public class PanelClasico extends JPanel implements ActionListener {
 
 		if (primeraPulsacion && segundaPulsacion) {
 
+//			System.out.println(cartaAMover.establecerValor());
+//			System.out.println(cartaDestino.establecerValor());
+
 			switch (mazoAMover) {
-			case "barajaInicial":
-				System.out.println("HOla");
-				if (mazoDestino == "monton1" || mazoDestino == "monton2" || mazoDestino == "monton3" || mazoDestino == "monton4"
-						|| mazoDestino == "monton5" || mazoDestino == "monton6" || mazoDestino == "monton7") {
-					
-					System.out.println(mazoAMover + "->" +  mazoDestino);
+			case "barajaInicial"://////////////////////////////////////////////////////////////////////////////////
+
+				if (mazoDestino == "monton1" || mazoDestino == "monton2" || mazoDestino == "monton3"
+						|| mazoDestino == "monton4" || mazoDestino == "monton5" || mazoDestino == "monton6"
+						|| mazoDestino == "monton7") {
+
+					System.out.println(mazoAMover + "->" + mazoDestino);
+
+					if (cartaAMover != null && ((cartaAMover.establecerValor() - 1) == cartaDestino.establecerValor())
+							&& !(cartaAMover.getColor().equals(cartaDestino.getColor()))) {// Comprobamos que la carta
+						// que movemos sea de un
+						// valor inmediatamente
+						// inferior y que el color
+						// sea distinto
+
+						System.out.println("MOVIMIENTO CORRECTO");
+
+					}else {
+						System.out.println("ERROR, MOVIMIENTO DESDE INICIO INCORRECTO");
+					}
 
 				} else if (mazoDestino == "fin1" || mazoDestino == "fin2" || mazoDestino == "fin3"
 						|| mazoDestino == "fin4") {
-					System.out.println(mazoAMover + "->" +  mazoDestino);
+					comprobarMovFin();
 
-
-				}else if(mazoDestino == "barajaInicial") {
+				} else if (mazoDestino == "barajaDescartes") {
+					System.out.println("Descartando Carta desde el " + mazoDestino);
+					// TODO mover a descartes
+				} else if (mazoDestino == "barajaInicial") {// Comprovacion de movimiento a si misma
 					System.out.println("ERROR, NO SE PUEDE MOVER UNA BARAJA A SI MISMA");
+				}
+
+			case "barajaDescartes"://////////////////////////////////////////////////////////////////////////////////
+
+				if (mazoDestino == "monton1" || mazoDestino == "monton2" || mazoDestino == "monton3"
+						|| mazoDestino == "monton4" || mazoDestino == "monton5" || mazoDestino == "monton6"
+						|| mazoDestino == "monton7") {
+
+					System.out.println(mazoAMover + "->" + mazoDestino);
+
+					if (cartaAMover != null && (cartaAMover.establecerValor() == (cartaDestino.establecerValor() - 1))
+							&& !(cartaAMover.getColor().equals(cartaDestino.getColor()))) { // Comprobamos que la carta
+																							// que movemos sea de un
+																							// valor inmediatamente
+																							// inferior y que el color
+																							// sea distinto
+
+						System.out.println("MOVIMIENTO CORRECTO");
+
+					}else {
+						System.out.println("ERROR, MOVIMIENTO DESDE DESCARTES INCORRECTO");
+					}
+
+				} else if (mazoDestino == "fin1" || mazoDestino == "fin2" || mazoDestino == "fin3"
+						|| mazoDestino == "fin4") {
+					comprobarMovFin();
+
+				} else if (mazoDestino == "barajaInicial") {
+					System.out.println("ERROR, NO SE PUEDE MOVER NADA A LA BARAJA INICIAL");
+				} else if (mazoDestino == "barajaDescartes") {
+					System.out.println("ERROR, NO SE PUEDE MOVER UNA CARTA A SI MISMA");
+				}
+
+				break;
+			case "monton1"://////////////////////////////////////////////////////////////////////////////////
+
+				if (mazoDestino == "monton2" || mazoDestino == "monton3" || mazoDestino == "monton4"
+						|| mazoDestino == "monton5" || mazoDestino == "monton6" || mazoDestino == "monton7") {
+
+					System.out.println(mazoAMover + "->" + mazoDestino);
+
+					if (cartaAMover != null && (cartaAMover.establecerValor() == (cartaDestino.establecerValor() - 1))
+							&& !(cartaAMover.getColor().equals(cartaDestino.getColor()))) { // Comprobamos que la carta
+																							// que movemos sea de un
+																							// valor inmediatamente
+																							// inferior y que el color
+																							// sea distinto
+
+						System.out.println("MOVIMIENTO CORRECTO");
+
+					}else {
+						System.out.println("ERROR, MOVIMIENTO ENTRE MONTONES INCORRECTO");
+					}
+
+				} else if (mazoDestino == "fin1" || mazoDestino == "fin2" || mazoDestino == "fin3"
+						|| mazoDestino == "fin4") {
+					comprobarMovFin();
+
+				} else if (mazoDestino == "barajaInicial") {
+					System.out.println("ERROR, NO SE PUEDE MOVER NADA A LA BARAJA INICIAL");
+				} else if (mazoDestino == "barajaDescartes") {
+					System.out.println("Descartando Carta desde el " + mazoDestino);
+					// TODO mover a descartes
+				} else if (mazoDestino == "monton1") {
+					System.out.println("ERROR, NO SE PUEDE MOVER LA CARTA A SI MISMA");
+				}
+
+				break;
+			case "monton2"://////////////////////////////////////////////////////////////////////////////////
+
+				if (mazoDestino == "monton1" || mazoDestino == "monton3" || mazoDestino == "monton4"
+						|| mazoDestino == "monton5" || mazoDestino == "monton6" || mazoDestino == "monton7") {
+
+					System.out.println(mazoAMover + "->" + mazoDestino);
+
+					if (cartaAMover != null && (cartaAMover.establecerValor() == (cartaDestino.establecerValor() - 1))
+							&& !(cartaAMover.getColor().equals(cartaDestino.getColor()))) { // Comprobamos que la carta
+																							// que movemos sea de un
+																							// valor inmediatamente
+																							// inferior y que el color
+																							// sea distinto
+
+						System.out.println("MOVIMIENTO CORRECTO");
+
+					}else {
+						System.out.println("ERROR, MOVIMIENTO ENTRE MONTONES INCORRECTO");
+					}
+
+				} else if (mazoDestino == "fin1" || mazoDestino == "fin2" || mazoDestino == "fin3"
+						|| mazoDestino == "fin4") {
+					comprobarMovFin();
+
+				} else if (mazoDestino == "barajaInicial") {
+					System.out.println("ERROR, NO SE PUEDE MOVER NADA A LA BARAJA INICIAL");
+				} else if (mazoDestino == "barajaDescartes") {
+					System.out.println("Descartando Carta desde el " + mazoDestino);
+					// TODO mover a descartes
+				} else if (mazoDestino == "monton2") {
+					System.out.println("ERROR, NO SE PUEDE MOVER LA CARTA A SI MISMA");
+				}
+
+				break;
+			case "monton3"://////////////////////////////////////////////////////////////////////////////////
+
+				if (mazoDestino == "monton1" || mazoDestino == "monton2" || mazoDestino == "monton4"
+						|| mazoDestino == "monton5" || mazoDestino == "monton6" || mazoDestino == "monton7") {
+
+					System.out.println(mazoAMover + "->" + mazoDestino);
+
+					if (cartaAMover != null && (cartaAMover.establecerValor() == (cartaDestino.establecerValor() - 1))
+							&& !(cartaAMover.getColor().equals(cartaDestino.getColor()))) { // Comprobamos que la carta
+																							// que movemos sea de un
+																							// valor inmediatamente
+																							// inferior y que el color
+																							// sea distinto
+
+						System.out.println("MOVIMIENTO CORRECTO");
+
+					}else {
+						System.out.println("ERROR, MOVIMIENTO ENTRE MONTONES INCORRECTO");
+					}
+
+				} else if (mazoDestino == "fin1" || mazoDestino == "fin2" || mazoDestino == "fin3"
+						|| mazoDestino == "fin4") {
+					comprobarMovFin();
+
+				} else if (mazoDestino == "barajaInicial") {
+					System.out.println("ERROR, NO SE PUEDE MOVER NADA A LA BARAJA INICIAL");
+				} else if (mazoDestino == "barajaDescartes") {
+					System.out.println("Descartando Carta desde el " + mazoDestino);
+					// TODO mover a descartes
+				} else if (mazoDestino == "monton3") {
+					System.out.println("ERROR, NO SE PUEDE MOVER LA CARTA A SI MISMA");
+				}
+
+				break;
+			case "monton4"://////////////////////////////////////////////////////////////////////////////////
+
+				if (mazoDestino == "monton1" || mazoDestino == "monton2" || mazoDestino == "monton3"
+						|| mazoDestino == "monton5" || mazoDestino == "monton6" || mazoDestino == "monton7") {
+
+					System.out.println(mazoAMover + "->" + mazoDestino);
+
+					if (cartaAMover != null && (cartaAMover.establecerValor() == (cartaDestino.establecerValor() - 1))
+							&& !(cartaAMover.getColor().equals(cartaDestino.getColor()))) { // Comprobamos que la carta
+																							// que movemos sea de un
+																							// valor inmediatamente
+																							// inferior y que el color
+																							// sea distinto
+
+						System.out.println("MOVIMIENTO CORRECTO");
+
+					}else {
+						System.out.println("ERROR, MOVIMIENTO ENTRE MONTONES INCORRECTO");
+					}
+
+				} else if (mazoDestino == "fin1" || mazoDestino == "fin2" || mazoDestino == "fin3"
+						|| mazoDestino == "fin4") {
+					comprobarMovFin();
+
+				} else if (mazoDestino == "barajaInicial") {
+					System.out.println("ERROR, NO SE PUEDE MOVER NADA A LA BARAJA INICIAL");
+				} else if (mazoDestino == "barajaDescartes") {
+					System.out.println("Descartando Carta desde el " + mazoDestino);
+					// TODO mover a descartes
+				} else if (mazoDestino == "monton4") {
+					System.out.println("ERROR, NO SE PUEDE MOVER LA CARTA A SI MISMA");
+				}
+
+				break;
+			case "monton5"://////////////////////////////////////////////////////////////////////////////////
+
+				if (mazoDestino == "monton1" || mazoDestino == "monton2" || mazoDestino == "monton3"
+						|| mazoDestino == "monton4" || mazoDestino == "monton6" || mazoDestino == "monton7") {
+
+					System.out.println(mazoAMover + "->" + mazoDestino);
+
+					if (cartaAMover != null && (cartaAMover.establecerValor() == (cartaDestino.establecerValor() - 1))
+							&& !(cartaAMover.getColor().equals(cartaDestino.getColor()))) { // Comprobamos que la carta
+																							// que movemos sea de un
+																							// valor inmediatamente
+																							// inferior y que el color
+																							// sea distinto
+
+						System.out.println("MOVIMIENTO CORRECTO");
+
+					}else {
+						System.out.println("ERROR, MOVIMIENTO ENTRE MONTONES INCORRECTO");
+					}
+
+				} else if (mazoDestino == "fin1" || mazoDestino == "fin2" || mazoDestino == "fin3"
+						|| mazoDestino == "fin4") {
+					comprobarMovFin();
+
+				} else if (mazoDestino == "barajaInicial") {
+					System.out.println("ERROR, NO SE PUEDE MOVER NADA A LA BARAJA INICIAL");
+				} else if (mazoDestino == "barajaDescartes") {
+					System.out.println("Descartando Carta desde el " + mazoDestino);
+					// TODO mover a descartes
+				} else if (mazoDestino == "monton5") {
+					System.out.println("ERROR, NO SE PUEDE MOVER LA CARTA A SI MISMA");
+				}
+
+				break;
+			case "monton6"://////////////////////////////////////////////////////////////////////////////////
+
+				if (mazoDestino == "monton1" || mazoDestino == "monton2" || mazoDestino == "monton3"
+						|| mazoDestino == "monton4" || mazoDestino == "monton5" || mazoDestino == "monton7") {
+
+					System.out.println(mazoAMover + "->" + mazoDestino);
+
+					if (cartaAMover != null && (cartaAMover.establecerValor() == (cartaDestino.establecerValor() - 1))
+							&& !(cartaAMover.getColor().equals(cartaDestino.getColor()))) { // Comprobamos que la carta
+																							// que movemos sea de un
+																							// valor inmediatamente
+																							// inferior y que el color
+																							// sea distinto
+
+						System.out.println("MOVIMIENTO CORRECTO");
+
+					}else {
+						System.out.println("ERROR, MOVIMIENTO ENTRE MONTONES INCORRECTO");
+					}
+
+				} else if (mazoDestino == "fin1" || mazoDestino == "fin2" || mazoDestino == "fin3"
+						|| mazoDestino == "fin4") {
+					comprobarMovFin();
+
+				} else if (mazoDestino == "barajaInicial") {
+					System.out.println("ERROR, NO SE PUEDE MOVER NADA A LA BARAJA INICIAL");
+				} else if (mazoDestino == "barajaDescartes") {
+					System.out.println("Descartando Carta desde el " + mazoDestino);
+					// TODO mover a descartes
+				} else if (mazoDestino == "monton6") {
+					System.out.println("ERROR, NO SE PUEDE MOVER LA CARTA A SI MISMA");
+				}
+
+				break;
+			case "monton7"://////////////////////////////////////////////////////////////////////////////////
+
+				if (mazoDestino == "monton1" || mazoDestino == "monton2" || mazoDestino == "monton3"
+						|| mazoDestino == "monton4" || mazoDestino == "monton5") {
+
+					System.out.println(mazoAMover + "->" + mazoDestino);
+
+					if (cartaAMover != null && (cartaAMover.establecerValor() == (cartaDestino.establecerValor() - 1))
+							&& !(cartaAMover.getColor().equals(cartaDestino.getColor()))) { // Comprobamos que la carta
+																							// que movemos sea de un
+																							// valor inmediatamente
+																							// inferior y que el color
+																							// sea distinto
+
+						System.out.println("MOVIMIENTO CORRECTO");
+
+					}else {
+						System.out.println("ERROR, MOVIMIENTO ENTRE MONTONES INCORRECTO");
+					}
+
+				} else if (mazoDestino == "fin1" || mazoDestino == "fin2" || mazoDestino == "fin3"
+						|| mazoDestino == "fin4") {
+					comprobarMovFin();
+
+				} else if (mazoDestino == "barajaInicial") {
+					System.out.println("ERROR, NO SE PUEDE MOVER NADA A LA BARAJA INICIAL");
+				} else if (mazoDestino == "barajaDescartes") {
+					System.out.println("Descartando Carta desde el " + mazoDestino);
+					// TODO mover a descartes
+				} else if (mazoDestino == "monton7") {
+					System.out.println("ERROR, NO SE PUEDE MOVER LA CARTA A SI MISMA");
 				}
 
 				break;
 
-			case "barajaDescartes":
-
-				break;
-			case "monton1":
-
-				break;
-			case "monton2":
-
-				break;
-			case "monton3":
-
-				break;
-			case "monton4":
-
-				break;
-			case "monton5":
-
-				break;
-			case "monton6":
-
-				break;
-			case "monton7":
-
-				break;
-
-			case "fin1":
+			case "fin1"://////////////////////////////////////////////////////////////////////////////////
 			case "fin2":
 			case "fin3":
 			case "fin4":
@@ -394,24 +655,61 @@ public class PanelClasico extends JPanel implements ActionListener {
 
 	}
 
+	/**
+	 * Comprobamos si el movimiento a fin seria correcto
+	 */
+	private void comprobarMovFin() {
+		System.out.println(mazoAMover + "->" + mazoDestino);
+
+		if (cartaDestino.getPalo() == 'F' && cartaDestino.getNum() == 'F') {
+			System.out.println("No hay inguna carta en el mazon fin");
+
+			if (cartaAMover.getNum() == 'A') {
+				System.out.println("Movimiento inicial a fin correcto");
+			} else {
+				System.out.println("ERROR, SI FIN ESTA VACIO SOLO SE PUEDE MOVER EL AS");
+			}
+		} else {
+			System.out.println("Hay cartas en el mazo fin");
+
+			if ((cartaAMover.getPalo() == cartaDestino.getPalo())
+					&& ((cartaAMover.establecerValor() + 1) == cartaDestino.establecerValor())) {
+
+				System.out.println("Movimiento a fin correcto");
+
+			} else {
+				System.out.println("ERROR, MOVIMIENTO A FIN INCORRECTO");
+			}
+		}
+	}
+
+	private void elegirMovimientos() {
+
+	}
+
 	private CartaFrancesa buscaCarta(String cartaStr) {
 
 		String[] parts = cartaStr.split("");
 
-		char chtNum = parts[0].charAt(0);
-		char chtPalo = parts[1].charAt(0);
-		CartaFrancesa cartaRt = null;
+		if (cartaStr.equals("F")) {
+			return new CartaFrancesa('F', 'F', null, null);
+		} else {
 
-		for (int i = 0; i < ABaraja.length; i++) {
+			char chtNum = parts[0].charAt(0);
+			char chtPalo = parts[1].charAt(0);
+			CartaFrancesa cartaRt = null;
 
-			if (ABaraja[i].getNum() == chtNum && ABaraja[i].getPalo() == chtPalo) {
+			for (int i = 0; i < ABaraja.length; i++) {
 
-				cartaRt = new CartaFrancesa(ABaraja[i]);// Copiamos la carta
+				if (ABaraja[i].getNum() == chtNum && ABaraja[i].getPalo() == chtPalo) {
+
+					cartaRt = new CartaFrancesa(ABaraja[i]);// Copiamos la carta
+				}
+
 			}
-
+			return cartaRt;
 		}
 
-		return cartaRt;
 	}
 
 	private String buscarMazo(String carta) {
@@ -557,8 +855,6 @@ public class PanelClasico extends JPanel implements ActionListener {
 				System.out.print(barajaDescartes[i].getLabel() + " ");
 			}
 		}
-
-		
 
 		System.out.println();
 		System.out.println("Monton 1");
