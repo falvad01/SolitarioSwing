@@ -8,7 +8,7 @@ import javax.swing.ImageIcon;
 public class Baraja {
 
 	private EJuego juego;
-	private CartaEspañola[] barajaEspañola;
+	private CartaEspaniola[] barajaEspaniola;
 	private CartaFrancesa[] barajaFrancesa;
 	
 	private int next;
@@ -35,8 +35,8 @@ public class Baraja {
 	 * 
 	 * @return
 	 */
-	public CartaEspañola[] getBarajaEspañola() {
-		return barajaEspañola;
+	public CartaEspaniola[] getBarajaEspaniola() {
+		return barajaEspaniola;
 	}
 	
 	public CartaFrancesa[] getBarajaFrancesa() {
@@ -47,8 +47,8 @@ public class Baraja {
 	 * 
 	 * @param baraja
 	 */
-	public void setBaraja(CartaEspañola[] baraja) {
-		this.barajaEspañola = baraja;
+	public void setBaraja(CartaEspaniola[] baraja) {
+		this.barajaEspaniola = baraja;
 	}
 
 	public void crearBarajaF() {
@@ -95,10 +95,10 @@ public class Baraja {
 	public void crearBarajaE() {
 		System.out.println("CREAR BARAJA ESPAÑOLA");
 
-		CartaEspañola carta;
+		CartaEspaniola carta;
 		StringBuilder pathBuilder = new StringBuilder();
 		String path;
-		barajaEspañola = new CartaEspañola[40];
+		barajaEspaniola = new CartaEspaniola[40];
 		ImageIcon imagen = null;
 
 		char[] paloE = { 'O', 'C', 'E', 'B' };
@@ -118,9 +118,9 @@ public class Baraja {
 					System.out.println("Carta no encontrada");
 				}
 
-				carta = new CartaEspañola(numeroE[i], paloE[j], imagen);
+				carta = new CartaEspaniola(numeroE[i], paloE[j], imagen);
 
-				barajaEspañola[next++] = carta;
+				barajaEspaniola[next++] = carta;
 
 				pathBuilder = new StringBuilder();
 
@@ -152,18 +152,18 @@ public class Baraja {
 	public void barajarE() {
 
 		int random;
-		CartaEspañola buffer = new CartaEspañola('H', 'H', null);
+		CartaEspaniola buffer = new CartaEspaniola('H', 'H', null);
 
 		int[] randomArray = new int[40];
-		for (int i = 0; i < barajaEspañola.length; i++) {
+		for (int i = 0; i < barajaEspaniola.length; i++) {
 
 			random = (int) (Math.random() * 39) + 1 - 1;
 
 			randomArray[i] = random;
 
-			buffer = barajaEspañola[random];
-			barajaEspañola[random] = barajaEspañola[i];
-			barajaEspañola[i] = buffer;
+			buffer = barajaEspaniola[random];
+			barajaEspaniola[random] = barajaEspaniola[i];
+			barajaEspaniola[i] = buffer;
 
 		}
 
@@ -173,9 +173,9 @@ public class Baraja {
 
 		StringBuilder out = new StringBuilder();
 
-		for (int i = 0; i < barajaEspañola.length; i++) {
+		for (int i = 0; i < barajaEspaniola.length; i++) {
 
-			out.append(barajaEspañola[i] + " ");
+			out.append(barajaEspaniola[i] + " ");
 		}
 
 		return out.toString();

@@ -27,7 +27,7 @@ public class PanelSaltos extends JPanel implements ActionListener {
 
 	private JPanel saltos;
 	private Baraja baraja;
-	private CartaEspañola[] ABaraja;
+	private CartaEspaniola[] ABaraja;
 
 	private String rutaJuego = null;
 	private BufferedImage cartaImage;
@@ -78,7 +78,7 @@ public class PanelSaltos extends JPanel implements ActionListener {
 
 		baraja.crearBarajaE();
 		baraja.barajarE();
-		ABaraja = baraja.getBarajaEspañola();
+		ABaraja = baraja.getBarajaEspaniola();
 
 		
 
@@ -197,8 +197,8 @@ public class PanelSaltos extends JPanel implements ActionListener {
 			if (posToMove == 1) {// Valido por un movimiento
 				System.out.println("JUGADA VALIDA POR MOVIMIENTOS, movemos 1");
 
-				CartaEspañola cartaAMover = buscaCarta(strAMover);
-				CartaEspañola cartaDestino = buscaCarta(strDestino);
+				CartaEspaniola cartaAMover = buscaCarta(strAMover);
+				CartaEspaniola cartaDestino = buscaCarta(strDestino);
 
 				if (cartaAMover.getNumero() == cartaDestino.getNumero()
 						|| cartaAMover.getPalo() == cartaDestino.getPalo()) { // La combinacion de cartas es correcta
@@ -219,8 +219,8 @@ public class PanelSaltos extends JPanel implements ActionListener {
 
 				System.out.println("JUGADA VALIDA POR MOVIMIENTOS, movemos 3");
 
-				CartaEspañola cartaAMover = buscaCarta(strAMover);
-				CartaEspañola cartaDestino = buscaCarta(strDestino);
+				CartaEspaniola cartaAMover = buscaCarta(strAMover);
+				CartaEspaniola cartaDestino = buscaCarta(strDestino);
 
 				if (cartaAMover.getNumero() == cartaDestino.getNumero()
 						|| cartaAMover.getPalo() == cartaDestino.getPalo()) { // La combinacion de cartas es correcta
@@ -343,19 +343,19 @@ public class PanelSaltos extends JPanel implements ActionListener {
 
 	}
 
-	private CartaEspañola buscaCarta(String cartaStr) {
+	private CartaEspaniola buscaCarta(String cartaStr) {
 
 		String[] parts = cartaStr.split("");
 
 		char chtNum = parts[0].charAt(0);
 		char chtPalo = parts[1].charAt(0);
-		CartaEspañola cartaRt = null;
+		CartaEspaniola cartaRt = null;
 
 		for (int i = 0; i < ABaraja.length; i++) {
 
 			if (ABaraja[i].getNumero() == chtNum && ABaraja[i].getPalo() == chtPalo) {
 
-				cartaRt = new CartaEspañola(ABaraja[i]);// Copiamos la carta
+				cartaRt = new CartaEspaniola(ABaraja[i]);// Copiamos la carta
 			}
 
 		}
