@@ -13,12 +13,6 @@ import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
-/**
- * 
- * TODO SELECCIONAR LA CARTA CLIKADA CON UN SOMBREADO
- * 
- */
-
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 
@@ -62,7 +56,7 @@ public class PanelClasico extends JPanel implements ActionListener {
 
 	CartaFrancesa cartaAMover;
 	CartaFrancesa cartaDestino;
-	
+
 	private int borrarInicio = 22;
 
 	public PanelClasico(JPanel panel) {
@@ -94,7 +88,7 @@ public class PanelClasico extends JPanel implements ActionListener {
 	}
 
 	public void iniciarJuegoClasico() {
-		System.out.println("ESTO ES UN METODO DE PRUEBA");
+
 		baraja.crearBarajaF();
 		baraja.barajarF();
 		ABaraja = baraja.getBarajaFrancesa();
@@ -102,7 +96,7 @@ public class PanelClasico extends JPanel implements ActionListener {
 //			System.out.print(ABaraja[i] + " ");
 //		}
 
-		//System.out.println("/n");
+		// System.out.println("/n");
 
 		pintarCartas();
 
@@ -119,7 +113,7 @@ public class PanelClasico extends JPanel implements ActionListener {
 		int i5 = 0;
 		int i6 = 0;
 		int i7 = 0;
-		
+
 		ImageIcon nul = null;
 
 		for (int i = 0; i < 52; i++) {
@@ -147,8 +141,8 @@ public class PanelClasico extends JPanel implements ActionListener {
 				barajaDescartes[0].setBounds(125, 10, 90, 120);
 				clasico.add(barajaDescartes[0]);
 				barajaDescartes[0].addActionListener(this);
-				
-				for(int j = 1; j < barajaDescartes.length; j++) {//Rellenamos el resto del array con nulos
+
+				for (int j = 1; j < barajaDescartes.length; j++) {// Rellenamos el resto del array con nulos
 					barajaDescartes[j] = new JButton("NuLo");
 					barajaDescartes[j].setIcon(nul);
 				}
@@ -291,9 +285,20 @@ public class PanelClasico extends JPanel implements ActionListener {
 		clasico.add(fin4[0]);
 		fin4[0].addActionListener(this);
 
+		for (int j = 1; j < fin1.length; j++) {// Rellenamos el resto del array con nulos
+			fin1[j] = new JButton("NuLo");
+			fin1[j].setIcon(nul);
+			fin2[j] = new JButton("NuLo");
+			fin2[j].setIcon(nul);
+			fin3[j] = new JButton("NuLo");
+			fin3[j].setIcon(nul);
+			fin4[j] = new JButton("NuLo");
+			fin4[j].setIcon(nul);
+		}
+
 		printArrays();
 		clasico.add(barajaInicial[0]);
-		// TODO FALLO AL PULSAR ESTE BOTON
+
 		barajaInicial[0].addActionListener(this);
 
 	}
@@ -365,7 +370,34 @@ public class PanelClasico extends JPanel implements ActionListener {
 
 				} else if (mazoDestino == "fin1" || mazoDestino == "fin2" || mazoDestino == "fin3"
 						|| mazoDestino == "fin4") {
-					comprobarMovFin();
+
+					String comFin = comprobarMovFin();
+
+					if (comFin.equals(null)) {
+
+					} else if (comFin.equals("vacio")) {
+						if (mazoDestino == "fin1") {
+
+							for (int i = 12; i >= 0; i--) {
+								if (i < 12) {
+
+									fin1[i + 1].setIcon(fin1[i].getIcon());
+									fin1[i + 1].setLabel(fin1[i].getLabel());
+
+								}
+							}
+							System.out.println("HOLA");
+							printArrays();
+
+							fin1[0].setIcon(barajaInicial[0].getIcon());
+							fin1[0].setLabel(barajaInicial[0].getLabel());
+						}
+
+						subirBarajaInicial();
+
+					} else if (comFin.equals("conCartas")) {
+
+					}
 
 				} else if (mazoDestino == "barajaDescartes") {
 					System.out.println("Descartando Carta desde el " + mazoAMover);
@@ -433,8 +465,8 @@ public class PanelClasico extends JPanel implements ActionListener {
 				} else if (mazoDestino == "barajaInicial") {
 					System.out.println("ERROR, NO SE PUEDE MOVER NADA A LA BARAJA INICIAL");
 				} else if (mazoDestino == "barajaDescartes") {
-					System.out.println("Descartando Carta desde el " + mazoAMover);
-					// TODO mover a descartes
+					System.out.println("ERROR, NO SE PUEDEN DESCARTAR CARTAS DESDE" + mazoAMover);
+
 				} else if (mazoDestino == "monton1") {
 					System.out.println("ERROR, NO SE PUEDE MOVER LA CARTA A SI MISMA");
 				}
@@ -467,8 +499,7 @@ public class PanelClasico extends JPanel implements ActionListener {
 				} else if (mazoDestino == "barajaInicial") {
 					System.out.println("ERROR, NO SE PUEDE MOVER NADA A LA BARAJA INICIAL");
 				} else if (mazoDestino == "barajaDescartes") {
-					System.out.println("Descartando Carta desde el " + mazoAMover);
-					// TODO mover a descartes
+					System.out.println("ERROR, NO SE PUEDEN DESCARTAR CARTAS DESDE" + mazoAMover);
 				} else if (mazoDestino == "monton2") {
 					System.out.println("ERROR, NO SE PUEDE MOVER LA CARTA A SI MISMA");
 				}
@@ -501,8 +532,7 @@ public class PanelClasico extends JPanel implements ActionListener {
 				} else if (mazoDestino == "barajaInicial") {
 					System.out.println("ERROR, NO SE PUEDE MOVER NADA A LA BARAJA INICIAL");
 				} else if (mazoDestino == "barajaDescartes") {
-					System.out.println("Descartando Carta desde el " + mazoAMover);
-					// TODO mover a descartes
+					System.out.println("ERROR, NO SE PUEDEN DESCARTAR CARTAS DESDE" + mazoAMover);
 				} else if (mazoDestino == "monton3") {
 					System.out.println("ERROR, NO SE PUEDE MOVER LA CARTA A SI MISMA");
 				}
@@ -535,8 +565,7 @@ public class PanelClasico extends JPanel implements ActionListener {
 				} else if (mazoDestino == "barajaInicial") {
 					System.out.println("ERROR, NO SE PUEDE MOVER NADA A LA BARAJA INICIAL");
 				} else if (mazoDestino == "barajaDescartes") {
-					System.out.println("Descartando Carta desde el " + mazoAMover);
-					// TODO mover a descartes
+					System.out.println("ERROR, NO SE PUEDEN DESCARTAR CARTAS DESDE" + mazoAMover);
 				} else if (mazoDestino == "monton4") {
 					System.out.println("ERROR, NO SE PUEDE MOVER LA CARTA A SI MISMA");
 				}
@@ -569,8 +598,7 @@ public class PanelClasico extends JPanel implements ActionListener {
 				} else if (mazoDestino == "barajaInicial") {
 					System.out.println("ERROR, NO SE PUEDE MOVER NADA A LA BARAJA INICIAL");
 				} else if (mazoDestino == "barajaDescartes") {
-					System.out.println("Descartando Carta desde el " + mazoAMover);
-					// TODO mover a descartes
+					System.out.println("ERROR, NO SE PUEDEN DESCARTAR CARTAS DESDE" + mazoAMover);
 				} else if (mazoDestino == "monton5") {
 					System.out.println("ERROR, NO SE PUEDE MOVER LA CARTA A SI MISMA");
 				}
@@ -603,8 +631,7 @@ public class PanelClasico extends JPanel implements ActionListener {
 				} else if (mazoDestino == "barajaInicial") {
 					System.out.println("ERROR, NO SE PUEDE MOVER NADA A LA BARAJA INICIAL");
 				} else if (mazoDestino == "barajaDescartes") {
-					System.out.println("Descartando Carta desde el " + mazoAMover);
-					// TODO mover a descartes
+					System.out.println("ERROR, NO SE PUEDEN DESCARTAR CARTAS DESDE" + mazoAMover);
 				} else if (mazoDestino == "monton6") {
 					System.out.println("ERROR, NO SE PUEDE MOVER LA CARTA A SI MISMA");
 				}
@@ -632,13 +659,11 @@ public class PanelClasico extends JPanel implements ActionListener {
 
 				} else if (mazoDestino == "fin1" || mazoDestino == "fin2" || mazoDestino == "fin3"
 						|| mazoDestino == "fin4") {
-					comprobarMovFin();
 
 				} else if (mazoDestino == "barajaInicial") {
 					System.out.println("ERROR, NO SE PUEDE MOVER NADA A LA BARAJA INICIAL");
 				} else if (mazoDestino == "barajaDescartes") {
-					System.out.println("Descartando Carta desde el " + mazoAMover);
-					// TODO mover a descartes
+					System.out.println("ERROR, NO SE PUEDEN DESCARTAR CARTAS DESDE" + mazoAMover);
 				} else if (mazoDestino == "monton7") {
 					System.out.println("ERROR, NO SE PUEDE MOVER LA CARTA A SI MISMA");
 				}
@@ -657,7 +682,7 @@ public class PanelClasico extends JPanel implements ActionListener {
 				System.out.println("ERROR INESPERADO A OCURRIDO");
 				break;
 			}
-
+			printArrays();
 			primeraPulsacion = false;
 			segundaPulsacion = false;
 		}
@@ -667,7 +692,7 @@ public class PanelClasico extends JPanel implements ActionListener {
 	/**
 	 * Comprobamos si el movimiento a fin seria correcto
 	 */
-	private void comprobarMovFin() {
+	private String comprobarMovFin() {
 		System.out.println(mazoAMover + "->" + mazoDestino);
 
 		if (cartaDestino.getPalo() == 'F' && cartaDestino.getNum() == 'F') {
@@ -675,6 +700,8 @@ public class PanelClasico extends JPanel implements ActionListener {
 
 			if (cartaAMover.getNum() == 'A') {
 				System.out.println("Movimiento inicial a fin correcto");
+				return "vacio";
+
 			} else {
 				System.out.println("ERROR, SI FIN ESTA VACIO SOLO SE PUEDE MOVER EL AS");
 			}
@@ -685,42 +712,47 @@ public class PanelClasico extends JPanel implements ActionListener {
 					&& ((cartaAMover.establecerValor() + 1) == cartaDestino.establecerValor())) {
 
 				System.out.println("Movimiento a fin correcto");
+				return "ConCartas";
 
 			} else {
 				System.out.println("ERROR, MOVIMIENTO A FIN INCORRECTO");
 			}
 		}
+
+		return null;
 	}
 
+	/**
+	 * Metodo para descartar cartas
+	 */
 	private void descartarCarta() {
 
-		//TODO
+		for (int i = 22; i >= 0; i--) {
+			if (i < 22) {
 
-			for (int i = 22; i >= 0; i--) {
-				if (i < 22) {
-					
-					barajaDescartes[i + 1].setIcon(barajaDescartes[i].getIcon());
-					barajaDescartes[i + 1].setLabel(barajaDescartes[i].getLabel());
-					
-				}
+				barajaDescartes[i + 1].setIcon(barajaDescartes[i].getIcon());
+				barajaDescartes[i + 1].setLabel(barajaDescartes[i].getLabel());
+
 			}
-			
+		}
 
-			barajaDescartes[0].setIcon(barajaInicial[0].getIcon());
-			barajaDescartes[0].setLabel(barajaInicial[0].getLabel());
-			
-			for (int i = 0; i < 22; i++) {
+		barajaDescartes[0].setIcon(barajaInicial[0].getIcon());
+		barajaDescartes[0].setLabel(barajaInicial[0].getLabel());
 
-				if (barajaInicial[i] != null) {
-					barajaInicial[i].setIcon(barajaInicial[i + 1].getIcon());
-					barajaInicial[i].setLabel(barajaInicial[i + 1].getLabel());
-				}
+		subirBarajaInicial();
+
+	}
+
+	private void subirBarajaInicial() {
+		for (int i = 0; i < 22; i++) {
+
+			if (barajaInicial[i] != null) {
+				barajaInicial[i].setIcon(barajaInicial[i + 1].getIcon());
+				barajaInicial[i].setLabel(barajaInicial[i + 1].getLabel());
 			}
-			
-			barajaInicial[borrarInicio--] = new JButton("NuLo");
-			printArrays();
-			
+		}
 
+		barajaInicial[borrarInicio--] = new JButton("NuLo");
 	}
 
 	private CartaFrancesa buscaCarta(String cartaStr) {
@@ -887,9 +919,9 @@ public class PanelClasico extends JPanel implements ActionListener {
 		System.out.println();
 		System.out.println("Baraja descartes");
 		for (int i = 0; i < barajaDescartes.length; i++) {
-			//if (barajaDescartes[i] != null) {
-				System.out.print(barajaDescartes[i].getLabel() + " ");
-			//}
+			// if (barajaDescartes[i] != null) {
+			System.out.print(barajaDescartes[i].getLabel() + " ");
+			// }
 		}
 
 		System.out.println();
@@ -949,6 +981,36 @@ public class PanelClasico extends JPanel implements ActionListener {
 			if (monton7[i] != null) {
 				System.out.print(monton7[i].getLabel() + " ");
 			}
+		}
+
+		System.out.println();
+		System.out.println("Fin 1");
+
+		for (int i = 0; i < fin1.length; i++) {
+			System.out.print(fin1[i].getLabel() + " ");
+		}
+
+		System.out.println();
+		System.out.println("Fin 2 ");
+
+		for (int i = 0; i < fin2.length; i++) {
+			System.out.print(fin2[i].getLabel() + " ");
+
+		}
+		System.out.println();
+		System.out.println("Fin 3");
+
+		for (int i = 0; i < fin3.length; i++) {
+			System.out.print(fin3[i].getLabel() + " ");
+
+		}
+
+		System.out.println();
+		System.out.println("Fin 4");
+
+		for (int i = 0; i < fin4.length; i++) {
+			System.out.print(fin4[i].getLabel() + " ");
+
 		}
 		System.out.println();
 		/* FIN DEBUG */
