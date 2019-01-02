@@ -265,22 +265,22 @@ public class PanelClasico extends JPanel implements ActionListener {
 			nombre.delete(0, nombre.length());
 		}
 
-		fin1[0] = new JButton("F");
+		fin1[0] = new JButton("F1");
 		fin1[0].setBounds(335, 10, 90, 120);
 		clasico.add(fin1[0]);
 		fin1[0].addActionListener(this);
 
-		fin2[0] = new JButton("F");
+		fin2[0] = new JButton("F2");
 		fin2[0].setBounds(440, 10, 90, 120);
 		clasico.add(fin2[0]);
 		fin2[0].addActionListener(this);
 
-		fin3[0] = new JButton("F");
+		fin3[0] = new JButton("F3");
 		fin3[0].setBounds(545, 10, 90, 120);
 		clasico.add(fin3[0]);
 		fin3[0].addActionListener(this);
 
-		fin4[0] = new JButton("F");
+		fin4[0] = new JButton("F4");
 		fin4[0].setBounds(650, 10, 90, 120);
 		clasico.add(fin4[0]);
 		fin4[0].addActionListener(this);
@@ -373,9 +373,11 @@ public class PanelClasico extends JPanel implements ActionListener {
 
 					String comFin = comprobarMovFin();
 
-					if (comFin.equals(null)) {
+					
 
-					} else if (comFin.equals("vacio")) {
+					if (comFin.equals("vacio") || comFin.equals("conCartas")) {
+						System.out.println("HOla");
+						//TODO en proceso de terminar fin para cunado ya hay cartas
 						if (mazoDestino == "fin1") {
 
 							for (int i = 12; i >= 0; i--) {
@@ -386,17 +388,113 @@ public class PanelClasico extends JPanel implements ActionListener {
 
 								}
 							}
-							System.out.println("HOLA");
-							printArrays();
 
 							fin1[0].setIcon(barajaInicial[0].getIcon());
 							fin1[0].setLabel(barajaInicial[0].getLabel());
+
+						} else if (mazoDestino == "fin2") {
+							System.out.println("Mazo 2");
+							for (int i = 12; i >= 0; i--) {
+								if (i < 12) {
+
+									fin2[i + 1].setIcon(fin2[i].getIcon());
+									fin2[i + 1].setLabel(fin2[i].getLabel());
+
+								}
+							}
+
+							fin2[0].setIcon(barajaInicial[0].getIcon());
+							fin2[0].setLabel(barajaInicial[0].getLabel());
+
+						} else if (mazoDestino == "fin3") {
+							for (int i = 12; i >= 0; i--) {
+								if (i < 12) {
+
+									fin3[i + 1].setIcon(fin3[i].getIcon());
+									fin3[i + 1].setLabel(fin3[i].getLabel());
+
+								}
+							}
+
+							fin3[0].setIcon(barajaInicial[0].getIcon());
+							fin3[0].setLabel(barajaInicial[0].getLabel());
+						} else if (mazoDestino == "fin4") {
+							for (int i = 12; i >= 0; i--) {
+								if (i < 12) {
+
+									fin4[i + 1].setIcon(fin4[i].getIcon());
+									fin4[i + 1].setLabel(fin4[i].getLabel());
+
+								}
+							}
+
+							fin4[0].setIcon(barajaInicial[0].getIcon());
+							fin4[0].setLabel(barajaInicial[0].getLabel());
 						}
 
 						subirBarajaInicial();
 
 					} else if (comFin.equals("conCartas")) {
-
+//						
+//						if(cartaAMover.establecerValor() == cartaDestino.establecerValor() + 1) {
+//							
+//							if (mazoDestino == "fin1") {
+//
+//								for (int i = 12; i >= 0; i--) {
+//									if (i < 12) {
+//
+//										fin1[i + 1].setIcon(fin1[i].getIcon());
+//										fin1[i + 1].setLabel(fin1[i].getLabel());
+//
+//									}
+//								}
+//
+//								fin1[0].setIcon(barajaInicial[0].getIcon());
+//								fin1[0].setLabel(barajaInicial[0].getLabel());
+//
+//							} else if (mazoDestino == "fin2") {
+//								System.out.println("Mazo 2");
+//								for (int i = 12; i >= 0; i--) {
+//									if (i < 12) {
+//
+//										fin2[i + 1].setIcon(fin2[i].getIcon());
+//										fin2[i + 1].setLabel(fin2[i].getLabel());
+//
+//									}
+//								}
+//
+//								fin2[0].setIcon(barajaInicial[0].getIcon());
+//								fin2[0].setLabel(barajaInicial[0].getLabel());
+//
+//							} else if (mazoDestino == "fin3") {
+//								for (int i = 12; i >= 0; i--) {
+//									if (i < 12) {
+//
+//										fin3[i + 1].setIcon(fin3[i].getIcon());
+//										fin3[i + 1].setLabel(fin3[i].getLabel());
+//
+//									}
+//								}
+//
+//								fin3[0].setIcon(barajaInicial[0].getIcon());
+//								fin3[0].setLabel(barajaInicial[0].getLabel());
+//							} else if (mazoDestino == "fin4") {
+//								for (int i = 12; i >= 0; i--) {
+//									if (i < 12) {
+//
+//										fin4[i + 1].setIcon(fin4[i].getIcon());
+//										fin4[i + 1].setLabel(fin4[i].getLabel());
+//
+//									}
+//								}
+//
+//								fin4[0].setIcon(barajaInicial[0].getIcon());
+//								fin4[0].setLabel(barajaInicial[0].getLabel());
+//							}
+//							
+//						}
+						
+						
 					}
 
 				} else if (mazoDestino == "barajaDescartes") {
@@ -709,7 +807,7 @@ public class PanelClasico extends JPanel implements ActionListener {
 			System.out.println("Hay cartas en el mazo fin");
 
 			if ((cartaAMover.getPalo() == cartaDestino.getPalo())
-					&& ((cartaAMover.establecerValor() + 1) == cartaDestino.establecerValor())) {
+					&& (cartaAMover.establecerValor()  == (cartaDestino.establecerValor() + 1))) {
 
 				System.out.println("Movimiento a fin correcto");
 				return "ConCartas";
@@ -759,7 +857,7 @@ public class PanelClasico extends JPanel implements ActionListener {
 
 		String[] parts = cartaStr.split("");
 
-		if (cartaStr.equals("F")) {
+		if (cartaStr.equals("F1") || cartaStr.equals("F2") || cartaStr.equals("F3") || cartaStr.equals("F4")) {
 			return new CartaFrancesa('F', 'F', null, null);
 		} else {
 
