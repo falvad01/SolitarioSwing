@@ -339,7 +339,7 @@ public class PanelSaltos extends JPanel implements ActionListener {
 			}
 		}
 
-		;
+		
 
 	}
 
