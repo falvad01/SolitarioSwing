@@ -66,10 +66,11 @@ public class PanelClasico extends JPanel implements ActionListener {
 		barajaInicial = new JButton[23];
 		barajaDescartes = new JButton[24];
 
-		fin1 = new JButton[13];
-		fin2 = new JButton[13];
-		fin3 = new JButton[13];
-		fin4 = new JButton[13];
+		fin1 = new JButton[14];// Tiene uno mas de tamaño de lo que deberia debido a la carta cebo que esta en
+								// primer lugar
+		fin2 = new JButton[14];
+		fin3 = new JButton[14];
+		fin4 = new JButton[14];
 
 		monton1 = new JButton[52];
 		monton2 = new JButton[52];
@@ -343,9 +344,6 @@ public class PanelClasico extends JPanel implements ActionListener {
 
 		if (primeraPulsacion && segundaPulsacion) {
 
-//			System.out.println(cartaAMover.establecerValor());
-//			System.out.println(cartaDestino.establecerValor());
-
 			switch (mazoAMover) {
 			case "barajaInicial"://////////////////////////////////////////////////////////////////////////////////
 
@@ -371,17 +369,16 @@ public class PanelClasico extends JPanel implements ActionListener {
 				} else if (mazoDestino == "fin1" || mazoDestino == "fin2" || mazoDestino == "fin3"
 						|| mazoDestino == "fin4") {
 
-					String comFin = comprobarMovFin();
+					boolean comFin = comprobarMovFin();
 
-					
-
-					if (comFin.equals("vacio") || comFin.equals("conCartas")) {
+					if (comFin) {
 						System.out.println("HOla");
-						//TODO en proceso de terminar fin para cunado ya hay cartas
+						// TODO en proceso de terminar fin para cunado ya hay cartas
 						if (mazoDestino == "fin1") {
+							System.out.println("Mazo 1");
+							for (int i = 13; i >= 0; i--) {
 
-							for (int i = 12; i >= 0; i--) {
-								if (i < 12) {
+								if (i < 13) {
 
 									fin1[i + 1].setIcon(fin1[i].getIcon());
 									fin1[i + 1].setLabel(fin1[i].getLabel());
@@ -393,9 +390,10 @@ public class PanelClasico extends JPanel implements ActionListener {
 							fin1[0].setLabel(barajaInicial[0].getLabel());
 
 						} else if (mazoDestino == "fin2") {
+
 							System.out.println("Mazo 2");
-							for (int i = 12; i >= 0; i--) {
-								if (i < 12) {
+							for (int i = 13; i >= 0; i--) {
+								if (i < 13) {
 
 									fin2[i + 1].setIcon(fin2[i].getIcon());
 									fin2[i + 1].setLabel(fin2[i].getLabel());
@@ -407,8 +405,9 @@ public class PanelClasico extends JPanel implements ActionListener {
 							fin2[0].setLabel(barajaInicial[0].getLabel());
 
 						} else if (mazoDestino == "fin3") {
-							for (int i = 12; i >= 0; i--) {
-								if (i < 12) {
+
+							for (int i = 13; i >= 0; i--) {
+								if (i < 13) {
 
 									fin3[i + 1].setIcon(fin3[i].getIcon());
 									fin3[i + 1].setLabel(fin3[i].getLabel());
@@ -418,9 +417,11 @@ public class PanelClasico extends JPanel implements ActionListener {
 
 							fin3[0].setIcon(barajaInicial[0].getIcon());
 							fin3[0].setLabel(barajaInicial[0].getLabel());
+
 						} else if (mazoDestino == "fin4") {
-							for (int i = 12; i >= 0; i--) {
-								if (i < 12) {
+
+							for (int i = 13; i >= 0; i--) {
+								if (i < 13) {
 
 									fin4[i + 1].setIcon(fin4[i].getIcon());
 									fin4[i + 1].setLabel(fin4[i].getLabel());
@@ -434,67 +435,6 @@ public class PanelClasico extends JPanel implements ActionListener {
 
 						subirBarajaInicial();
 
-					} else if (comFin.equals("conCartas")) {
-//						
-//						if(cartaAMover.establecerValor() == cartaDestino.establecerValor() + 1) {
-//							
-//							if (mazoDestino == "fin1") {
-//
-//								for (int i = 12; i >= 0; i--) {
-//									if (i < 12) {
-//
-//										fin1[i + 1].setIcon(fin1[i].getIcon());
-//										fin1[i + 1].setLabel(fin1[i].getLabel());
-//
-//									}
-//								}
-//
-//								fin1[0].setIcon(barajaInicial[0].getIcon());
-//								fin1[0].setLabel(barajaInicial[0].getLabel());
-//
-//							} else if (mazoDestino == "fin2") {
-//								System.out.println("Mazo 2");
-//								for (int i = 12; i >= 0; i--) {
-//									if (i < 12) {
-//
-//										fin2[i + 1].setIcon(fin2[i].getIcon());
-//										fin2[i + 1].setLabel(fin2[i].getLabel());
-//
-//									}
-//								}
-//
-//								fin2[0].setIcon(barajaInicial[0].getIcon());
-//								fin2[0].setLabel(barajaInicial[0].getLabel());
-//
-//							} else if (mazoDestino == "fin3") {
-//								for (int i = 12; i >= 0; i--) {
-//									if (i < 12) {
-//
-//										fin3[i + 1].setIcon(fin3[i].getIcon());
-//										fin3[i + 1].setLabel(fin3[i].getLabel());
-//
-//									}
-//								}
-//
-//								fin3[0].setIcon(barajaInicial[0].getIcon());
-//								fin3[0].setLabel(barajaInicial[0].getLabel());
-//							} else if (mazoDestino == "fin4") {
-//								for (int i = 12; i >= 0; i--) {
-//									if (i < 12) {
-//
-//										fin4[i + 1].setIcon(fin4[i].getIcon());
-//										fin4[i + 1].setLabel(fin4[i].getLabel());
-//
-//									}
-//								}
-//
-//								fin4[0].setIcon(barajaInicial[0].getIcon());
-//								fin4[0].setLabel(barajaInicial[0].getLabel());
-//							}
-//							
-//						}
-						
-						
 					}
 
 				} else if (mazoDestino == "barajaDescartes") {
@@ -527,7 +467,73 @@ public class PanelClasico extends JPanel implements ActionListener {
 
 				} else if (mazoDestino == "fin1" || mazoDestino == "fin2" || mazoDestino == "fin3"
 						|| mazoDestino == "fin4") {
-					comprobarMovFin();
+					boolean comFin = comprobarMovFin();
+
+					if (comFin) {
+						System.out.println("HOla");
+						// TODO en proceso de terminar fin para cunado ya hay cartas
+						if (mazoDestino == "fin1") {
+							System.out.println("Mazo 1");
+							for (int i = 13; i >= 0; i--) {
+
+								if (i < 13) {
+
+									fin1[i + 1].setIcon(fin1[i].getIcon());
+									fin1[i + 1].setLabel(fin1[i].getLabel());
+
+								}
+							}
+
+							fin1[0].setIcon(barajaDescartes[0].getIcon());
+							fin1[0].setLabel(barajaDescartes[0].getLabel());
+
+						} else if (mazoDestino == "fin2") {
+
+							System.out.println("Mazo 2");
+							for (int i = 13; i >= 0; i--) {
+								if (i < 13) {
+
+									fin2[i + 1].setIcon(fin2[i].getIcon());
+									fin2[i + 1].setLabel(fin2[i].getLabel());
+
+								}
+							}
+
+							fin2[0].setIcon(barajaDescartes[0].getIcon());
+							fin2[0].setLabel(barajaDescartes[0].getLabel());
+
+						} else if (mazoDestino == "fin3") {
+
+							for (int i = 13; i >= 0; i--) {
+								if (i < 13) {
+
+									fin3[i + 1].setIcon(fin3[i].getIcon());
+									fin3[i + 1].setLabel(fin3[i].getLabel());
+
+								}
+							}
+
+							fin3[0].setIcon(barajaDescartes[0].getIcon());
+							fin3[0].setLabel(barajaDescartes[0].getLabel());
+
+						} else if (mazoDestino == "fin4") {
+
+							for (int i = 13; i >= 0; i--) {
+								if (i < 13) {
+
+									fin4[i + 1].setIcon(fin4[i].getIcon());
+									fin4[i + 1].setLabel(fin4[i].getLabel());
+
+								}
+							}
+
+							fin4[0].setIcon(barajaDescartes[0].getIcon());
+							fin4[0].setLabel(barajaDescartes[0].getLabel());
+						}
+
+						subirBarajaDescartes();
+
+					}
 
 				} else if (mazoDestino == "barajaInicial") {
 					System.out.println("ERROR, NO SE PUEDE MOVER NADA A LA BARAJA INICIAL");
@@ -559,6 +565,10 @@ public class PanelClasico extends JPanel implements ActionListener {
 				} else if (mazoDestino == "fin1" || mazoDestino == "fin2" || mazoDestino == "fin3"
 						|| mazoDestino == "fin4") {
 					comprobarMovFin();
+
+					// TODO pensar en como mover las cartas de los mazos, y tener en cueenta que se
+					// puden poner botones delante de las ultimas cartas, por lo que seria bueno
+					// poner botones en invisible delante, habria que jugar con ocultar y desocultar botones
 
 				} else if (mazoDestino == "barajaInicial") {
 					System.out.println("ERROR, NO SE PUEDE MOVER NADA A LA BARAJA INICIAL");
@@ -592,7 +602,6 @@ public class PanelClasico extends JPanel implements ActionListener {
 
 				} else if (mazoDestino == "fin1" || mazoDestino == "fin2" || mazoDestino == "fin3"
 						|| mazoDestino == "fin4") {
-					comprobarMovFin();
 
 				} else if (mazoDestino == "barajaInicial") {
 					System.out.println("ERROR, NO SE PUEDE MOVER NADA A LA BARAJA INICIAL");
@@ -790,7 +799,7 @@ public class PanelClasico extends JPanel implements ActionListener {
 	/**
 	 * Comprobamos si el movimiento a fin seria correcto
 	 */
-	private String comprobarMovFin() {
+	private boolean comprobarMovFin() {
 		System.out.println(mazoAMover + "->" + mazoDestino);
 
 		if (cartaDestino.getPalo() == 'F' && cartaDestino.getNum() == 'F') {
@@ -798,26 +807,27 @@ public class PanelClasico extends JPanel implements ActionListener {
 
 			if (cartaAMover.getNum() == 'A') {
 				System.out.println("Movimiento inicial a fin correcto");
-				return "vacio";
+				return true;
 
 			} else {
 				System.out.println("ERROR, SI FIN ESTA VACIO SOLO SE PUEDE MOVER EL AS");
+				return false;
 			}
 		} else {
 			System.out.println("Hay cartas en el mazo fin");
 
 			if ((cartaAMover.getPalo() == cartaDestino.getPalo())
-					&& (cartaAMover.establecerValor()  == (cartaDestino.establecerValor() + 1))) {
+					&& (cartaAMover.establecerValor() == (cartaDestino.establecerValor() + 1))) {
 
 				System.out.println("Movimiento a fin correcto");
-				return "ConCartas";
+				return true;
 
 			} else {
 				System.out.println("ERROR, MOVIMIENTO A FIN INCORRECTO");
+				return false;
 			}
 		}
 
-		return null;
 	}
 
 	/**
@@ -842,6 +852,7 @@ public class PanelClasico extends JPanel implements ActionListener {
 	}
 
 	private void subirBarajaInicial() {
+
 		for (int i = 0; i < 22; i++) {
 
 			if (barajaInicial[i] != null) {
@@ -851,6 +862,19 @@ public class PanelClasico extends JPanel implements ActionListener {
 		}
 
 		barajaInicial[borrarInicio--] = new JButton("NuLo");
+	}
+
+	private void subirBarajaDescartes() {
+
+		for (int i = 0; i < 22; i++) {
+
+			if (barajaDescartes[i] != null) {
+				barajaDescartes[i].setIcon(barajaDescartes[i + 1].getIcon());
+				barajaDescartes[i].setLabel(barajaDescartes[i + 1].getLabel());
+			}
+		}
+
+		// TODO
 	}
 
 	private CartaFrancesa buscaCarta(String cartaStr) {
