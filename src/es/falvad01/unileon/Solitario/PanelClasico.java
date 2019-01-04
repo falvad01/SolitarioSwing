@@ -72,13 +72,13 @@ public class PanelClasico extends JPanel implements ActionListener {
 		fin3 = new JButton[14];
 		fin4 = new JButton[14];
 
-		monton1 = new JButton[52];
-		monton2 = new JButton[52];
-		monton3 = new JButton[52];
-		monton4 = new JButton[52];
-		monton5 = new JButton[52];
-		monton6 = new JButton[52];
-		monton7 = new JButton[52];
+		monton1 = new JButton[20];
+		monton2 = new JButton[20];
+		monton3 = new JButton[20];
+		monton4 = new JButton[20];
+		monton5 = new JButton[20];
+		monton6 = new JButton[20];
+		monton7 = new JButton[20];
 
 		icono = new ImageIcon[52];
 
@@ -93,9 +93,9 @@ public class PanelClasico extends JPanel implements ActionListener {
 		baraja.crearBarajaF();
 		baraja.barajarF();
 		ABaraja = baraja.getBarajaFrancesa();
-//		for (int i = 0; i < ABaraja.length; i++) {
-//			System.out.print(ABaraja[i] + " ");
-//		}
+		for (int i = 0; i < ABaraja.length; i++) {
+			System.out.print(ABaraja[i] + " ");
+		}
 
 		// System.out.println("/n");
 
@@ -107,13 +107,13 @@ public class PanelClasico extends JPanel implements ActionListener {
 
 		StringBuilder nombre = new StringBuilder();
 
-		int i1 = 0;
-		int i2 = 0;
-		int i3 = 0;
-		int i4 = 0;
-		int i5 = 0;
-		int i6 = 0;
-		int i7 = 0;
+		int i1 = 19;
+		int i2 = 19;
+		int i3 = 19;
+		int i4 = 19;
+		int i5 = 19;
+		int i6 = 19;
+		int i7 = 19;
 
 		ImageIcon nul = null;
 
@@ -152,114 +152,103 @@ public class PanelClasico extends JPanel implements ActionListener {
 			} else if (i == 24) { // MOntones de cartas
 
 				monton1[i1] = new JButton(nombre.toString());
-
-				monton1[i1].setBounds(20, 135, 90, 120);
-
-				if (i1 == 0) {
-					monton1[i1].setIcon(icono[i]);
-				} else {
-					// monton1[i1].setIcon(reverso);
-					monton1[i1].setIcon(icono[i]);
-					monton1[i1].setEnabled(false);
-				}
-				clasico.add(monton1[i1]);
+				monton1[i1].setIcon(icono[i]);
+				monton1[i1].setBounds(20, 500 - (i1 * 19), 90, 120);
 				monton1[i1].addActionListener(this);
-				i1++;
+				clasico.add(monton1[i1]);
 
 			} else if (i > 24 && i < 27) {
 
 				monton2[i2] = new JButton(nombre.toString());
 
-				monton2[i2].setBounds(125, 155 - (i2 * 20), 90, 120);
-
-				if (i2 == 0) {
-					monton2[i2].setIcon(icono[i]);
-				} else {
-					// monton2[i2].setIcon(reverso);
-					monton2[i2].setIcon(icono[i]);
+				if (i2 >= 19) {
+					monton2[i2].setIcon(reverso);
 					monton2[i2].setEnabled(false);
+				} else {
+
+					monton2[i2].setIcon(icono[i]);
 				}
-				clasico.add(monton2[i2]);
+				monton2[i2].setBounds(125, 500 - (i2 * 19), 90, 120);
 				monton2[i2].addActionListener(this);
-				i2++;
+				clasico.add(monton2[i2]);
+				i2--;
 
 			} else if (i >= 27 && i <= 29) {
 
 				monton3[i3] = new JButton(nombre.toString());
-
-				monton3[i3].setBounds(230, 175 - (i3 * 20), 90, 120);
-
-				if (i3 == 0) {
-					monton3[i3].setIcon(icono[i]);
-				} else {
-					// monton3[i3].setIcon(reverso);
-					monton3[i3].setIcon(icono[i]);
+				if (i3 >= 18) {
+					monton3[i3].setIcon(reverso);
 					monton3[i3].setEnabled(false);
+				} else {
+
+					monton3[i3].setIcon(icono[i]);
 				}
-				clasico.add(monton3[i3]);
+				monton3[i3].setBounds(230, 500 - (i3 * 19), 90, 120);
 				monton3[i3].addActionListener(this);
-				i3++;
+				clasico.add(monton3[i3]);
+				i3--;
 
 			} else if (i >= 30 && i <= 33) {
 
 				monton4[i4] = new JButton(nombre.toString());
-
-				monton4[i4].setBounds(335, 195 - (i4 * 20), 90, 120);
-				if (i4 == 0) {
-					monton4[i4].setIcon(icono[i]);
-				} else {
-					// monton4[i4].setIcon(reverso);
-					monton4[i4].setIcon(icono[i]);
+				if (i4 >= 17) {
+					monton4[i4].setIcon(reverso);
 					monton4[i4].setEnabled(false);
+				} else {
+
+					monton4[i4].setIcon(icono[i]);
 				}
-				clasico.add(monton4[i4]);
+				monton4[i4].setBounds(335, 500 - (i4 * 19), 90, 120);
 				monton4[i4].addActionListener(this);
-				i4++;
+				clasico.add(monton4[i4]);
+				i4--;
 
 			} else if (i >= 34 && i <= 38) {
 
 				monton5[i5] = new JButton(nombre.toString());
-
-				monton5[i5].setBounds(440, 215 - (i5 * 20), 90, 120);
-				if (i5 == 0) {
-					monton5[i5].setIcon(icono[i]);
-				} else {
+				if (i5 >= 16) {
 					monton5[i5].setIcon(reverso);
 					monton5[i5].setEnabled(false);
+				} else {
+
+					monton5[i5].setIcon(icono[i]);
 				}
-				clasico.add(monton5[i5]);
+				monton5[i5].setBounds(440, 500 - (i5 * 19), 90, 120);
 				monton5[i5].addActionListener(this);
-				i5++;
+				clasico.add(monton5[i5]);
+				i5--;
 
 			} else if (i >= 39 && i <= 44) {
 
 				monton6[i6] = new JButton(nombre.toString());
-
-				monton6[i6].setBounds(545, 235 - (i6 * 20), 90, 120);
-				if (i6 == 0) {
-					monton6[i6].setIcon(icono[i]);
-				} else {
+				if (i6 >= 15) {
 					monton6[i6].setIcon(reverso);
 					monton6[i6].setEnabled(false);
+				} else {
+
+					monton6[i6].setIcon(icono[i]);
 				}
-				clasico.add(monton6[i6]);
+				monton6[i6].setBounds(545, 500 - (i6 * 19), 90, 120);
 				monton6[i6].addActionListener(this);
-				i6++;
+				clasico.add(monton6[i6]);
+				i6--;
 
 			} else if (i >= 45 && i <= 51) {
 
 				monton7[i7] = new JButton(nombre.toString());
 
-				monton7[i7].setBounds(650, 255 - (i7 * 20), 90, 120);
-				if (i7 == 0) {
-					monton7[i7].setIcon(icono[i]);
-				} else {
+				if (i7 >= 14) {
 					monton7[i7].setIcon(reverso);
 					monton7[i7].setEnabled(false);
+				} else {
+
+					monton7[i7].setIcon(icono[i]);
 				}
-				clasico.add(monton7[i7]);
+
+				monton7[i7].setBounds(650, 500 - (i7 * 19), 90, 120);
 				monton7[i7].addActionListener(this);
-				i7++;
+				clasico.add(monton7[i7]);
+				i7--;
 
 			}
 
@@ -285,6 +274,93 @@ public class PanelClasico extends JPanel implements ActionListener {
 		fin4[0].setBounds(650, 10, 90, 120);
 		clasico.add(fin4[0]);
 		fin4[0].addActionListener(this);
+
+		for (int k = 18; k >= 0; k--) {// Relleno monton 1
+
+			monton1[k] = new JButton("vacio");
+			monton1[k].setIcon(nul);
+
+			monton1[k].setBounds(20, 500 - (k * 19), 90, 120);
+			monton1[k].addActionListener(this);
+			monton1[k].setVisible(false);
+			clasico.add(monton1[k]);
+
+		}
+
+		for (int k = 17; k >= 0; k--) {// Relleno monton 2
+
+			monton2[k] = new JButton("vacio");
+			monton2[k].setIcon(nul);
+
+			monton2[k].setBounds(125, 500 - (k * 19), 90, 120);
+			monton2[k].addActionListener(this);
+			monton2[k].setVisible(false);
+			clasico.add(monton2[k]);
+
+		}
+
+		for (int l = 16; l >= 0; l--) {// Relleno monton 3
+
+			monton3[l] = new JButton("vacio");
+			monton3[l].setIcon(nul);
+
+			monton3[l].setBounds(230, 500 - (l * 19), 90, 120);
+			monton3[l].addActionListener(this);
+			monton3[l].setVisible(false);
+			clasico.add(monton3[l]);
+
+		}
+
+		for (int l = 15; l >= 0; l--) {// Relleno monton 4
+
+			monton4[l] = new JButton("vacio");
+			monton4[l].setIcon(nul);
+
+			monton4[l].setBounds(335, 500 - (l * 19), 90, 120);
+			monton4[l].addActionListener(this);
+			monton4[l].setVisible(false);
+			clasico.add(monton4[l]);
+
+		}
+
+		for (int l = 14; l >= 0; l--) {// Relleno monton 5
+
+			monton5[l] = new JButton("vacio");
+			monton5[l].setIcon(nul);
+
+			monton5[l].setBounds(440, 500 - (l * 19), 90, 120);
+			monton5[l].addActionListener(this);
+			monton5[l].setVisible(false);
+
+			clasico.add(monton5[l]);
+
+		}
+
+		for (int l = 13; l >= 0; l--) {// Relleno monton
+
+			monton6[l] = new JButton("vacio");
+			monton6[l].setIcon(nul);
+
+			monton6[l].setBounds(545, 500 - (l * 19), 90, 120);
+			monton6[l].addActionListener(this);
+			monton6[l].setVisible(false);
+
+			clasico.add(monton6[l]);
+
+		}
+
+		for (int l = 12; l >= 0; l--) {// Relleno monton 7
+
+			monton7[l] = new JButton("vacio");
+			monton7[l].setIcon(nul);
+
+			monton7[l].setBounds(650, 500 - (l * 19), 90, 120);
+			monton7[l].addActionListener(this);
+			monton7[l].setVisible(false);
+
+			clasico.add(monton7[l]);
+
+		}
 
 		for (int j = 1; j < fin1.length; j++) {// Rellenamos el resto del array con nulos
 			fin1[j] = new JButton("NuLo");
@@ -564,17 +640,17 @@ public class PanelClasico extends JPanel implements ActionListener {
 
 				} else if (mazoDestino == "fin1" || mazoDestino == "fin2" || mazoDestino == "fin3"
 						|| mazoDestino == "fin4") {
-					comprobarMovFin();
+					boolean comFin = comprobarMovFin();
 
 					// TODO pensar en como mover las cartas de los mazos, y tener en cueenta que se
 					// puden poner botones delante de las ultimas cartas, por lo que seria bueno
-					// poner botones en invisible delante, habria que jugar con ocultar y desocultar botones
+					// poner botones en invisible delante, habria que jugar con ocultar y desocultar
+					// botones
 
 				} else if (mazoDestino == "barajaInicial") {
 					System.out.println("ERROR, NO SE PUEDE MOVER NADA A LA BARAJA INICIAL");
 				} else if (mazoDestino == "barajaDescartes") {
 					System.out.println("ERROR, NO SE PUEDEN DESCARTAR CARTAS DESDE" + mazoAMover);
-
 				} else if (mazoDestino == "monton1") {
 					System.out.println("ERROR, NO SE PUEDE MOVER LA CARTA A SI MISMA");
 				}
@@ -634,7 +710,7 @@ public class PanelClasico extends JPanel implements ActionListener {
 
 				} else if (mazoDestino == "fin1" || mazoDestino == "fin2" || mazoDestino == "fin3"
 						|| mazoDestino == "fin4") {
-					comprobarMovFin();
+					boolean comFin = comprobarMovFin();
 
 				} else if (mazoDestino == "barajaInicial") {
 					System.out.println("ERROR, NO SE PUEDE MOVER NADA A LA BARAJA INICIAL");
@@ -700,7 +776,7 @@ public class PanelClasico extends JPanel implements ActionListener {
 
 				} else if (mazoDestino == "fin1" || mazoDestino == "fin2" || mazoDestino == "fin3"
 						|| mazoDestino == "fin4") {
-					comprobarMovFin();
+					boolean comFin = comprobarMovFin();
 
 				} else if (mazoDestino == "barajaInicial") {
 					System.out.println("ERROR, NO SE PUEDE MOVER NADA A LA BARAJA INICIAL");
@@ -733,7 +809,7 @@ public class PanelClasico extends JPanel implements ActionListener {
 
 				} else if (mazoDestino == "fin1" || mazoDestino == "fin2" || mazoDestino == "fin3"
 						|| mazoDestino == "fin4") {
-					comprobarMovFin();
+					boolean comFin = comprobarMovFin();
 
 				} else if (mazoDestino == "barajaInicial") {
 					System.out.println("ERROR, NO SE PUEDE MOVER NADA A LA BARAJA INICIAL");
@@ -766,6 +842,8 @@ public class PanelClasico extends JPanel implements ActionListener {
 
 				} else if (mazoDestino == "fin1" || mazoDestino == "fin2" || mazoDestino == "fin3"
 						|| mazoDestino == "fin4") {
+
+					boolean comFin = comprobarMovFin();
 
 				} else if (mazoDestino == "barajaInicial") {
 					System.out.println("ERROR, NO SE PUEDE MOVER NADA A LA BARAJA INICIAL");
