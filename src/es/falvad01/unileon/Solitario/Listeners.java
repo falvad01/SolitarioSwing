@@ -14,6 +14,7 @@ import jdk.nashorn.internal.ir.JoinPredecessorExpression;
 import javax.swing.JOptionPane;
 import javax.print.attribute.standard.JobKOctetsProcessed;
 import javax.swing.JFileChooser;
+import javax.swing.JLayeredPane;
 
 public class Listeners implements ActionListener {
 
@@ -24,18 +25,18 @@ public class Listeners implements ActionListener {
 	Baraja baraja;
 	Container panel;
 
-	JPanel juegoClasico;
+	JLayeredPane juegoClasico;
 	JPanel juegoSaltos;
 
 	PanelClasico pClasico;
 	PanelSaltos pSaltos;
 
-	public Listeners(Container container, JPanel juegoClasico, JPanel juegoSaltos) {
+	public Listeners(Container container, JLayeredPane juegoClasico2, JPanel juegoSaltos) {
 
 		this.panel = container;
-		this.juegoClasico = juegoClasico;
+		this.juegoClasico = juegoClasico2;
 		this.juegoSaltos = juegoSaltos;
-		pClasico = new PanelClasico(juegoClasico);
+		pClasico = new PanelClasico(juegoClasico2);
 		pSaltos = new PanelSaltos(juegoSaltos);
 
 	}

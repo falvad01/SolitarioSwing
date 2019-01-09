@@ -12,14 +12,14 @@ import java.awt.image.BufferedImage;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-
+import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 
 @SuppressWarnings("deprecation")
 public class PanelClasico extends JPanel implements ActionListener {
 
-	private JPanel clasico;
+	private JLayeredPane clasico;
 	private Baraja baraja;
 	private CartaFrancesa[] ABaraja;
 	private String rutaJuego = null;
@@ -59,9 +59,9 @@ public class PanelClasico extends JPanel implements ActionListener {
 
 	private int borrarInicio = 22;
 
-	public PanelClasico(JPanel panel) {
+	public PanelClasico(JLayeredPane juegoClasico2) {
 
-		this.clasico = panel;
+		this.clasico = juegoClasico2;
 		this.baraja = new Baraja(EJuego.Clasico);
 		barajaInicial = new JButton[23];
 		barajaDescartes = new JButton[24];
@@ -103,6 +103,9 @@ public class PanelClasico extends JPanel implements ActionListener {
 
 	}
 
+	/**
+	 * TODO MIRAR LA COLOCACION DE LAS CARTAS, ENCIMA Y DEBAJO
+	 */
 	private void pintarCartas() {
 
 		StringBuilder nombre = new StringBuilder();
@@ -155,7 +158,7 @@ public class PanelClasico extends JPanel implements ActionListener {
 				monton1[i1].setIcon(icono[i]);
 				monton1[i1].setBounds(20, 500 - (i1 * 19), 90, 120);
 				monton1[i1].addActionListener(this);
-				clasico.add(monton1[i1]);
+				clasico.add(monton1[i1], i1);
 
 			} else if (i > 24 && i < 27) {
 
@@ -170,7 +173,7 @@ public class PanelClasico extends JPanel implements ActionListener {
 				}
 				monton2[i2].setBounds(125, 500 - (i2 * 19), 90, 120);
 				monton2[i2].addActionListener(this);
-				clasico.add(monton2[i2]);
+				clasico.add(monton2[i2], i2);
 				i2--;
 
 			} else if (i >= 27 && i <= 29) {
@@ -185,7 +188,7 @@ public class PanelClasico extends JPanel implements ActionListener {
 				}
 				monton3[i3].setBounds(230, 500 - (i3 * 19), 90, 120);
 				monton3[i3].addActionListener(this);
-				clasico.add(monton3[i3]);
+				clasico.add(monton3[i3], i3);
 				i3--;
 
 			} else if (i >= 30 && i <= 33) {
@@ -200,12 +203,13 @@ public class PanelClasico extends JPanel implements ActionListener {
 				}
 				monton4[i4].setBounds(335, 500 - (i4 * 19), 90, 120);
 				monton4[i4].addActionListener(this);
-				clasico.add(monton4[i4]);
+				clasico.add(monton4[i4], i4);
 				i4--;
 
 			} else if (i >= 34 && i <= 38) {
 
 				monton5[i5] = new JButton(nombre.toString());
+
 				if (i5 >= 16) {
 					monton5[i5].setIcon(reverso);
 					monton5[i5].setEnabled(false);
@@ -215,7 +219,7 @@ public class PanelClasico extends JPanel implements ActionListener {
 				}
 				monton5[i5].setBounds(440, 500 - (i5 * 19), 90, 120);
 				monton5[i5].addActionListener(this);
-				clasico.add(monton5[i5]);
+				clasico.add(monton5[i5], i5);
 				i5--;
 
 			} else if (i >= 39 && i <= 44) {
@@ -230,7 +234,7 @@ public class PanelClasico extends JPanel implements ActionListener {
 				}
 				monton6[i6].setBounds(545, 500 - (i6 * 19), 90, 120);
 				monton6[i6].addActionListener(this);
-				clasico.add(monton6[i6]);
+				clasico.add(monton6[i6], i6);
 				i6--;
 
 			} else if (i >= 45 && i <= 51) {
@@ -247,7 +251,7 @@ public class PanelClasico extends JPanel implements ActionListener {
 
 				monton7[i7].setBounds(650, 500 - (i7 * 19), 90, 120);
 				monton7[i7].addActionListener(this);
-				clasico.add(monton7[i7]);
+				clasico.add(monton7[i7], i7);
 				i7--;
 
 			}
@@ -283,7 +287,7 @@ public class PanelClasico extends JPanel implements ActionListener {
 			monton1[k].setBounds(20, 500 - (k * 19), 90, 120);
 			monton1[k].addActionListener(this);
 			monton1[k].setVisible(false);
-			clasico.add(monton1[k]);
+			clasico.add(monton1[k], k);
 
 		}
 
@@ -295,7 +299,7 @@ public class PanelClasico extends JPanel implements ActionListener {
 			monton2[k].setBounds(125, 500 - (k * 19), 90, 120);
 			monton2[k].addActionListener(this);
 			monton2[k].setVisible(false);
-			clasico.add(monton2[k]);
+			clasico.add(monton2[k], k);
 
 		}
 
@@ -307,19 +311,19 @@ public class PanelClasico extends JPanel implements ActionListener {
 			monton3[l].setBounds(230, 500 - (l * 19), 90, 120);
 			monton3[l].addActionListener(this);
 			monton3[l].setVisible(false);
-			clasico.add(monton3[l]);
+			clasico.add(monton3[l], l);
 
 		}
 
-		for (int l = 15; l >= 0; l--) {// Relleno monton 4
+		for (int n = 15; n >= 0; n--) {// Relleno monton 4
 
-			monton4[l] = new JButton("vacio");
-			monton4[l].setIcon(nul);
+			monton4[n] = new JButton("vacio");
+			monton4[n].setIcon(nul);
 
-			monton4[l].setBounds(335, 500 - (l * 19), 90, 120);
-			monton4[l].addActionListener(this);
-			monton4[l].setVisible(false);
-			clasico.add(monton4[l]);
+			monton4[n].setBounds(335, 500 - (n * 19), 90, 120);
+			monton4[n].addActionListener(this);
+			monton4[n].setVisible(false);
+			clasico.add(monton4[n], n);
 
 		}
 
@@ -332,20 +336,20 @@ public class PanelClasico extends JPanel implements ActionListener {
 			monton5[l].addActionListener(this);
 			monton5[l].setVisible(false);
 
-			clasico.add(monton5[l]);
+			clasico.add(monton5[l], l);
 
 		}
 
-		for (int l = 13; l >= 0; l--) {// Relleno monton
+		for (int m = 13; m >= 0; m--) {// Relleno monton
 
-			monton6[l] = new JButton("vacio");
-			monton6[l].setIcon(nul);
+			monton6[m] = new JButton("vacio");
+			monton6[m].setIcon(nul);
 
-			monton6[l].setBounds(545, 500 - (l * 19), 90, 120);
-			monton6[l].addActionListener(this);
-			monton6[l].setVisible(false);
+			monton6[m].setBounds(545, 500 - (m * 19), 90, 120);
+			monton6[m].addActionListener(this);
+			monton6[m].setVisible(false);
 
-			clasico.add(monton6[l]);
+			clasico.add(monton6[m], m);
 
 		}
 
@@ -358,7 +362,7 @@ public class PanelClasico extends JPanel implements ActionListener {
 			monton7[l].addActionListener(this);
 			monton7[l].setVisible(false);
 
-			clasico.add(monton7[l]);
+			clasico.add(monton7[l], l);
 
 		}
 
@@ -405,7 +409,6 @@ public class PanelClasico extends JPanel implements ActionListener {
 			posCartaAMover = buscarPosicion(strAMover);
 			cartaAMover = buscaCarta(strAMover);
 
-			// TODO BUSCAR LA FORMA DE HACER LO QUE PREGUNTP XIAN Y SOLUCIONO CON $
 			// TODO SOMBREAR EN LOS MANTONES LAS CARTAS QUE NO ESTA DESABILITADAS CON
 			// .isEnabled()
 			// for(int i = 0; i < mazoAMover.getClass().getName().length();i++) {
@@ -429,7 +432,7 @@ public class PanelClasico extends JPanel implements ActionListener {
 
 					System.out.println(mazoAMover + "->" + mazoDestino);
 
-					if (cartaAMover != null && ((cartaAMover.establecerValor() - 1) == cartaDestino.establecerValor())
+					if (cartaAMover != null && ((cartaAMover.establecerValor() + 1) == cartaDestino.establecerValor())
 							&& !(cartaAMover.getColor().equals(cartaDestino.getColor()))) {// Comprobamos que la carta
 						// que movemos sea de un
 						// valor inmediatamente
@@ -438,6 +441,45 @@ public class PanelClasico extends JPanel implements ActionListener {
 
 						System.out.println("MOVIMIENTO CORRECTO");
 
+						if (mazoDestino == "monton1") {
+
+							monton1[posCartaDestino - 1].setIcon(barajaInicial[0].getIcon());
+							monton1[posCartaDestino - 1].setLabel(barajaInicial[0].getLabel());
+							monton1[posCartaDestino - 1].setVisible(true);
+
+						} else if (mazoDestino == "monton2") {
+
+							monton2[posCartaDestino - 1].setIcon(barajaInicial[0].getIcon());
+							monton2[posCartaDestino - 1].setLabel(barajaInicial[0].getLabel());
+							monton2[posCartaDestino - 1].setVisible(true);
+						} else if (mazoDestino == "monton3") {
+
+							monton3[posCartaDestino - 1].setIcon(barajaInicial[0].getIcon());
+							monton3[posCartaDestino - 1].setLabel(barajaInicial[0].getLabel());
+							monton3[posCartaDestino - 1].setVisible(true);
+						} else if (mazoDestino == "monton4") {
+
+							monton4[posCartaDestino - 1].setIcon(barajaInicial[0].getIcon());
+							monton4[posCartaDestino - 1].setLabel(barajaInicial[0].getLabel());
+							monton4[posCartaDestino - 1].setVisible(true);
+						} else if (mazoDestino == "monton5") {
+
+							monton5[posCartaDestino - 1].setIcon(barajaInicial[0].getIcon());
+							monton5[posCartaDestino - 1].setLabel(barajaInicial[0].getLabel());
+							monton5[posCartaDestino - 1].setVisible(true);
+						} else if (mazoDestino == "monton6") {
+
+							monton6[posCartaDestino - 1].setIcon(barajaInicial[0].getIcon());
+							monton6[posCartaDestino - 1].setLabel(barajaInicial[0].getLabel());
+							monton6[posCartaDestino - 1].setVisible(true);
+						} else if (mazoDestino == "monton7") {
+
+							monton7[posCartaDestino - 1].setIcon(barajaInicial[0].getIcon());
+							monton7[posCartaDestino - 1].setLabel(barajaInicial[0].getLabel());
+							monton7[posCartaDestino - 1].setVisible(true);
+						}
+
+						subirBarajaInicial();
 					} else {
 						System.out.println("ERROR, MOVIMIENTO DESDE INICIO INCORRECTO");
 					}
@@ -536,6 +578,45 @@ public class PanelClasico extends JPanel implements ActionListener {
 																							// sea distinto
 
 						System.out.println("MOVIMIENTO CORRECTO");
+						if (mazoDestino == "monton1") {
+
+							monton1[posCartaDestino - 1].setIcon(barajaDescartes[0].getIcon());
+							monton1[posCartaDestino - 1].setLabel(barajaDescartes[0].getLabel());
+							monton1[posCartaDestino - 1].setVisible(true);
+
+						} else if (mazoDestino == "monton2") {
+
+							monton2[posCartaDestino - 1].setIcon(barajaDescartes[0].getIcon());
+							monton2[posCartaDestino - 1].setLabel(barajaDescartes[0].getLabel());
+							monton2[posCartaDestino - 1].setVisible(true);
+						} else if (mazoDestino == "monton3") {
+
+							monton3[posCartaDestino - 1].setIcon(barajaDescartes[0].getIcon());
+							monton3[posCartaDestino - 1].setLabel(barajaDescartes[0].getLabel());
+							monton3[posCartaDestino - 1].setVisible(true);
+						} else if (mazoDestino == "monton4") {
+
+							monton4[posCartaDestino - 1].setIcon(barajaDescartes[0].getIcon());
+							monton4[posCartaDestino - 1].setLabel(barajaDescartes[0].getLabel());
+							monton4[posCartaDestino - 1].setVisible(true);
+						} else if (mazoDestino == "monton5") {
+
+							monton5[posCartaDestino - 1].setIcon(barajaDescartes[0].getIcon());
+							monton5[posCartaDestino - 1].setLabel(barajaDescartes[0].getLabel());
+							monton5[posCartaDestino - 1].setVisible(true);
+						} else if (mazoDestino == "monton6") {
+
+							monton6[posCartaDestino - 1].setIcon(barajaDescartes[0].getIcon());
+							monton6[posCartaDestino - 1].setLabel(barajaDescartes[0].getLabel());
+							monton6[posCartaDestino - 1].setVisible(true);
+						} else if (mazoDestino == "monton7") {
+
+							monton7[posCartaDestino - 1].setIcon(barajaDescartes[0].getIcon());
+							monton7[posCartaDestino - 1].setLabel(barajaDescartes[0].getLabel());
+							monton7[posCartaDestino - 1].setVisible(true);
+						}
+
+						subirBarajaDescartes();
 
 					} else {
 						System.out.println("ERROR, MOVIMIENTO DESDE DESCARTES INCORRECTO");
@@ -546,8 +627,6 @@ public class PanelClasico extends JPanel implements ActionListener {
 					boolean comFin = comprobarMovFin();
 
 					if (comFin) {
-						System.out.println("HOla");
-						// TODO en proceso de terminar fin para cunado ya hay cartas
 						if (mazoDestino == "fin1") {
 							System.out.println("Mazo 1");
 							for (int i = 13; i >= 0; i--) {
@@ -634,18 +713,107 @@ public class PanelClasico extends JPanel implements ActionListener {
 
 						System.out.println("MOVIMIENTO CORRECTO");
 
+						if (mazoDestino == "monton2") {
+
+							monton2[posCartaDestino - 1].setLabel(monton1[posCartaAMover].getLabel());
+							monton2[posCartaDestino - 1].setIcon(monton1[posCartaAMover].getIcon());
+
+						} else if (mazoDestino == "monton3") {
+							monton3[posCartaDestino - 1].setLabel(monton1[posCartaAMover].getLabel());
+							monton3[posCartaDestino - 1].setIcon(monton1[posCartaAMover].getIcon());
+
+						} else if (mazoDestino == "monton4") {
+							monton4[posCartaDestino - 1].setLabel(monton1[posCartaAMover].getLabel());
+							monton4[posCartaDestino - 1].setIcon(monton1[posCartaAMover].getIcon());
+
+						} else if (mazoDestino == "monton5") {
+							monton5[posCartaDestino - 1].setLabel(monton1[posCartaAMover].getLabel());
+							monton5[posCartaDestino - 1].setIcon(monton1[posCartaAMover].getIcon());
+
+						} else if (mazoDestino == "monton6") {
+							monton6[posCartaDestino - 1].setLabel(monton1[posCartaAMover].getLabel());
+							monton6[posCartaDestino - 1].setIcon(monton1[posCartaAMover].getIcon());
+
+						} else if (mazoDestino == "monton7") {
+							monton7[posCartaDestino - 1].setLabel(monton1[posCartaAMover].getLabel());
+							monton7[posCartaDestino - 1].setIcon(monton1[posCartaAMover].getIcon());
+
+						}
+
+						operacionesMontones("monton1");
+
 					} else {
 						System.out.println("ERROR, MOVIMIENTO ENTRE MONTONES INCORRECTO");
 					}
 
 				} else if (mazoDestino == "fin1" || mazoDestino == "fin2" || mazoDestino == "fin3"
 						|| mazoDestino == "fin4") {
+
 					boolean comFin = comprobarMovFin();
 
-					// TODO pensar en como mover las cartas de los mazos, y tener en cueenta que se
-					// puden poner botones delante de las ultimas cartas, por lo que seria bueno
-					// poner botones en invisible delante, habria que jugar con ocultar y desocultar
-					// botones
+					if (comFin) {
+
+						if (mazoDestino == "fin1") {
+							System.out.println("Mazo 1");
+							for (int i = 13; i >= 0; i--) {
+
+								if (i < 13) {
+
+									fin1[i + 1].setIcon(fin1[i].getIcon());
+									fin1[i + 1].setLabel(fin1[i].getLabel());
+
+								}
+							}
+
+							fin1[0].setIcon(monton1[posCartaAMover].getIcon());
+							fin1[0].setLabel(monton1[posCartaAMover].getLabel());
+
+						} else if (mazoDestino == "fin2") {
+
+							System.out.println("Mazo 2");
+							for (int i = 13; i >= 0; i--) {
+								if (i < 13) {
+
+									fin2[i + 1].setIcon(fin2[i].getIcon());
+									fin2[i + 1].setLabel(fin2[i].getLabel());
+
+								}
+							}
+
+							fin2[0].setIcon(monton1[posCartaAMover].getIcon());
+							fin2[0].setLabel(monton1[posCartaAMover].getLabel());
+
+						} else if (mazoDestino == "fin3") {
+
+							for (int i = 13; i >= 0; i--) {
+								if (i < 13) {
+
+									fin3[i + 1].setIcon(fin3[i].getIcon());
+									fin3[i + 1].setLabel(fin3[i].getLabel());
+
+								}
+							}
+
+							fin3[0].setIcon(monton1[posCartaAMover].getIcon());
+							fin3[0].setLabel(monton1[posCartaAMover].getLabel());
+
+						} else if (mazoDestino == "fin4") {
+
+							for (int i = 13; i >= 0; i--) {
+								if (i < 13) {
+
+									fin4[i + 1].setIcon(fin4[i].getIcon());
+									fin4[i + 1].setLabel(fin4[i].getLabel());
+
+								}
+							}
+
+							fin4[0].setIcon(monton1[posCartaAMover].getIcon());
+							fin4[0].setLabel(monton1[posCartaAMover].getLabel());
+						}
+
+						operacionesMontones("monton1");
+					}
 
 				} else if (mazoDestino == "barajaInicial") {
 					System.out.println("ERROR, NO SE PUEDE MOVER NADA A LA BARAJA INICIAL");
@@ -672,12 +840,106 @@ public class PanelClasico extends JPanel implements ActionListener {
 
 						System.out.println("MOVIMIENTO CORRECTO");
 
+						if (mazoDestino == "monton1") {
+
+							monton1[posCartaDestino - 1].setLabel(monton2[posCartaAMover].getLabel());
+							monton1[posCartaDestino - 1].setIcon(monton2[posCartaAMover].getIcon());
+
+						} else if (mazoDestino == "monton3") {
+							monton3[posCartaDestino - 1].setLabel(monton2[posCartaAMover].getLabel());
+							monton3[posCartaDestino - 1].setIcon(monton2[posCartaAMover].getIcon());
+
+						} else if (mazoDestino == "monton4") {
+							monton4[posCartaDestino - 1].setLabel(monton2[posCartaAMover].getLabel());
+							monton4[posCartaDestino - 1].setIcon(monton2[posCartaAMover].getIcon());
+
+						} else if (mazoDestino == "monton5") {
+							monton5[posCartaDestino - 1].setLabel(monton2[posCartaAMover].getLabel());
+							monton5[posCartaDestino - 1].setIcon(monton2[posCartaAMover].getIcon());
+
+						} else if (mazoDestino == "monton6") {
+							monton6[posCartaDestino - 1].setLabel(monton2[posCartaAMover].getLabel());
+							monton6[posCartaDestino - 1].setIcon(monton2[posCartaAMover].getIcon());
+
+						} else if (mazoDestino == "monton7") {
+							monton7[posCartaDestino - 1].setLabel(monton2[posCartaAMover].getLabel());
+							monton7[posCartaDestino - 1].setIcon(monton2[posCartaAMover].getIcon());
+
+						}
+
+						operacionesMontones("monton2");
+
 					} else {
 						System.out.println("ERROR, MOVIMIENTO ENTRE MONTONES INCORRECTO");
 					}
 
 				} else if (mazoDestino == "fin1" || mazoDestino == "fin2" || mazoDestino == "fin3"
 						|| mazoDestino == "fin4") {
+
+					boolean comFin = comprobarMovFin();
+					if (comFin) {
+
+						if (mazoDestino == "fin1") {
+							System.out.println("Mazo 1");
+							for (int i = 13; i >= 0; i--) {
+
+								if (i < 13) {
+
+									fin1[i + 1].setIcon(fin1[i].getIcon());
+									fin1[i + 1].setLabel(fin1[i].getLabel());
+
+								}
+							}
+
+							fin1[0].setIcon(monton2[posCartaAMover].getIcon());
+							fin1[0].setLabel(monton2[posCartaAMover].getLabel());
+
+						} else if (mazoDestino == "fin2") {
+
+							System.out.println("Mazo 2");
+							for (int i = 13; i >= 0; i--) {
+								if (i < 13) {
+
+									fin2[i + 1].setIcon(fin2[i].getIcon());
+									fin2[i + 1].setLabel(fin2[i].getLabel());
+
+								}
+							}
+
+							fin2[0].setIcon(monton2[posCartaAMover].getIcon());
+							fin2[0].setLabel(monton2[posCartaAMover].getLabel());
+
+						} else if (mazoDestino == "fin3") {
+
+							for (int i = 13; i >= 0; i--) {
+								if (i < 13) {
+
+									fin3[i + 1].setIcon(fin3[i].getIcon());
+									fin3[i + 1].setLabel(fin3[i].getLabel());
+
+								}
+							}
+
+							fin3[0].setIcon(monton2[posCartaAMover].getIcon());
+							fin3[0].setLabel(monton2[posCartaAMover].getLabel());
+
+						} else if (mazoDestino == "fin4") {
+
+							for (int i = 13; i >= 0; i--) {
+								if (i < 13) {
+
+									fin4[i + 1].setIcon(fin4[i].getIcon());
+									fin4[i + 1].setLabel(fin4[i].getLabel());
+
+								}
+							}
+
+							fin4[0].setIcon(monton2[posCartaAMover].getIcon());
+							fin4[0].setLabel(monton2[posCartaAMover].getLabel());
+						}
+
+						operacionesMontones("monton2");
+					}
 
 				} else if (mazoDestino == "barajaInicial") {
 					System.out.println("ERROR, NO SE PUEDE MOVER NADA A LA BARAJA INICIAL");
@@ -704,6 +966,35 @@ public class PanelClasico extends JPanel implements ActionListener {
 
 						System.out.println("MOVIMIENTO CORRECTO");
 
+						if (mazoDestino == "monton1") {
+
+							monton1[posCartaDestino - 1].setLabel(monton3[posCartaAMover].getLabel());
+							monton1[posCartaDestino - 1].setIcon(monton3[posCartaAMover].getIcon());
+
+						} else if (mazoDestino == "monton2") {
+							monton2[posCartaDestino - 1].setLabel(monton3[posCartaAMover].getLabel());
+							monton2[posCartaDestino - 1].setIcon(monton3[posCartaAMover].getIcon());
+
+						} else if (mazoDestino == "monton4") {
+							monton4[posCartaDestino - 1].setLabel(monton3[posCartaAMover].getLabel());
+							monton4[posCartaDestino - 1].setIcon(monton3[posCartaAMover].getIcon());
+
+						} else if (mazoDestino == "monton5") {
+							monton5[posCartaDestino - 1].setLabel(monton3[posCartaAMover].getLabel());
+							monton5[posCartaDestino - 1].setIcon(monton3[posCartaAMover].getIcon());
+
+						} else if (mazoDestino == "monton6") {
+							monton6[posCartaDestino - 1].setLabel(monton3[posCartaAMover].getLabel());
+							monton6[posCartaDestino - 1].setIcon(monton3[posCartaAMover].getIcon());
+
+						} else if (mazoDestino == "monton7") {
+							monton7[posCartaDestino - 1].setLabel(monton3[posCartaAMover].getLabel());
+							monton7[posCartaDestino - 1].setIcon(monton3[posCartaAMover].getIcon());
+
+						}
+
+						operacionesMontones("monton3");
+
 					} else {
 						System.out.println("ERROR, MOVIMIENTO ENTRE MONTONES INCORRECTO");
 					}
@@ -711,6 +1002,70 @@ public class PanelClasico extends JPanel implements ActionListener {
 				} else if (mazoDestino == "fin1" || mazoDestino == "fin2" || mazoDestino == "fin3"
 						|| mazoDestino == "fin4") {
 					boolean comFin = comprobarMovFin();
+					if (comFin) {
+						System.out.println("HOla");
+
+						if (mazoDestino == "fin1") {
+							System.out.println("Mazo 1");
+							for (int i = 13; i >= 0; i--) {
+
+								if (i < 13) {
+
+									fin1[i + 1].setIcon(fin1[i].getIcon());
+									fin1[i + 1].setLabel(fin1[i].getLabel());
+
+								}
+							}
+
+							fin1[0].setIcon(monton3[posCartaAMover].getIcon());
+							fin1[0].setLabel(monton3[posCartaAMover].getLabel());
+
+						} else if (mazoDestino == "fin2") {
+
+							System.out.println("Mazo 2");
+							for (int i = 13; i >= 0; i--) {
+								if (i < 13) {
+
+									fin2[i + 1].setIcon(fin2[i].getIcon());
+									fin2[i + 1].setLabel(fin2[i].getLabel());
+
+								}
+							}
+
+							fin2[0].setIcon(monton3[posCartaAMover].getIcon());
+							fin2[0].setLabel(monton3[posCartaAMover].getLabel());
+
+						} else if (mazoDestino == "fin3") {
+
+							for (int i = 13; i >= 0; i--) {
+								if (i < 13) {
+
+									fin3[i + 1].setIcon(fin3[i].getIcon());
+									fin3[i + 1].setLabel(fin3[i].getLabel());
+
+								}
+							}
+
+							fin3[0].setIcon(monton3[posCartaAMover].getIcon());
+							fin3[0].setLabel(monton3[posCartaAMover].getLabel());
+
+						} else if (mazoDestino == "fin4") {
+
+							for (int i = 13; i >= 0; i--) {
+								if (i < 13) {
+
+									fin4[i + 1].setIcon(fin4[i].getIcon());
+									fin4[i + 1].setLabel(fin4[i].getLabel());
+
+								}
+							}
+
+							fin4[0].setIcon(monton3[posCartaAMover].getIcon());
+							fin4[0].setLabel(monton3[posCartaAMover].getLabel());
+						}
+
+						operacionesMontones("monton3");
+					}
 
 				} else if (mazoDestino == "barajaInicial") {
 					System.out.println("ERROR, NO SE PUEDE MOVER NADA A LA BARAJA INICIAL");
@@ -737,13 +1092,107 @@ public class PanelClasico extends JPanel implements ActionListener {
 
 						System.out.println("MOVIMIENTO CORRECTO");
 
+						if (mazoDestino == "monton1") {
+
+							monton1[posCartaDestino - 1].setLabel(monton4[posCartaAMover].getLabel());
+							monton1[posCartaDestino - 1].setIcon(monton4[posCartaAMover].getIcon());
+
+						} else if (mazoDestino == "monton2") {
+							monton2[posCartaDestino - 1].setLabel(monton4[posCartaAMover].getLabel());
+							monton2[posCartaDestino - 1].setIcon(monton4[posCartaAMover].getIcon());
+
+						} else if (mazoDestino == "monton3") {
+							monton3[posCartaDestino - 1].setLabel(monton4[posCartaAMover].getLabel());
+							monton3[posCartaDestino - 1].setIcon(monton4[posCartaAMover].getIcon());
+
+						} else if (mazoDestino == "monton5") {
+							monton5[posCartaDestino - 1].setLabel(monton4[posCartaAMover].getLabel());
+							monton5[posCartaDestino - 1].setIcon(monton4[posCartaAMover].getIcon());
+
+						} else if (mazoDestino == "monton6") {
+							monton6[posCartaDestino - 1].setLabel(monton4[posCartaAMover].getLabel());
+							monton6[posCartaDestino - 1].setIcon(monton4[posCartaAMover].getIcon());
+
+						} else if (mazoDestino == "monton7") {
+							monton7[posCartaDestino - 1].setLabel(monton4[posCartaAMover].getLabel());
+							monton7[posCartaDestino - 1].setIcon(monton4[posCartaAMover].getIcon());
+
+						}
+
+						operacionesMontones("monton4");
+
 					} else {
 						System.out.println("ERROR, MOVIMIENTO ENTRE MONTONES INCORRECTO");
 					}
 
 				} else if (mazoDestino == "fin1" || mazoDestino == "fin2" || mazoDestino == "fin3"
 						|| mazoDestino == "fin4") {
-					comprobarMovFin();
+					boolean comFin = comprobarMovFin();
+
+					if (comFin) {
+
+						if (mazoDestino == "fin1") {
+							System.out.println("Mazo 1");
+							for (int i = 13; i >= 0; i--) {
+
+								if (i < 13) {
+
+									fin1[i + 1].setIcon(fin1[i].getIcon());
+									fin1[i + 1].setLabel(fin1[i].getLabel());
+
+								}
+							}
+
+							fin1[0].setIcon(monton4[posCartaAMover].getIcon());
+							fin1[0].setLabel(monton4[posCartaAMover].getLabel());
+
+						} else if (mazoDestino == "fin2") {
+
+							System.out.println("Mazo 2");
+							for (int i = 13; i >= 0; i--) {
+								if (i < 13) {
+
+									fin2[i + 1].setIcon(fin2[i].getIcon());
+									fin2[i + 1].setLabel(fin2[i].getLabel());
+
+								}
+							}
+
+							fin2[0].setIcon(monton4[posCartaAMover].getIcon());
+							fin2[0].setLabel(monton4[posCartaAMover].getLabel());
+
+						} else if (mazoDestino == "fin3") {
+
+							for (int i = 13; i >= 0; i--) {
+								if (i < 13) {
+
+									fin3[i + 1].setIcon(fin3[i].getIcon());
+									fin3[i + 1].setLabel(fin3[i].getLabel());
+
+								}
+							}
+
+							fin3[0].setIcon(monton4[posCartaAMover].getIcon());
+							fin3[0].setLabel(monton4[posCartaAMover].getLabel());
+
+						} else if (mazoDestino == "fin4") {
+
+							for (int i = 13; i >= 0; i--) {
+								if (i < 13) {
+
+									fin4[i + 1].setIcon(fin4[i].getIcon());
+									fin4[i + 1].setLabel(fin4[i].getLabel());
+
+								}
+							}
+
+							fin4[0].setIcon(monton4[posCartaAMover].getIcon());
+							fin4[0].setLabel(monton4[posCartaAMover].getLabel());
+						}
+
+						operacionesMontones("monton4");
+
+					}
 
 				} else if (mazoDestino == "barajaInicial") {
 					System.out.println("ERROR, NO SE PUEDE MOVER NADA A LA BARAJA INICIAL");
@@ -770,6 +1219,35 @@ public class PanelClasico extends JPanel implements ActionListener {
 
 						System.out.println("MOVIMIENTO CORRECTO");
 
+						if (mazoDestino == "monton1") {
+
+							monton1[posCartaDestino - 1].setLabel(monton5[posCartaAMover].getLabel());
+							monton1[posCartaDestino - 1].setIcon(monton5[posCartaAMover].getIcon());
+
+						} else if (mazoDestino == "monton2") {
+							monton2[posCartaDestino - 1].setLabel(monton5[posCartaAMover].getLabel());
+							monton2[posCartaDestino - 1].setIcon(monton5[posCartaAMover].getIcon());
+
+						} else if (mazoDestino == "monton3") {
+							monton3[posCartaDestino - 1].setLabel(monton5[posCartaAMover].getLabel());
+							monton3[posCartaDestino - 1].setIcon(monton5[posCartaAMover].getIcon());
+
+						} else if (mazoDestino == "monton4") {
+							monton4[posCartaDestino - 1].setLabel(monton5[posCartaAMover].getLabel());
+							monton4[posCartaDestino - 1].setIcon(monton5[posCartaAMover].getIcon());
+
+						} else if (mazoDestino == "monton6") {
+							monton6[posCartaDestino - 1].setLabel(monton5[posCartaAMover].getLabel());
+							monton6[posCartaDestino - 1].setIcon(monton5[posCartaAMover].getIcon());
+
+						} else if (mazoDestino == "monton7") {
+							monton7[posCartaDestino - 1].setLabel(monton5[posCartaAMover].getLabel());
+							monton7[posCartaDestino - 1].setIcon(monton5[posCartaAMover].getIcon());
+
+						}
+
+						operacionesMontones("monton5");
+
 					} else {
 						System.out.println("ERROR, MOVIMIENTO ENTRE MONTONES INCORRECTO");
 					}
@@ -777,6 +1255,71 @@ public class PanelClasico extends JPanel implements ActionListener {
 				} else if (mazoDestino == "fin1" || mazoDestino == "fin2" || mazoDestino == "fin3"
 						|| mazoDestino == "fin4") {
 					boolean comFin = comprobarMovFin();
+					if (comFin) {
+						System.out.println("HOla");
+
+						if (mazoDestino == "fin1") {
+							System.out.println("Mazo 1");
+							for (int i = 13; i >= 0; i--) {
+
+								if (i < 13) {
+
+									fin1[i + 1].setIcon(fin1[i].getIcon());
+									fin1[i + 1].setLabel(fin1[i].getLabel());
+
+								}
+							}
+
+							fin1[0].setIcon(monton5[posCartaAMover].getIcon());
+							fin1[0].setLabel(monton5[posCartaAMover].getLabel());
+
+						} else if (mazoDestino == "fin2") {
+
+							System.out.println("Mazo 2");
+							for (int i = 13; i >= 0; i--) {
+								if (i < 13) {
+
+									fin2[i + 1].setIcon(fin2[i].getIcon());
+									fin2[i + 1].setLabel(fin2[i].getLabel());
+
+								}
+							}
+
+							fin2[0].setIcon(monton5[posCartaAMover].getIcon());
+							fin2[0].setLabel(monton5[posCartaAMover].getLabel());
+
+						} else if (mazoDestino == "fin3") {
+
+							for (int i = 13; i >= 0; i--) {
+								if (i < 13) {
+
+									fin3[i + 1].setIcon(fin3[i].getIcon());
+									fin3[i + 1].setLabel(fin3[i].getLabel());
+
+								}
+							}
+
+							fin3[0].setIcon(monton5[posCartaAMover].getIcon());
+							fin3[0].setLabel(monton5[posCartaAMover].getLabel());
+
+						} else if (mazoDestino == "fin4") {
+
+							for (int i = 13; i >= 0; i--) {
+								if (i < 13) {
+
+									fin4[i + 1].setIcon(fin4[i].getIcon());
+									fin4[i + 1].setLabel(fin4[i].getLabel());
+
+								}
+							}
+
+							fin4[0].setIcon(monton5[posCartaAMover].getIcon());
+							fin4[0].setLabel(monton5[posCartaAMover].getLabel());
+						}
+
+						operacionesMontones("monton5");
+
+					}
 
 				} else if (mazoDestino == "barajaInicial") {
 					System.out.println("ERROR, NO SE PUEDE MOVER NADA A LA BARAJA INICIAL");
@@ -802,6 +1345,37 @@ public class PanelClasico extends JPanel implements ActionListener {
 																							// sea distinto
 
 						System.out.println("MOVIMIENTO CORRECTO");
+						
+						if (mazoDestino == "monton1") {
+
+							monton1[posCartaDestino - 1].setLabel(monton6[posCartaAMover].getLabel());
+							monton1[posCartaDestino - 1].setIcon(monton6[posCartaAMover].getIcon());
+
+						} else if (mazoDestino == "monton2") {
+							monton2[posCartaDestino - 1].setLabel(monton6[posCartaAMover].getLabel());
+							monton2[posCartaDestino - 1].setIcon(monton6[posCartaAMover].getIcon());
+
+						} else if (mazoDestino == "monton3") {
+							monton3[posCartaDestino - 1].setLabel(monton6[posCartaAMover].getLabel());
+							monton3[posCartaDestino - 1].setIcon(monton6[posCartaAMover].getIcon());
+
+						} else if (mazoDestino == "monton4") {
+							monton4[posCartaDestino - 1].setLabel(monton6[posCartaAMover].getLabel());
+							monton4[posCartaDestino - 1].setIcon(monton6[posCartaAMover].getIcon());
+
+						} else if (mazoDestino == "monton5") {
+							monton5[posCartaDestino - 1].setLabel(monton6[posCartaAMover].getLabel());
+							monton5[posCartaDestino - 1].setIcon(monton6[posCartaAMover].getIcon());
+
+						} else if (mazoDestino == "monton7") {
+							monton7[posCartaDestino - 1].setLabel(monton6[posCartaAMover].getLabel());
+							monton7[posCartaDestino - 1].setIcon(monton6[posCartaAMover].getIcon());
+
+						}
+
+						operacionesMontones("monton6");
+						
+						
 
 					} else {
 						System.out.println("ERROR, MOVIMIENTO ENTRE MONTONES INCORRECTO");
@@ -810,6 +1384,72 @@ public class PanelClasico extends JPanel implements ActionListener {
 				} else if (mazoDestino == "fin1" || mazoDestino == "fin2" || mazoDestino == "fin3"
 						|| mazoDestino == "fin4") {
 					boolean comFin = comprobarMovFin();
+
+					if (comFin) {
+						System.out.println("HOla");
+
+						if (mazoDestino == "fin1") {
+							System.out.println("Mazo 1");
+							for (int i = 13; i >= 0; i--) {
+
+								if (i < 13) {
+
+									fin1[i + 1].setIcon(fin1[i].getIcon());
+									fin1[i + 1].setLabel(fin1[i].getLabel());
+
+								}
+							}
+
+							fin1[0].setIcon(monton6[posCartaAMover].getIcon());
+							fin1[0].setLabel(monton6[posCartaAMover].getLabel());
+
+						} else if (mazoDestino == "fin2") {
+
+							System.out.println("Mazo 2");
+							for (int i = 13; i >= 0; i--) {
+								if (i < 13) {
+
+									fin2[i + 1].setIcon(fin2[i].getIcon());
+									fin2[i + 1].setLabel(fin2[i].getLabel());
+
+								}
+							}
+
+							fin2[0].setIcon(monton6[posCartaAMover].getIcon());
+							fin2[0].setLabel(monton6[posCartaAMover].getLabel());
+
+						} else if (mazoDestino == "fin3") {
+
+							for (int i = 13; i >= 0; i--) {
+								if (i < 13) {
+
+									fin3[i + 1].setIcon(fin3[i].getIcon());
+									fin3[i + 1].setLabel(fin3[i].getLabel());
+
+								}
+							}
+
+							fin3[0].setIcon(monton6[posCartaAMover].getIcon());
+							fin3[0].setLabel(monton6[posCartaAMover].getLabel());
+
+						} else if (mazoDestino == "fin4") {
+
+							for (int i = 13; i >= 0; i--) {
+								if (i < 13) {
+
+									fin4[i + 1].setIcon(fin4[i].getIcon());
+									fin4[i + 1].setLabel(fin4[i].getLabel());
+
+								}
+							}
+
+							fin4[0].setIcon(monton6[posCartaAMover].getIcon());
+							fin4[0].setLabel(monton6[posCartaAMover].getLabel());
+						}
+
+						operacionesMontones("monton6");
+
+					}
 
 				} else if (mazoDestino == "barajaInicial") {
 					System.out.println("ERROR, NO SE PUEDE MOVER NADA A LA BARAJA INICIAL");
@@ -835,6 +1475,35 @@ public class PanelClasico extends JPanel implements ActionListener {
 																							// sea distinto
 
 						System.out.println("MOVIMIENTO CORRECTO");
+						
+						if (mazoDestino == "monton1") {
+
+							monton1[posCartaDestino - 1].setLabel(monton7[posCartaAMover].getLabel());
+							monton1[posCartaDestino - 1].setIcon(monton7[posCartaAMover].getIcon());
+
+						} else if (mazoDestino == "monton2") {
+							monton2[posCartaDestino - 1].setLabel(monton7[posCartaAMover].getLabel());
+							monton2[posCartaDestino - 1].setIcon(monton7[posCartaAMover].getIcon());
+
+						} else if (mazoDestino == "monton3") {
+							monton3[posCartaDestino - 1].setLabel(monton7[posCartaAMover].getLabel());
+							monton3[posCartaDestino - 1].setIcon(monton7[posCartaAMover].getIcon());
+
+						} else if (mazoDestino == "monton4") {
+							monton4[posCartaDestino - 1].setLabel(monton7[posCartaAMover].getLabel());
+							monton4[posCartaDestino - 1].setIcon(monton7[posCartaAMover].getIcon());
+
+						} else if (mazoDestino == "monton5") {
+							monton5[posCartaDestino - 1].setLabel(monton7[posCartaAMover].getLabel());
+							monton5[posCartaDestino - 1].setIcon(monton7[posCartaAMover].getIcon());
+
+						} else if (mazoDestino == "monton6") {
+							monton6[posCartaDestino - 1].setLabel(monton7[posCartaAMover].getLabel());
+							monton6[posCartaDestino - 1].setIcon(monton7[posCartaAMover].getIcon());
+
+						}
+
+						operacionesMontones("monton7");
 
 					} else {
 						System.out.println("ERROR, MOVIMIENTO ENTRE MONTONES INCORRECTO");
@@ -844,6 +1513,72 @@ public class PanelClasico extends JPanel implements ActionListener {
 						|| mazoDestino == "fin4") {
 
 					boolean comFin = comprobarMovFin();
+
+					if (comFin) {
+						System.out.println("HOla");
+
+						if (mazoDestino == "fin1") {
+							System.out.println("Mazo 1");
+							for (int i = 13; i >= 0; i--) {
+
+								if (i < 13) {
+
+									fin1[i + 1].setIcon(fin1[i].getIcon());
+									fin1[i + 1].setLabel(fin1[i].getLabel());
+
+								}
+							}
+
+							fin1[0].setIcon(monton7[posCartaAMover].getIcon());
+							fin1[0].setLabel(monton7[posCartaAMover].getLabel());
+
+						} else if (mazoDestino == "fin2") {
+
+							System.out.println("Mazo 2");
+							for (int i = 13; i >= 0; i--) {
+								if (i < 13) {
+
+									fin2[i + 1].setIcon(fin2[i].getIcon());
+									fin2[i + 1].setLabel(fin2[i].getLabel());
+
+								}
+							}
+
+							fin2[0].setIcon(monton7[posCartaAMover].getIcon());
+							fin2[0].setLabel(monton7[posCartaAMover].getLabel());
+
+						} else if (mazoDestino == "fin3") {
+
+							for (int i = 13; i >= 0; i--) {
+								if (i < 13) {
+
+									fin3[i + 1].setIcon(fin3[i].getIcon());
+									fin3[i + 1].setLabel(fin3[i].getLabel());
+
+								}
+							}
+
+							fin3[0].setIcon(monton7[posCartaAMover].getIcon());
+							fin3[0].setLabel(monton7[posCartaAMover].getLabel());
+
+						} else if (mazoDestino == "fin4") {
+
+							for (int i = 13; i >= 0; i--) {
+								if (i < 13) {
+
+									fin4[i + 1].setIcon(fin4[i].getIcon());
+									fin4[i + 1].setLabel(fin4[i].getLabel());
+
+								}
+							}
+
+							fin4[0].setIcon(monton7[posCartaAMover].getIcon());
+							fin4[0].setLabel(monton7[posCartaAMover].getLabel());
+						}
+
+						operacionesMontones("monton7");
+
+					}
 
 				} else if (mazoDestino == "barajaInicial") {
 					System.out.println("ERROR, NO SE PUEDE MOVER NADA A LA BARAJA INICIAL");
@@ -951,8 +1686,111 @@ public class PanelClasico extends JPanel implements ActionListener {
 				barajaDescartes[i].setLabel(barajaDescartes[i + 1].getLabel());
 			}
 		}
+	}
 
-		// TODO
+	private void operacionesMontones(String monton) {
+
+		if (monton == "monton1") {
+			// int posSiguiente = buscarPosBarajaInicial(buscaCarta(monton1[posCartaAMover +
+			// 1].getLabel()));
+
+			if (posCartaAMover == 19) {
+				monton1[posCartaAMover].setIcon(null);
+				monton1[posCartaAMover].setLabel("Vacio");
+			} else {
+				monton1[posCartaAMover].setIcon(null);
+				monton1[posCartaAMover].setLabel("Vacio");
+				monton1[posCartaAMover].setVisible(false);
+				monton1[posCartaAMover + 1].setEnabled(true);
+				// monton1[posCartaAMover + 1].setIcon(icono[posSiguiente]);
+
+			}
+
+		} else if (monton == "monton2") {
+			int posSiguiente = buscarPosBarajaInicial(buscaCarta(monton2[posCartaAMover + 1].getLabel()));
+
+			if (posCartaAMover == 19) {
+				monton2[posCartaAMover].setIcon(null);
+				monton2[posCartaAMover].setLabel("Vacio");
+			} else {
+				monton2[posCartaAMover].setIcon(null);
+				monton2[posCartaAMover].setLabel("Vacio");
+				monton2[posCartaAMover].setVisible(false);
+				monton2[posCartaAMover + 1].setEnabled(true);
+				monton2[posCartaAMover + 1].setIcon(icono[posSiguiente]);
+			}
+
+		} else if (monton == "monton3") {
+			int posSiguiente = buscarPosBarajaInicial(buscaCarta(monton3[posCartaAMover + 1].getLabel()));
+
+			if (posCartaAMover == 19) {
+				monton3[posCartaAMover].setIcon(null);
+				monton3[posCartaAMover].setLabel("Vacio");
+			} else {
+				monton3[posCartaAMover].setIcon(null);
+				monton3[posCartaAMover].setLabel("Vacio");
+				monton3[posCartaAMover].setVisible(false);
+				monton3[posCartaAMover + 1].setEnabled(true);
+				monton3[posCartaAMover + 1].setIcon(icono[posSiguiente]);
+			}
+
+		} else if (monton == "monton4") {
+			int posSiguiente = buscarPosBarajaInicial(buscaCarta(monton4[posCartaAMover + 1].getLabel()));
+
+			if (posCartaAMover == 19) {
+				monton4[posCartaAMover].setIcon(null);
+				monton4[posCartaAMover].setLabel("Vacio");
+			} else {
+				monton4[posCartaAMover].setIcon(null);
+				monton4[posCartaAMover].setLabel("Vacio");
+				monton4[posCartaAMover].setVisible(false);
+				monton4[posCartaAMover + 1].setEnabled(true);
+				monton4[posCartaAMover + 1].setIcon(icono[posSiguiente]);
+			}
+
+		} else if (monton == "monton5") {
+			int posSiguiente = buscarPosBarajaInicial(buscaCarta(monton5[posCartaAMover + 1].getLabel()));
+
+			if (posCartaAMover == 19) {
+				monton5[posCartaAMover].setIcon(null);
+				monton5[posCartaAMover].setLabel("Vacio");
+			} else {
+				monton5[posCartaAMover].setIcon(null);
+				monton5[posCartaAMover].setLabel("Vacio");
+				monton5[posCartaAMover].setVisible(false);
+				monton5[posCartaAMover + 1].setEnabled(true);
+				monton5[posCartaAMover + 1].setIcon(icono[posSiguiente]);
+			}
+
+		} else if (monton == "monton6") {
+			int posSiguiente = buscarPosBarajaInicial(buscaCarta(monton6[posCartaAMover + 1].getLabel()));
+
+			if (posCartaAMover == 19) {
+				monton6[posCartaAMover].setIcon(null);
+				monton6[posCartaAMover].setLabel("Vacio");
+			} else {
+				monton6[posCartaAMover].setIcon(null);
+				monton6[posCartaAMover].setLabel("Vacio");
+				monton6[posCartaAMover].setVisible(false);
+				monton6[posCartaAMover + 1].setEnabled(true);
+				monton6[posCartaAMover + 1].setIcon(icono[posSiguiente]);
+			}
+
+		} else if (monton == "monton7") {
+			int posSiguiente = buscarPosBarajaInicial(buscaCarta(monton7[posCartaAMover + 1].getLabel()));
+
+			if (posCartaAMover == 19) {
+				monton7[posCartaAMover].setIcon(null);
+				monton7[posCartaAMover].setLabel("Vacio");
+			} else {
+				monton7[posCartaAMover].setIcon(null);
+				monton7[posCartaAMover].setLabel("Vacio");
+				monton7[posCartaAMover].setVisible(false);
+				monton7[posCartaAMover + 1].setEnabled(true);
+				monton7[posCartaAMover + 1].setIcon(icono[posSiguiente]);
+			}
+
+		}
 	}
 
 	private CartaFrancesa buscaCarta(String cartaStr) {
@@ -983,8 +1821,8 @@ public class PanelClasico extends JPanel implements ActionListener {
 	private String buscarMazo(String carta) {
 
 		String ret = "Error";
-
-		for (int i = 0; i < 52; i++) {
+		System.out.println(carta);
+		for (int i = 0; i < 20; i++) {
 
 			if (monton1[i] != null && monton1[i].getLabel().equals(carta)) {
 				ret = "monton1";
@@ -1037,7 +1875,7 @@ public class PanelClasico extends JPanel implements ActionListener {
 
 		int ret = -1;
 
-		for (int i = 0; i < 52; i++) {
+		for (int i = 0; i < 20; i++) {
 
 			if (monton1[i] != null && monton1[i].getLabel().equals(carta)) {
 				ret = i;
@@ -1083,6 +1921,17 @@ public class PanelClasico extends JPanel implements ActionListener {
 			}
 		}
 
+		return ret;
+	}
+
+	private int buscarPosBarajaInicial(CartaFrancesa carta) {
+		int ret = -1;
+		for (int i = 0; i < ABaraja.length; i++) {
+
+			if (carta.getPalo() == ABaraja[i].getPalo() && carta.getNum() == ABaraja[i].getNum()) {
+				ret = i;
+			}
+		}
 		return ret;
 	}
 

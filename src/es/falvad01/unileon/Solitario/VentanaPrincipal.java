@@ -3,6 +3,7 @@ package es.falvad01.unileon.Solitario;
 import java.awt.Image;
 import java.awt.Toolkit;
 import javax.swing.JFrame;
+import javax.swing.JLayeredPane;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -38,7 +39,7 @@ public class VentanaPrincipal extends JFrame {
 
 	private JMenuItem btnInfo;
 
-	JPanel juegoClasico;
+	JLayeredPane juegoClasico;
 	JPanel juegoSaltos;
 	Listeners listen;
 
@@ -74,7 +75,7 @@ public class VentanaPrincipal extends JFrame {
 		juegoSaltos.setVisible(false);
 		
 
-		juegoClasico = new JPanel();
+		juegoClasico = new JLayeredPane();
 		PanelClasico clasico = new PanelClasico(juegoClasico);
 
 		juegoClasico.setBackground(new Color(0, 128, 0));
