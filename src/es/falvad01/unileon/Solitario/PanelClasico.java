@@ -4,6 +4,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.awt.Color;
+import java.awt.Container;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -15,11 +16,13 @@ import javax.swing.JButton;
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
+import javax.swing.JFrame;
 
 @SuppressWarnings("deprecation")
 public class PanelClasico extends JPanel implements ActionListener {
 
 	private JLayeredPane clasico;
+	private Container container;
 	private Baraja baraja;
 	private CartaFrancesa[] ABaraja;
 	private String rutaJuego = null;
@@ -59,9 +62,10 @@ public class PanelClasico extends JPanel implements ActionListener {
 
 	private int borrarInicio = 22;
 
-	public PanelClasico(JLayeredPane juegoClasico2) {
+	public PanelClasico(JLayeredPane juegoClasico, Container container) {
 
-		this.clasico = juegoClasico2;
+		this.clasico = juegoClasico;
+		this.container = container;
 		this.baraja = new Baraja(EJuego.Clasico);
 		barajaInicial = new JButton[23];
 		barajaDescartes = new JButton[24];
@@ -81,6 +85,8 @@ public class PanelClasico extends JPanel implements ActionListener {
 		monton7 = new JButton[20];
 
 		icono = new ImageIcon[52];
+		
+		
 
 	}
 
@@ -118,6 +124,7 @@ public class PanelClasico extends JPanel implements ActionListener {
 		int i6 = 19;
 		int i7 = 19;
 
+		int ii5 = 0;
 		ImageIcon nul = null;
 
 		for (int i = 0; i < 52; i++) {
@@ -150,7 +157,7 @@ public class PanelClasico extends JPanel implements ActionListener {
 					barajaDescartes[j] = new JButton("NuLo");
 					barajaDescartes[j].setIcon(nul);
 				}
-				// TODO PONER EL REVERSO A LAS CARTAS ANTES DE ENTREGAR
+			
 
 			} else if (i == 24) { // MOntones de cartas
 
@@ -158,7 +165,7 @@ public class PanelClasico extends JPanel implements ActionListener {
 				monton1[i1].setIcon(icono[i]);
 				monton1[i1].setBounds(20, 500 - (i1 * 19), 90, 120);
 				monton1[i1].addActionListener(this);
-				clasico.add(monton1[i1], i1);
+				clasico.add(monton1[i1]);
 
 			} else if (i > 24 && i < 27) {
 
@@ -173,7 +180,7 @@ public class PanelClasico extends JPanel implements ActionListener {
 				}
 				monton2[i2].setBounds(125, 500 - (i2 * 19), 90, 120);
 				monton2[i2].addActionListener(this);
-				clasico.add(monton2[i2], i2);
+				clasico.add(monton2[i2]);
 				i2--;
 
 			} else if (i >= 27 && i <= 29) {
@@ -188,7 +195,7 @@ public class PanelClasico extends JPanel implements ActionListener {
 				}
 				monton3[i3].setBounds(230, 500 - (i3 * 19), 90, 120);
 				monton3[i3].addActionListener(this);
-				clasico.add(monton3[i3], i3);
+				clasico.add(monton3[i3]);
 				i3--;
 
 			} else if (i >= 30 && i <= 33) {
@@ -203,24 +210,31 @@ public class PanelClasico extends JPanel implements ActionListener {
 				}
 				monton4[i4].setBounds(335, 500 - (i4 * 19), 90, 120);
 				monton4[i4].addActionListener(this);
-				clasico.add(monton4[i4], i4);
+				clasico.add(monton4[i4]);
 				i4--;
 
 			} else if (i >= 34 && i <= 38) {
 
 				monton5[i5] = new JButton(nombre.toString());
 
+			
+	
 				if (i5 >= 16) {
 					monton5[i5].setIcon(reverso);
 					monton5[i5].setEnabled(false);
 				} else {
 
-					monton5[i5].setIcon(icono[i]);
+					monton5[i5].setIcon(icono[i]); 
 				}
-				monton5[i5].setBounds(440, 500 - (i5 * 19), 90, 120);
+				//monton5[i5].setBounds(440, 139 + (ii5 * 19), 90, 120);
+				
 				monton5[i5].addActionListener(this);
-				clasico.add(monton5[i5], i5);
+				monton5[i5].setBounds(440, 500 - (i5 * 19), 90, 120);
+
+				clasico.add(monton5[i5],i5);
+				
 				i5--;
+				ii5++;
 
 			} else if (i >= 39 && i <= 44) {
 
@@ -234,7 +248,7 @@ public class PanelClasico extends JPanel implements ActionListener {
 				}
 				monton6[i6].setBounds(545, 500 - (i6 * 19), 90, 120);
 				monton6[i6].addActionListener(this);
-				clasico.add(monton6[i6], i6);
+				clasico.add(monton6[i6],i6);
 				i6--;
 
 			} else if (i >= 45 && i <= 51) {
@@ -251,7 +265,7 @@ public class PanelClasico extends JPanel implements ActionListener {
 
 				monton7[i7].setBounds(650, 500 - (i7 * 19), 90, 120);
 				monton7[i7].addActionListener(this);
-				clasico.add(monton7[i7], i7);
+				clasico.add(monton7[i7],i7);
 				i7--;
 
 			}
@@ -287,7 +301,7 @@ public class PanelClasico extends JPanel implements ActionListener {
 			monton1[k].setBounds(20, 500 - (k * 19), 90, 120);
 			monton1[k].addActionListener(this);
 			monton1[k].setVisible(false);
-			clasico.add(monton1[k], k);
+			clasico.add(monton1[k]);
 
 		}
 
@@ -299,7 +313,7 @@ public class PanelClasico extends JPanel implements ActionListener {
 			monton2[k].setBounds(125, 500 - (k * 19), 90, 120);
 			monton2[k].addActionListener(this);
 			monton2[k].setVisible(false);
-			clasico.add(monton2[k], k);
+			clasico.add(monton2[k]);
 
 		}
 
@@ -311,7 +325,7 @@ public class PanelClasico extends JPanel implements ActionListener {
 			monton3[l].setBounds(230, 500 - (l * 19), 90, 120);
 			monton3[l].addActionListener(this);
 			monton3[l].setVisible(false);
-			clasico.add(monton3[l], l);
+			clasico.add(monton3[l]);
 
 		}
 
@@ -323,24 +337,24 @@ public class PanelClasico extends JPanel implements ActionListener {
 			monton4[n].setBounds(335, 500 - (n * 19), 90, 120);
 			monton4[n].addActionListener(this);
 			monton4[n].setVisible(false);
-			clasico.add(monton4[n], n);
+			clasico.add(monton4[n]);
 
 		}
 
-		for (int l = 14; l >= 0; l--) {// Relleno monton 5
+		for (int l = 0; l <= 14; l++) {// Relleno monton 5
 
 			monton5[l] = new JButton("vacio");
 			monton5[l].setIcon(nul);
 
-			monton5[l].setBounds(440, 500 - (l * 19), 90, 120);
+			monton5[l].setBounds(440, 139 + (l * 19), 90, 120);
 			monton5[l].addActionListener(this);
 			monton5[l].setVisible(false);
 
-			clasico.add(monton5[l], l);
+			clasico.add(monton5[l]);
 
 		}
 
-		for (int m = 13; m >= 0; m--) {// Relleno monton
+		for (int m = 13; m >= 0; m--) {// Relleno monton 6
 
 			monton6[m] = new JButton("vacio");
 			monton6[m].setIcon(nul);
@@ -349,7 +363,7 @@ public class PanelClasico extends JPanel implements ActionListener {
 			monton6[m].addActionListener(this);
 			monton6[m].setVisible(false);
 
-			clasico.add(monton6[m], m);
+			clasico.add(monton6[m]);
 
 		}
 
@@ -362,7 +376,7 @@ public class PanelClasico extends JPanel implements ActionListener {
 			monton7[l].addActionListener(this);
 			monton7[l].setVisible(false);
 
-			clasico.add(monton7[l], l);
+			clasico.add(monton7[l]);
 
 		}
 
@@ -379,7 +393,7 @@ public class PanelClasico extends JPanel implements ActionListener {
 
 		printArrays();
 		clasico.add(barajaInicial[0]);
-
+	
 		barajaInicial[0].addActionListener(this);
 
 	}
@@ -417,6 +431,7 @@ public class PanelClasico extends JPanel implements ActionListener {
 
 			System.out.println(mazoAMover + " " + posCartaAMover);
 			System.out.println("Origen: " + strAMover);
+			
 			System.out.println();
 
 		}

@@ -47,13 +47,14 @@ public class PanelSaltos extends JPanel implements ActionListener {
 	private int posToDelete = 39;
 
 	private boolean flagIntentos = false;
-	
+
 	StringBuilder jugadas;
+
 	/**
 	 * 
 	 * @param panel
 	 * 
-	 * Contructor de clase
+	 *              Contructor de clase
 	 */
 	public PanelSaltos(JPanel panel) {
 		// setPreferredSize(new Dimension(200, 200));
@@ -64,6 +65,7 @@ public class PanelSaltos extends JPanel implements ActionListener {
 		jugadas = new StringBuilder();
 
 	}
+
 	/**
 	 * 
 	 * @return
@@ -71,6 +73,7 @@ public class PanelSaltos extends JPanel implements ActionListener {
 	public String getRutaJuego() {
 		return this.rutaJuego;
 	}
+
 	/**
 	 * 
 	 */
@@ -79,8 +82,6 @@ public class PanelSaltos extends JPanel implements ActionListener {
 		baraja.crearBarajaE();
 		baraja.barajarE();
 		ABaraja = baraja.getBarajaEspaniola();
-
-		
 
 		for (int i = 0; i < ABaraja.length; i++) {
 			System.out.print(ABaraja[i] + " ");
@@ -209,7 +210,7 @@ public class PanelSaltos extends JPanel implements ActionListener {
 					jugadas.append(System.getProperty("line.separator"));
 					System.out.println(jugadas.toString());
 
-					comprobarMoviminetos(posCartaAMover, posToMove);
+					comprobarMoviminetos(posCartaAMover, posToMove, false);
 
 				} else {
 					System.out.println("JUGADA INCORRECTA");// La combinacion de cartas no es correcta
@@ -228,7 +229,7 @@ public class PanelSaltos extends JPanel implements ActionListener {
 					System.out.println("CARTA COORECTA");
 					System.out.println(cartaAMover.toString() + "->" + cartaDestino.toString());
 
-					comprobarMoviminetos(posCartaAMover, posToMove);
+					comprobarMoviminetos(posCartaAMover, posToMove,false);
 				}
 
 			} else {// No valido por movimientos
@@ -247,7 +248,7 @@ public class PanelSaltos extends JPanel implements ActionListener {
 	 * @param horizontal ES LA CARTA QUE SE TIENE QUE MOVER
 	 * @param posAMover
 	 */
-	private void comprobarMoviminetos(int horizontal, int posAMover) {
+	private void comprobarMoviminetos(int horizontal, int posAMover, boolean auto) {
 
 		if (posAMover == 1) {
 
@@ -286,17 +287,19 @@ public class PanelSaltos extends JPanel implements ActionListener {
 			}
 
 		}
-		// printMatrix();
+		//printMatrix();
+		
+		if(auto) {
+			resolverAuto(1, 0);
+		}
 	}
 
 	private void iconoIzquierda(int horizontal, int mover) {
 
-		System.out.println("Izquierda");
+		
 
 		matrizBotones[0][horizontal - mover].setIcon(matrizBotones[0][horizontal].getIcon());
 		matrizBotones[0][horizontal - mover].setLabel(matrizBotones[0][horizontal].getLabel());
-
-		
 
 	}
 
@@ -339,8 +342,6 @@ public class PanelSaltos extends JPanel implements ActionListener {
 			}
 		}
 
-		
-
 	}
 
 	private CartaEspaniola buscaCarta(String cartaStr) {
@@ -364,8 +365,6 @@ public class PanelSaltos extends JPanel implements ActionListener {
 	}
 
 	private int posicion(String carta) {
-
-		
 
 		int ret = -1;
 		for (int i = 0; i < 40; i++) {
@@ -445,16 +444,67 @@ public class PanelSaltos extends JPanel implements ActionListener {
 		}
 
 	}
-	
+
 	public void cargarJuego() {
-		
-		//TODO METODO PARA CARGAR LOS DATOS DEL ARCHIVO DEL JUEGO
+
+		// TODO METODO PARA CARGAR LOS DATOS DEL ARCHIVO DEL JUEGO
 	}
-	
+
 	public void limpiarPanel() {
-		
-		//TODO AQUI SE REINICIARIAN TODAS LA VARIABLES, Y SE ELIMINARIAN LOS BOTONES PARA EMEPZAR UN JUEGO NUEVO
-		
+
+		// TODO AQUI SE REINICIARIAN TODAS LA VARIABLES, Y SE ELIMINARIAN LOS BOTONES
+		// PARA EMEPZAR UN JUEGO NUEVO
+
+	}
+
+	public boolean resolverAuto(int posX, int posY) {
+
+		boolean checkOtherOption = true;
+
+		if (posX == 40) {
+			return true;
+		} else {
+
+			if ((posX >= 3) && checkOtherOption == true) { // Para mirar la primera a la izquierda la primera posicion
+				// debe de ser la 3 y que la de la izquierda no se realizara
+				
+				if (matrizBotones[0][posX] != null && ((buscaCarta(matrizBotones[0][posX].getLabel())
+						.getNumero() == (buscaCarta(matrizBotones[0][posX - 3].getLabel()).getNumero()))
+						|| (buscaCarta(matrizBotones[0][posX].getLabel())
+								.getPalo() == (buscaCarta(matrizBotones[0][posX - 3].getLabel()).getPalo())))) {// Miaramos
+					// si 3
+					// cartas a la
+					// izquierda hay
+					// una que
+					// empareja
+					System.out.println("En tres: " +  buscaCarta(matrizBotones[0][posX].getLabel()).toString() + "-" +  buscaCarta(matrizBotones[0][posX - 3].getLabel()).toString());
+					comprobarMoviminetos(posX,3,true); // Enviamos la posicion destino
+					checkOtherOption = false;// Cambiamos el falg para que no mire otras opciones
+				}
+			}
+
+			if (checkOtherOption == true) {
+
+				if (matrizBotones[0][posX] != null && ((buscaCarta(matrizBotones[0][posX].getLabel())
+						.getNumero() == (buscaCarta(matrizBotones[0][posX - 1].getLabel()).getNumero()))
+						|| (buscaCarta(matrizBotones[0][posX].getLabel())
+								.getPalo() == (buscaCarta(matrizBotones[0][posX - 1].getLabel()).getPalo())))) { // Miramos
+					// si
+					// la
+					// inmediatamente a
+					// la
+					// izquierda emparejan
+					System.out.println("En uno: " +  buscaCarta(matrizBotones[0][posX].getLabel()).toString() + "-" +  buscaCarta(matrizBotones[0][posX - 1].getLabel()).toString());
+
+					comprobarMoviminetos(posX, 1,true);// Enviamos la posicion destino
+					checkOtherOption = false;// Cambiamos el falg para que no mire otras opciones
+
+				}
+			}
+		}
+
+		return resolverAuto(posX + 1, posY);
+
 	}
 
 	public void printMatrix() {
