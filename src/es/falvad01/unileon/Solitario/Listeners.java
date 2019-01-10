@@ -56,7 +56,7 @@ public class Listeners implements ActionListener {
 			juego = EJuego.Saltos;
 			juegoClasico.setVisible(false);
 			juegoSaltos.setVisible(true);
-
+			
 			pSaltos.iniciarJuegoSaltos();
 
 		} else if (e.getActionCommand().equals("Cargar")) {
@@ -75,9 +75,11 @@ public class Listeners implements ActionListener {
 				JOptionPane.showMessageDialog(panel, "Tipo de archivo incorrecto", "Tipo de archivo incorrecto",
 						JOptionPane.ERROR_MESSAGE);// Comprobamos que la extension del archivo sea la correcta
 			} else {
-				System.out.println(loadGame.getPath());
-				// TODO DESDE AQUI MANDAMOS LA RUTA DEL ARCHIVO PARA CARGARLO EN EL PANEL DEL
-				// JUEGO
+				
+				pSaltos.cargarJuego(loadGame.getPath());
+				juego = EJuego.Saltos;
+				juegoClasico.setVisible(false);
+				juegoSaltos.setVisible(true);
 			}
 
 		} else if (e.getActionCommand().equals("Salvar")) {

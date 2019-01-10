@@ -79,16 +79,16 @@ public class VentanaPrincipal extends JFrame {
 		juegoClasico = new 	JLayeredPane();
 		PanelClasico clasico = new PanelClasico(juegoClasico,getContentPane());
 		
-		juegoClasico.setBackground(new Color(0, 128, 0));
+		juegoClasico.setBackground(new Color(0, 120, 0));
 		juegoClasico.setBounds(0, 0, PHEIGH, PWIDTH);
 		juegoClasico.setVisible(false);
-		     
+		juegoClasico.setLayout(null);
 
 		getContentPane().add(juegoClasico);
 		getContentPane().add(juegoSaltos);
 
 		listen = new Listeners(this.getContentPane(), juegoClasico, juegoSaltos);
-		juegoClasico.setLayout(null);
+		
 
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);

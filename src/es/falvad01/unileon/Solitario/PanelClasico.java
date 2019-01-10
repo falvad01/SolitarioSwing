@@ -88,7 +88,7 @@ public class PanelClasico extends JPanel implements ActionListener {
 		monton7 = new JButton[20];
 
 		icono = new ImageIcon[52];
-		juegoClasico.setBackground(new Color(0, 128, 0));
+		juegoClasico.setBackground(Color.BLUE);
 	}
 
 	public String getRutaJuego() {
@@ -218,7 +218,7 @@ public class PanelClasico extends JPanel implements ActionListener {
 				i4--;
 
 			} else if (i >= 34 && i <= 38) {
-				System.out.println("i5-" + i5);
+				
 				monton5[i5] = new JButton(nombre.toString());
 
 				if (i5 >= 16) {
@@ -254,7 +254,7 @@ public class PanelClasico extends JPanel implements ActionListener {
 				i6--;
 
 			} else if (i >= 45 && i <= 51) {
-				System.out.println("i7-" + i7);
+				
 				monton7[i7] = new JButton(nombre.toString());
 
 				if (i7 >= 14) {

@@ -401,7 +401,7 @@ public class PanelSaltos extends JPanel implements ActionListener {
 
 					if (matrizBotones[y][x] != null) {
 						if (matrizBotones[y][x].getLabel().equals("NuLo") == false)
-							pw.print(matrizBotones[y][x].getLabel());
+							pw.print(matrizBotones[y][x].getLabel() + "-");
 					}
 				}
 
@@ -450,17 +450,42 @@ public class PanelSaltos extends JPanel implements ActionListener {
 
 	}
 
-	public void cargarJuego() {
+	public void cargarJuego(String ruta) {
+		
+		String[] linea = new String[40];
+		String [] parts;
+		try {
+			FileReader fr = new FileReader(ruta);
+			BufferedReader br = new BufferedReader(fr);
+			System.out.println(ruta);
+			
+			for (int i = 0; i < 40; i++) {
 
-		// TODO METODO PARA CARGAR LOS DATOS DEL ARCHIVO DEL JUEGO
+				linea[i] = br.readLine();
+				System.out.println(linea[i]);
+				parts = linea[i].split("-");
+				
+				for(int j = 0; j < 40; j++) {
+					for(int h = 0; h < 40; h++) {
+						
+						
+					}
+				}
+			}
+			
+			
+
+			
+
+		
+
+		} catch (Exception a) {
+			System.out.println("Error leyendo fichero " + ruta + ": " + a);
+		}
+		
 	}
 
-	public void limpiarPanel() {
-
-		// TODO AQUI SE REINICIARIAN TODAS LA VARIABLES, Y SE ELIMINARIAN LOS BOTONES
-		// PARA EMEPZAR UN JUEGO NUEVO
-
-	}
+	
 
 	public boolean resolverAuto(int posX, int posY) {
 
