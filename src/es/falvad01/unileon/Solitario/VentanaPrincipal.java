@@ -9,12 +9,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import java.awt.Color;
-import java.awt.GridBagLayout;
-import java.awt.FlowLayout;
-import java.awt.GridLayout;
-import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.ColumnSpec;
-import com.jgoodies.forms.layout.RowSpec;
+
 
 @SuppressWarnings("serial")
 public class VentanaPrincipal extends JFrame {
