@@ -56,7 +56,7 @@ public class Listeners implements ActionListener {
 			juego = EJuego.Saltos;
 			juegoClasico.setVisible(false);
 			juegoSaltos.setVisible(true);
-			
+
 			pSaltos.iniciarJuegoSaltos();
 
 		} else if (e.getActionCommand().equals("Cargar")) {
@@ -75,7 +75,7 @@ public class Listeners implements ActionListener {
 				JOptionPane.showMessageDialog(panel, "Tipo de archivo incorrecto", "Tipo de archivo incorrecto",
 						JOptionPane.ERROR_MESSAGE);// Comprobamos que la extension del archivo sea la correcta
 			} else {
-				
+
 				pSaltos.cargarJuego(loadGame.getPath());
 				juego = EJuego.Saltos;
 				juegoClasico.setVisible(false);
@@ -143,12 +143,12 @@ public class Listeners implements ActionListener {
 			} else {
 				JOptionPane.showMessageDialog(panel, "ERROR, ningun solitario cargado");
 			}
-			
+
 		} else if (e.getActionCommand().equals("Hacer")) {
 			if (juego == EJuego.Saltos) {
 
-				if(pSaltos.hacer(1,0)){
-					
+				if (pSaltos.hacer(1, 0)) {
+
 				}
 			} else if (juego == EJuego.Clasico) {
 
@@ -200,18 +200,18 @@ public class Listeners implements ActionListener {
 				System.out.println("Error leyendo fichero " + fichero + ": " + a);
 			}
 
-		} else if (e.getActionCommand().equals("Estadisticas Fichero"))
+		} else if (e.getActionCommand().equals("Estadisticas Fichero")) {
 
 			/////////////////////////////// AYUDA///////////////////////////////////////////
 
-			if (e.getActionCommand().equals("Informacion")) {
-				// TODO REVISAR ESTE MENSAJE DE MIERDA
-				JOptionPane.showMessageDialog(panel,
-						"APLICACION DESARROLADA POR EL ALUMNO FRANCISCO JAVIER ALVAREZ, PARA LA ASIGNATURA PROGRAMACION II, \n "
-								+ "LA CUAL CONSISTE EN LA PROGRAMACION DE UN JUEGO DE CARTAS LLAMADO SOLITARIO EN DOS DE SUS VARIANTES, MODO CLASICO Y MODO SALTOS \n"
-								+ "EL JUEGO DISPONE DE LA FUNCION DE CREAR CUALQUIERA DE LOS DOS JUEGOS Y DE GUARDARLOS, A SU VEZ TAMBIEN CUETA CON UN SITEMA SENCILLO DE ESTADISTICAS POR PARTIDA Y EN GLOBAL");
+		} else if (e.getActionCommand().equals("Informacion")) {
+			System.out.println("hola");
+			JOptionPane.showMessageDialog(panel,
+					"APLICACION DESARROLADA POR EL ALUMNO FRANCISCO JAVIER ALVAREZ, PARA LA ASIGNATURA PROGRAMACION II, \n "
+							+ "LA CUAL CONSISTE EN LA PROGRAMACION DE UN JUEGO DE CARTAS LLAMADO SOLITARIO EN DOS DE SUS VARIANTES, MODO CLASICO Y MODO SALTOS \n"
+							+ "EL JUEGO DISPONE DE LA FUNCION DE CREAR CUALQUIERA DE LOS DOS JUEGOS Y DE GUARDARLOS, A SU VEZ TAMBIEN CUETA CON UN SITEMA SENCILLO DE ESTADISTICAS POR PARTIDA Y EN GLOBAL");
 
-			}
+		}
 
 	}// Fin del metodo listener
 
