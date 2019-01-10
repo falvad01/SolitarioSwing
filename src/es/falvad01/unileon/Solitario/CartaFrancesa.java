@@ -129,6 +129,9 @@ public class CartaFrancesa {
 		case 'Q':
 			ret = 12;
 			break;
+		case 'V': //Caso vacio
+			ret = -1;
+			break;
 		case 'K':
 			ret = 13;
 			break;

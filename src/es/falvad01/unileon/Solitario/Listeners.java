@@ -36,7 +36,7 @@ public class Listeners implements ActionListener {
 		this.panel = container;
 		this.juegoClasico = juegoClasico2;
 		this.juegoSaltos = juegoSaltos;
-		pClasico = new PanelClasico(juegoClasico2,container);
+		pClasico = new PanelClasico(juegoClasico2, container);
 		pSaltos = new PanelSaltos(juegoSaltos);
 
 	}
@@ -119,21 +119,42 @@ public class Listeners implements ActionListener {
 
 		/////////////////////////////// EDITAR//////////////////////////////////////////
 
-		if(e.getActionCommand().equals("Resolver")) {
-			
-			if(juego == EJuego.Saltos) {
-				
-				if(pSaltos.resolverAuto(1, 0)) {
-					JOptionPane.showMessageDialog(panel,"Resuelto");
+		if (e.getActionCommand().equals("Resolver")) {
+
+			if (juego == EJuego.Saltos) {
+
+				if (pSaltos.resolverAuto(1, 0)) {
+					JOptionPane.showMessageDialog(panel, "Resuelto");
 				}
-			}else if( juego == EJuego.Clasico) {
-				
-			}else {
-				JOptionPane.showMessageDialog(panel,"ERROR, ningun solitario cargado");
+			} else if (juego == EJuego.Clasico) {
+
+			} else {
+				JOptionPane.showMessageDialog(panel, "ERROR, ningun solitario cargado");
+			}
+
+		} else if (e.getActionCommand().equals("Deshacer")) {
+			if (juego == EJuego.Saltos) {
+
+				pSaltos.deshacer();
+			} else if (juego == EJuego.Clasico) {
+
+			} else {
+				JOptionPane.showMessageDialog(panel, "ERROR, ningun solitario cargado");
 			}
 			
+		} else if (e.getActionCommand().equals("Hacer")) {
+			if (juego == EJuego.Saltos) {
+
+				if(pSaltos.hacer(1,0)){
+					
+				}
+			} else if (juego == EJuego.Clasico) {
+
+			} else {
+				JOptionPane.showMessageDialog(panel, "ERROR, ningun solitario cargado");
+			}
 		}
-		
+
 		/////////////////////////////// HISTORIAL///////////////////////////////////////
 
 		if (e.getActionCommand().equals("Estadisticas")) {

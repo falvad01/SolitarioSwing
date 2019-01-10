@@ -9,6 +9,12 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import java.awt.Color;
+import java.awt.GridBagLayout;
+import java.awt.FlowLayout;
+import java.awt.GridLayout;
+import com.jgoodies.forms.layout.FormLayout;
+import com.jgoodies.forms.layout.ColumnSpec;
+import com.jgoodies.forms.layout.RowSpec;
 
 @SuppressWarnings("serial")
 public class VentanaPrincipal extends JFrame {
@@ -80,7 +86,6 @@ public class VentanaPrincipal extends JFrame {
 		
 		juegoClasico.setBackground(new Color(0, 128, 0));
 		juegoClasico.setBounds(0, 0, PHEIGH, PWIDTH);
-		juegoClasico.setLayout(null);
 		juegoClasico.setVisible(false);
 		     
 
@@ -88,6 +93,7 @@ public class VentanaPrincipal extends JFrame {
 		getContentPane().add(juegoSaltos);
 
 		listen = new Listeners(this.getContentPane(), juegoClasico, juegoSaltos);
+		juegoClasico.setLayout(null);
 
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
