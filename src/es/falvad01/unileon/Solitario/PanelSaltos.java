@@ -29,7 +29,7 @@ import javax.swing.border.Border;
 public class PanelSaltos extends JPanel implements ActionListener {
 
 	private JPanel saltos;
-	private Baraja baraja;
+	private boolean primeraPartida = true;
 	private CartaEspaniola[] ABaraja;
 
 	private String rutaJuego = null;
@@ -69,7 +69,6 @@ public class PanelSaltos extends JPanel implements ActionListener {
 		setBackground(Color.red);
 		setOpaque(true);
 		this.saltos = panel;
-		this.baraja = new Baraja(EJuego.Saltos);
 		jugadas = new ArrayList<String>();
 		movimientosJugadas = new ArrayList<Integer>();
 
@@ -88,6 +87,7 @@ public class PanelSaltos extends JPanel implements ActionListener {
 	 */
 	public void iniciarJuegoSaltos() {
 
+		Baraja baraja = new Baraja(EJuego.Saltos);
 		baraja.crearBarajaE();
 		baraja.barajarE();
 		ABaraja = baraja.getBarajaEspaniola();
@@ -99,7 +99,15 @@ public class PanelSaltos extends JPanel implements ActionListener {
 		System.out.println("/n");
 
 		repaint();
-		pintarCartas();
+
+		if (primeraPartida) {
+			primeraPartida = false;
+			pintarCartas();
+			
+		} else {
+			System.out.println(primeraPartida);
+			repintarCartas();
+		}
 
 	}
 
@@ -159,6 +167,9 @@ public class PanelSaltos extends JPanel implements ActionListener {
 
 		}
 
+		/**
+		 * Rellenamos el resto de la matriz
+		 */
 		ImageIcon nul = null;
 		try {
 			nul = new ImageIcon(getClass().getResource("/imagenesBarajaE/reversoE.jpg"));
@@ -172,15 +183,57 @@ public class PanelSaltos extends JPanel implements ActionListener {
 				matrizBotones[j][k].setIcon(nul);
 
 			}
-		}
+}
 
-		// printMatrix();
+		printMatrix();
 
 		JButton sacarCarta = new JButton("Sacar Carta");
 		sacarCarta.setBounds(20, 2, 200, 20);
 		saltos.add(sacarCarta);
 		sacarCarta.addActionListener(this);
 
+	}
+	
+	private void repintarCartas() {
+		
+		StringBuilder nombre = new StringBuilder();
+		
+		for(int i = 0; i < 40; i++) {
+			
+			nombre.append(ABaraja[i]);
+
+			Image img = ABaraja[i].getImageIcon().getImage();
+
+			img = img.getScaledInstance(95, 100, Image.SCALE_SMOOTH);// Reescalamos la imagen
+
+			ImageIcon icono = new ImageIcon(img);
+			
+			matrizBotones[0][i].setLabel(nombre.toString());
+			matrizBotones[0][i].setIcon(icono);
+			
+			nombre.delete(0, nombre.length());
+		}
+		
+		/**
+		 * Rellenamos el resto de la matriz
+		 */
+		ImageIcon nul = null;
+		try {
+			nul = new ImageIcon(getClass().getResource("/imagenesBarajaE/reversoE.jpg"));
+		} catch (Exception e) {
+			System.out.println("Carta no encontrada");
+		}
+		for (int j = 1; j < 40; j++) {
+			for (int k = 0; k < 40; k++) {
+
+				matrizBotones[j][k] = new JButton("NuLo");
+				matrizBotones[j][k].setIcon(nul);
+
+			}
+}
+		
+		printMatrix();
+		
 	}
 
 	@Override
@@ -601,16 +654,8 @@ public class PanelSaltos extends JPanel implements ActionListener {
 
 			if (posMover == 1) {
 
-				
-				
-				
-				
 			} else if (posMover == 3) {
 
-				
-				
-				
-				
 			}
 
 		}

@@ -26,7 +26,7 @@ public class PanelClasico extends JPanel implements ActionListener {
 
 	private JLayeredPane clasico;
 	private Container container;
-	private Baraja baraja;
+	private boolean primeraPartida = true;
 	private CartaFrancesa[] ABaraja;
 	private String rutaJuego = null;
 	BufferedImage[] cartaImageArray;
@@ -69,7 +69,7 @@ public class PanelClasico extends JPanel implements ActionListener {
 
 		this.clasico = juegoClasico;
 		this.container = container;
-		this.baraja = new Baraja(EJuego.Clasico);
+
 		barajaInicial = new JButton[23];
 		barajaDescartes = new JButton[24];
 
@@ -96,7 +96,7 @@ public class PanelClasico extends JPanel implements ActionListener {
 	}
 
 	public void iniciarJuegoClasico() {
-
+		Baraja baraja = new Baraja(EJuego.Clasico);
 		baraja.crearBarajaF();
 		baraja.barajarF();
 		ABaraja = baraja.getBarajaFrancesa();
@@ -106,7 +106,14 @@ public class PanelClasico extends JPanel implements ActionListener {
 
 		// System.out.println("/n");
 
-		pintarCartas();
+		if (primeraPartida) {
+			primeraPartida = false;
+			pintarCartas();
+
+		} else {
+			System.out.println(primeraPartida);
+			repintarCartas();
+		}
 
 	}
 
@@ -218,7 +225,7 @@ public class PanelClasico extends JPanel implements ActionListener {
 				i4--;
 
 			} else if (i >= 34 && i <= 38) {
-				
+
 				monton5[i5] = new JButton(nombre.toString());
 
 				if (i5 >= 16) {
@@ -254,7 +261,7 @@ public class PanelClasico extends JPanel implements ActionListener {
 				i6--;
 
 			} else if (i >= 45 && i <= 51) {
-				
+
 				monton7[i7] = new JButton(nombre.toString());
 
 				if (i7 >= 14) {
@@ -295,6 +302,159 @@ public class PanelClasico extends JPanel implements ActionListener {
 		clasico.add(fin4[0]);
 		fin4[0].addActionListener(this);
 
+		rellenarMontones();
+		printArrays();
+		clasico.add(barajaInicial[0]);
+
+		barajaInicial[0].addActionListener(this);
+
+	}
+
+	private void repintarCartas() {
+		StringBuilder nombre = new StringBuilder();
+
+		int i1 = 19;
+		int i2 = 19;
+		int i3 = 19;
+		int i4 = 19;
+		int i5 = 19;
+		int i6 = 19;
+		int i7 = 19;
+
+		ImageIcon nul = null;
+
+		for (int i = 0; i < 52; i++) {
+
+			nombre.append(ABaraja[i]);
+
+			Image img = ABaraja[i].getImagen().getImage();
+			Image imgReverso = ABaraja[i].getReverso().getImage();
+
+			img = img.getScaledInstance(90, 120, Image.SCALE_SMOOTH);
+			imgReverso = imgReverso.getScaledInstance(90, 120, Image.SCALE_SMOOTH);
+
+			icono[i] = new ImageIcon(img);
+			reverso = new ImageIcon(imgReverso);
+
+			if (i < 23) {// Baraja Principal
+				barajaInicial[i].setLabel(nombre.toString());
+				barajaInicial[i].setIcon(icono[i]);
+
+			} else if (i == 23) { // Baraja Descartes
+
+				barajaDescartes[0].setLabel(nombre.toString());
+				barajaDescartes[0].setIcon(icono[i]);
+
+				for (int j = 1; j < barajaDescartes.length; j++) {// Rellenamos el resto del array con nulos
+					barajaDescartes[j].setLabel("NuLo");
+					barajaDescartes[j].setIcon(nul);
+				}
+
+			} else if (i == 24) { // MOntones de cartas
+
+				monton1[i1].setLabel(nombre.toString());
+				monton1[i1].setIcon(icono[i]);
+				clasico.setPosition(monton1[i1], 1);
+
+			} else if (i > 24 && i < 27) {
+
+				monton2[i2].setLabel(nombre.toString());
+
+				if (i2 >= 19) {
+					monton2[i2].setIcon(reverso);
+					monton2[i2].setEnabled(false);
+				} else {
+
+					monton2[i2].setIcon(icono[i]);
+				}
+
+				clasico.setPosition(monton2[i2], 1);
+				i2--;
+
+			} else if (i >= 27 && i <= 29) {
+
+				monton3[i3].setLabel(nombre.toString());
+				if (i3 >= 18) {
+					monton3[i3].setIcon(reverso);
+					monton3[i3].setEnabled(false);
+				} else {
+
+					monton3[i3].setIcon(icono[i]);
+				}
+
+				clasico.setPosition(monton3[i3], 1);
+
+				i3--;
+
+			} else if (i >= 30 && i <= 33) {
+
+				monton4[i4].setLabel(nombre.toString());
+				if (i4 >= 17) {
+					monton4[i4].setIcon(reverso);
+					monton4[i4].setEnabled(false);
+				} else {
+
+					monton4[i4].setIcon(icono[i]);
+				}
+
+				clasico.setPosition(monton4[i4], 1);
+				i4--;
+
+			} else if (i >= 34 && i <= 38) {
+
+				monton5[i5].setLabel(nombre.toString());
+
+				if (i5 >= 16) {
+					monton5[i5].setIcon(reverso);
+					monton5[i5].setEnabled(false);
+
+				} else {
+
+					monton5[i5].setIcon(icono[i]);
+				}
+
+				clasico.setPosition(monton5[i5], 1);
+
+				i5--;
+
+			} else if (i >= 39 && i <= 44) {
+
+				monton6[i6].setLabel(nombre.toString());
+				if (i6 >= 15) {
+					monton6[i6].setIcon(reverso);
+					monton6[i6].setEnabled(false);
+				} else {
+
+					monton6[i6].setIcon(icono[i]);
+				}
+
+				clasico.setPosition(monton6[i6], 1);
+
+				i6--;
+
+			} else if (i >= 45 && i <= 51) {
+
+				monton7[i7].setLabel(nombre.toString());
+
+				if (i7 >= 14) {
+					monton7[i7].setIcon(reverso);
+					monton7[i7].setEnabled(false);
+				} else {
+
+					monton7[i7].setIcon(icono[i]);
+				}
+
+				i7--;
+
+			}
+
+			nombre.delete(0, nombre.length());
+		}
+		rellenarMontones();
+	}
+
+	private void rellenarMontones() {
+		ImageIcon nul = null;
 		for (int q = 18; q >= 0; q--) {// Relleno monton 1
 
 			monton1[q] = new JButton("vacio");
@@ -392,12 +552,6 @@ public class PanelClasico extends JPanel implements ActionListener {
 			fin4[j] = new JButton("NuLo");
 			fin4[j].setIcon(nul);
 		}
-
-		printArrays();
-		clasico.add(barajaInicial[0]);
-
-		barajaInicial[0].addActionListener(this);
-
 	}
 
 	@Override
@@ -1031,11 +1185,11 @@ public class PanelClasico extends JPanel implements ActionListener {
 						|| mazoDestino == "monton5" || mazoDestino == "monton6" || mazoDestino == "monton7") {
 
 					System.out.println(mazoAMover + "->" + mazoDestino);
-					
+
 					if (cartaDestino.toString().equals("VA")) {
 
 						System.out.println("MOVIMIENTO A VACIO CORRECTO");
-						
+
 						if (mazoDestino == "monton1") {
 
 							monton1[posCartaDestino].setLabel(monton2[posCartaAMover].getLabel());
@@ -1065,7 +1219,8 @@ public class PanelClasico extends JPanel implements ActionListener {
 
 						operacionesMontones("monton2");
 
-					}else if (cartaAMover != null && (cartaAMover.establecerValor() == (cartaDestino.establecerValor() - 1))
+					} else if (cartaAMover != null
+							&& (cartaAMover.establecerValor() == (cartaDestino.establecerValor() - 1))
 							&& !(cartaAMover.getColor().equals(cartaDestino.getColor()))) { // Comprobamos que la carta
 																							// que movemos sea de un
 																							// valor inmediatamente
@@ -1190,11 +1345,11 @@ public class PanelClasico extends JPanel implements ActionListener {
 						|| mazoDestino == "monton5" || mazoDestino == "monton6" || mazoDestino == "monton7") {
 
 					System.out.println(mazoAMover + "->" + mazoDestino);
-					
+
 					if (cartaDestino.toString().equals("VA")) {
 
 						System.out.println("MOVIMIENTO A VACIO CORRECTO");
-						
+
 						if (mazoDestino == "monton1") {
 
 							monton1[posCartaDestino].setLabel(monton3[posCartaAMover].getLabel());
@@ -1224,7 +1379,8 @@ public class PanelClasico extends JPanel implements ActionListener {
 
 						operacionesMontones("monton3");
 
-					}else if (cartaAMover != null && (cartaAMover.establecerValor() == (cartaDestino.establecerValor() - 1))
+					} else if (cartaAMover != null
+							&& (cartaAMover.establecerValor() == (cartaDestino.establecerValor() - 1))
 							&& !(cartaAMover.getColor().equals(cartaDestino.getColor()))) { // Comprobamos que la carta
 																							// que movemos sea de un
 																							// valor inmediatamente
@@ -1352,7 +1508,7 @@ public class PanelClasico extends JPanel implements ActionListener {
 					if (cartaDestino.toString().equals("VA")) {
 
 						System.out.println("MOVIMIENTO A VACIO CORRECTO");
-						
+
 						if (mazoDestino == "monton1") {
 
 							monton1[posCartaDestino].setLabel(monton4[posCartaAMover].getLabel());
@@ -1381,7 +1537,8 @@ public class PanelClasico extends JPanel implements ActionListener {
 						}
 
 						operacionesMontones("monton4");
-				}else if (cartaAMover != null && (cartaAMover.establecerValor() == (cartaDestino.establecerValor() - 1))
+					} else if (cartaAMover != null
+							&& (cartaAMover.establecerValor() == (cartaDestino.establecerValor() - 1))
 							&& !(cartaAMover.getColor().equals(cartaDestino.getColor()))) { // Comprobamos que la carta
 																							// que movemos sea de un
 																							// valor inmediatamente
@@ -1507,12 +1664,11 @@ public class PanelClasico extends JPanel implements ActionListener {
 						|| mazoDestino == "monton4" || mazoDestino == "monton6" || mazoDestino == "monton7") {
 
 					System.out.println(mazoAMover + "->" + mazoDestino);
-					
+
 					if (cartaDestino.toString().equals("VA")) {
 
 						System.out.println("MOVIMIENTO A VACIO CORRECTO");
-						
-						
+
 						if (mazoDestino == "monton1") {
 
 							monton1[posCartaDestino].setLabel(monton5[posCartaAMover].getLabel());
@@ -1542,7 +1698,8 @@ public class PanelClasico extends JPanel implements ActionListener {
 
 						operacionesMontones("monton5");
 
-					}else if (cartaAMover != null && (cartaAMover.establecerValor() == (cartaDestino.establecerValor() - 1))
+					} else if (cartaAMover != null
+							&& (cartaAMover.establecerValor() == (cartaDestino.establecerValor() - 1))
 							&& !(cartaAMover.getColor().equals(cartaDestino.getColor()))) { // Comprobamos que la carta
 																							// que movemos sea de un
 																							// valor inmediatamente
@@ -1668,11 +1825,11 @@ public class PanelClasico extends JPanel implements ActionListener {
 						|| mazoDestino == "monton4" || mazoDestino == "monton5" || mazoDestino == "monton7") {
 
 					System.out.println(mazoAMover + "->" + mazoDestino);
-					
+
 					if (cartaDestino.toString().equals("VA")) {
 
 						System.out.println("MOVIMIENTO A VACIO CORRECTO");
-						
+
 						if (mazoDestino == "monton1") {
 
 							monton1[posCartaDestino].setLabel(monton6[posCartaAMover].getLabel());
@@ -1702,7 +1859,8 @@ public class PanelClasico extends JPanel implements ActionListener {
 
 						operacionesMontones("monton6");
 
-					}else if (cartaAMover != null && (cartaAMover.establecerValor() == (cartaDestino.establecerValor() - 1))
+					} else if (cartaAMover != null
+							&& (cartaAMover.establecerValor() == (cartaDestino.establecerValor() - 1))
 							&& !(cartaAMover.getColor().equals(cartaDestino.getColor()))) { // Comprobamos que la carta
 																							// que movemos sea de un
 																							// valor inmediatamente
@@ -1829,11 +1987,11 @@ public class PanelClasico extends JPanel implements ActionListener {
 						|| mazoDestino == "monton4" || mazoDestino == "monton5") {
 
 					System.out.println(mazoAMover + "->" + mazoDestino);
-					
+
 					if (cartaDestino.toString().equals("VA")) {
 
 						System.out.println("MOVIMIENTO A VACIO CORRECTO");
-						
+
 						if (mazoDestino == "monton1") {
 
 							monton1[posCartaDestino].setLabel(monton7[posCartaAMover].getLabel());
@@ -1863,7 +2021,8 @@ public class PanelClasico extends JPanel implements ActionListener {
 
 						operacionesMontones("monton7");
 
-					}else if (cartaAMover != null && (cartaAMover.establecerValor() == (cartaDestino.establecerValor() - 1))
+					} else if (cartaAMover != null
+							&& (cartaAMover.establecerValor() == (cartaDestino.establecerValor() - 1))
 							&& !(cartaAMover.getColor().equals(cartaDestino.getColor()))) { // Comprobamos que la carta
 																							// que movemos sea de un
 																							// valor inmediatamente
