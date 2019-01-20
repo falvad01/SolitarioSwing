@@ -17,6 +17,7 @@ import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 
@@ -51,8 +52,11 @@ public class PanelSaltos extends JPanel implements ActionListener {
 	private boolean flagIntentos = false;
 
 	ArrayList<String> jugadas;
-	
+	ArrayList<Integer> movimientosJugadas;
+
 	boolean movimientoRealizado = false;
+
+	private int cartaASacar = 10;
 
 	/**
 	 * 
@@ -67,6 +71,7 @@ public class PanelSaltos extends JPanel implements ActionListener {
 		this.saltos = panel;
 		this.baraja = new Baraja(EJuego.Saltos);
 		jugadas = new ArrayList<String>();
+		movimientosJugadas = new ArrayList<Integer>();
 
 	}
 
@@ -112,31 +117,36 @@ public class PanelSaltos extends JPanel implements ActionListener {
 
 			Image img = ABaraja[i].getImageIcon().getImage();
 
-			img = img.getScaledInstance(95, 120, Image.SCALE_SMOOTH);// Reescalamos la imagen
+			img = img.getScaledInstance(95, 100, Image.SCALE_SMOOTH);// Reescalamos la imagen
 
 			ImageIcon icono = new ImageIcon(img);
 
 			if (i < 10) {// fila 1
 
 				matrizBotones[0][i] = new JButton(nombre.toString());
-				matrizBotones[0][i].setBounds(20 + (i1 * 95), 10, 90, 120);
+				matrizBotones[0][i].setBounds(20 + (i1 * 95), 30, 90, 100);
 				i1++;
 			} else if (i >= 10 && i < 20) { // fila 2
 
 				matrizBotones[0][i] = new JButton(nombre.toString());
-				matrizBotones[0][i].setBounds(20 + (i2 * 95), 130, 90, 120);
+				matrizBotones[0][i].setBounds(20 + (i2 * 95), 150, 90, 100);
+				matrizBotones[0][i].setVisible(false);
 				i2++;
 
 			} else if (i >= 20 && i < 30) {// fila 3
 
 				matrizBotones[0][i] = new JButton(nombre.toString());
-				matrizBotones[0][i].setBounds(20 + (i3 * 95), 250, 90, 120);
+				matrizBotones[0][i].setBounds(20 + (i3 * 95), 270, 90, 100);
+				matrizBotones[0][i].setVisible(false);
+
 				i3++;
 
 			} else if (i >= 30 && i < 40) {// fila 4
 
 				matrizBotones[0][i] = new JButton(nombre.toString());
-				matrizBotones[0][i].setBounds(20 + (i4 * 95), 370, 90, 120);
+				matrizBotones[0][i].setBounds(20 + (i4 * 95), 390, 90, 100);
+				matrizBotones[0][i].setVisible(false);
+
 				i4++;
 			}
 
@@ -148,11 +158,12 @@ public class PanelSaltos extends JPanel implements ActionListener {
 			nombre.delete(0, nombre.length());
 
 		}
+
 		ImageIcon nul = null;
 		try {
 			nul = new ImageIcon(getClass().getResource("/imagenesBarajaE/reversoE.jpg"));
 		} catch (Exception e) {
-			System.out.println("CArta no encontrada");
+			System.out.println("Carta no encontrada");
 		}
 		for (int j = 1; j < 40; j++) {
 			for (int k = 0; k < 40; k++) {
@@ -165,84 +176,104 @@ public class PanelSaltos extends JPanel implements ActionListener {
 
 		// printMatrix();
 
+		JButton sacarCarta = new JButton("Sacar Carta");
+		sacarCarta.setBounds(20, 2, 200, 20);
+		saltos.add(sacarCarta);
+		sacarCarta.addActionListener(this);
+
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 
-		Border borde = BorderFactory.createMatteBorder(1, 5, 1, 1, Color.red);
+		if (e.getActionCommand().equals("Sacar Carta")) {
 
-		if ((primeraPulsacion) && (!segundaPulsacion)) {
+			if (cartaASacar < contarNotNull()) {
+				matrizBotones[0][cartaASacar].setVisible(true);
+				cartaASacar++;
+			} else {
+				JOptionPane.showMessageDialog(saltos, "TODAS LAS CARTAS FUERA");
+			}
 
-			segundaPulsacion = true;
-			strDestino = ((JButton) e.getSource()).getLabel();
-			posCartaDestino = posicion(strDestino);
-			matrizBotones[0][posCartaAMover].setBorderPainted(false);
-			System.out.println("POS: " + posCartaDestino);
-			System.out.println("Destino:" + strDestino);
-			System.out.println();
-		}
+		} else {
 
-		if (!primeraPulsacion) {
-			primeraPulsacion = true;
-			strAMover = ((JButton) e.getSource()).getLabel();
-			posCartaAMover = posicion(strAMover);
-			matrizBotones[0][posCartaAMover].setBorder(borde);
-			matrizBotones[0][posCartaAMover].setBorderPainted(true);
-			System.out.println("POS: " + posCartaAMover);
-			System.out.println("Origen: " + strAMover);
-			System.out.println();
+			Border borde = BorderFactory.createMatteBorder(1, 5, 1, 1, Color.red);
 
-		}
+			if ((primeraPulsacion) && (!segundaPulsacion)) {
 
-		if (primeraPulsacion && segundaPulsacion) {
-			posToMove = posCartaAMover - posCartaDestino;// Calculamos cuantas posiciones movemos las cartas
-			System.out.println("Posiciones a mover " + posToMove);
+				segundaPulsacion = true;
+				strDestino = ((JButton) e.getSource()).getLabel();
+				posCartaDestino = posicion(strDestino);
+				matrizBotones[0][posCartaAMover].setBorderPainted(false);
+				System.out.println("POS: " + posCartaDestino);
+				System.out.println("Destino:" + strDestino);
+				System.out.println();
+			}
 
-			if (posToMove == 1) {// Valido por un movimiento
-				System.out.println("JUGADA VALIDA POR MOVIMIENTOS, movemos 1");
-
-				CartaEspaniola cartaAMover = buscaCarta(strAMover);
-				CartaEspaniola cartaDestino = buscaCarta(strDestino);
-
-				if (cartaAMover.getNumero() == cartaDestino.getNumero()
-						|| cartaAMover.getPalo() == cartaDestino.getPalo()) { // La combinacion de cartas es correcta
-
-					System.out.println("CARTA COORECTA");
-					//System.out.println(cartaAMover.toString() + "-" + cartaDestino.toString());
-					jugadas.add(cartaAMover.toString() + "-" + cartaDestino.toString());
-					//jugadas.add(System.getProperty("line.separator"));
-					//System.out.println(jugadas.toString());
-
-					comprobarMoviminetos(posCartaAMover, posToMove, false);
-
-				} else {
-					System.out.println("JUGADA INCORRECTA");// La combinacion de cartas no es correcta
-				}
-
-			} else if (posToMove == 3) {// Valido por dos movimientos
-
-				System.out.println("JUGADA VALIDA POR MOVIMIENTOS, movemos 3");
-
-				CartaEspaniola cartaAMover = buscaCarta(strAMover);
-				CartaEspaniola cartaDestino = buscaCarta(strDestino);
-
-				if (cartaAMover.getNumero() == cartaDestino.getNumero()
-						|| cartaAMover.getPalo() == cartaDestino.getPalo()) { // La combinacion de cartas es correcta
-
-					System.out.println("CARTA COORECTA");
-					//System.out.println(cartaAMover.toString() + "->" + cartaDestino.toString());
-
-					comprobarMoviminetos(posCartaAMover, posToMove,false);
-				}
-
-			} else {// No valido por movimientos
-
-				System.out.println("JUGADA NO VALIDA, movimientos incorrectos");
+			if (!primeraPulsacion) {
+				primeraPulsacion = true;
+				strAMover = ((JButton) e.getSource()).getLabel();
+				posCartaAMover = posicion(strAMover);
+				matrizBotones[0][posCartaAMover].setBorder(borde);
+				matrizBotones[0][posCartaAMover].setBorderPainted(true);
+				System.out.println("POS: " + posCartaAMover);
+				System.out.println("Origen: " + strAMover);
+				System.out.println();
 
 			}
-			primeraPulsacion = false;
-			segundaPulsacion = false;
+
+			if (primeraPulsacion && segundaPulsacion) {
+				posToMove = posCartaAMover - posCartaDestino;// Calculamos cuantas posiciones movemos las cartas
+				System.out.println("Posiciones a mover " + posToMove);
+
+				if (posToMove == 1) {// Valido por un movimiento
+					System.out.println("JUGADA VALIDA POR MOVIMIENTOS, movemos 1");
+
+					CartaEspaniola cartaAMover = buscaCarta(strAMover);
+					CartaEspaniola cartaDestino = buscaCarta(strDestino);
+
+					if (cartaAMover.getNumero() == cartaDestino.getNumero()
+							|| cartaAMover.getPalo() == cartaDestino.getPalo()) { // La combinacion de cartas es
+																					// correcta
+
+						System.out.println("CARTA COORECTA");
+						// System.out.println(cartaAMover.toString() + "-" + cartaDestino.toString());
+						jugadas.add(cartaAMover.toString() + "-" + cartaDestino.toString());
+						movimientosJugadas.add(1);
+
+						comprobarMoviminetos(posCartaAMover, posToMove, false);
+
+					} else {
+						System.out.println("JUGADA INCORRECTA");// La combinacion de cartas no es correcta
+					}
+
+				} else if (posToMove == 3) {// Valido por dos movimientos
+
+					System.out.println("JUGADA VALIDA POR MOVIMIENTOS, movemos 3");
+
+					CartaEspaniola cartaAMover = buscaCarta(strAMover);
+					CartaEspaniola cartaDestino = buscaCarta(strDestino);
+
+					if (cartaAMover.getNumero() == cartaDestino.getNumero()
+							|| cartaAMover.getPalo() == cartaDestino.getPalo()) { // La combinacion de cartas es
+																					// correcta
+
+						System.out.println("CARTA COORECTA");
+						jugadas.add(cartaAMover.toString() + "-" + cartaDestino.toString());
+						movimientosJugadas.add(3);
+						// System.out.println(cartaAMover.toString() + "->" + cartaDestino.toString());
+
+						comprobarMoviminetos(posCartaAMover, posToMove, false);
+					}
+
+				} else {// No valido por movimientos
+
+					System.out.println("JUGADA NO VALIDA, movimientos incorrectos");
+
+				}
+				primeraPulsacion = false;
+				segundaPulsacion = false;
+			}
 		}
 
 	}
@@ -292,16 +323,14 @@ public class PanelSaltos extends JPanel implements ActionListener {
 
 		}
 		printMatrix();
-		
-		if(auto) {
-			
+
+		if (auto) {
+
 			resolverAuto(1, 0);
 		}
 	}
 
 	private void iconoIzquierda(int horizontal, int mover) {
-
-		
 
 		matrizBotones[0][horizontal - mover].setIcon(matrizBotones[0][horizontal].getIcon());
 		matrizBotones[0][horizontal - mover].setLabel(matrizBotones[0][horizontal].getLabel());
@@ -385,6 +414,24 @@ public class PanelSaltos extends JPanel implements ActionListener {
 		return ret;
 	}
 
+	/**
+	 * 
+	 * @return Contamos las cartas que no son null de la primera linea de la matriz,
+	 *         es decir las cartas que esta a la vista
+	 */
+	private int contarNotNull() {
+
+		int ret = 0;
+		for (int i = 0; i < 40; i++) {
+
+			if (matrizBotones[0][i] != null) {
+				ret++;
+			}
+		}
+		return ret;
+
+	}
+
 	public void guardar(String saveGame) {
 
 		rutaJuego = saveGame;
@@ -451,55 +498,46 @@ public class PanelSaltos extends JPanel implements ActionListener {
 	}
 
 	public void cargarJuego(String ruta) {
-		
+
 		String[] linea = new String[40];
-		String [] parts;
+		String[] parts;
 		try {
 			FileReader fr = new FileReader(ruta);
 			BufferedReader br = new BufferedReader(fr);
 			System.out.println(ruta);
-			
+
 			for (int i = 0; i < 40; i++) {
 
 				linea[i] = br.readLine();
 				System.out.println(linea[i]);
 				parts = linea[i].split("-");
-				
-				for(int j = 0; j < 40; j++) {
-					for(int h = 0; h < 40; h++) {
-						
-						
+
+				for (int j = 0; j < 40; j++) {
+					for (int h = 0; h < 40; h++) {
+
 					}
 				}
 			}
-			
-			
-
-			
-
-		
 
 		} catch (Exception a) {
 			System.out.println("Error leyendo fichero " + ruta + ": " + a);
 		}
-		
-	}
 
-	
+	}
 
 	public boolean resolverAuto(int posX, int posY) {
 
 		boolean checkOtherOption = true;
-		
+
 		if (posX == 40) {
-			
+
 			return true;
-			
+
 		} else {
 
 			if ((posX >= 3) && checkOtherOption == true) { // Para mirar la primera a la izquierda la primera posicion
 				// debe de ser la 3 y que la de la izquierda no se realizara
-				
+
 				if (matrizBotones[0][posX] != null && ((buscaCarta(matrizBotones[0][posX].getLabel())
 						.getNumero() == (buscaCarta(matrizBotones[0][posX - 3].getLabel()).getNumero()))
 						|| (buscaCarta(matrizBotones[0][posX].getLabel())
@@ -509,9 +547,10 @@ public class PanelSaltos extends JPanel implements ActionListener {
 					// izquierda hay
 					// una que
 					// empareja
-					System.out.println("En tres: " +  buscaCarta(matrizBotones[0][posX].getLabel()).toString() + "-" +  buscaCarta(matrizBotones[0][posX - 3].getLabel()).toString());
-					comprobarMoviminetos(posX,3,true); // Enviamos la posicion destino
-					
+					System.out.println("En tres: " + buscaCarta(matrizBotones[0][posX].getLabel()).toString() + "-"
+							+ buscaCarta(matrizBotones[0][posX - 3].getLabel()).toString());
+					comprobarMoviminetos(posX, 3, true); // Enviamos la posicion destino
+
 					checkOtherOption = false;// Cambiamos el falg para que no mire otras opciones
 				}
 			}
@@ -527,10 +566,11 @@ public class PanelSaltos extends JPanel implements ActionListener {
 					// inmediatamente a
 					// la
 					// izquierda emparejan
-					System.out.println("En uno: " +  buscaCarta(matrizBotones[0][posX].getLabel()).toString() + "-" +  buscaCarta(matrizBotones[0][posX - 1].getLabel()).toString());
+					System.out.println("En uno: " + buscaCarta(matrizBotones[0][posX].getLabel()).toString() + "-"
+							+ buscaCarta(matrizBotones[0][posX - 1].getLabel()).toString());
 
-					comprobarMoviminetos(posX, 1,true);// Enviamos la posicion destino
-					
+					comprobarMoviminetos(posX, 1, true);// Enviamos la posicion destino
+
 					checkOtherOption = false;// Cambiamos el falg para que no mire otras opciones
 
 				}
@@ -540,31 +580,54 @@ public class PanelSaltos extends JPanel implements ActionListener {
 		return resolverAuto(posX + 1, posY);
 
 	}
-	
+
 	public void deshacer() {
-		System.out.println(jugadas);
-		System.out.println(jugadas.size());
-		
-		String[] parts = jugadas.get(jugadas.size() - 1).split("-");
-		String origen = parts[0];
-		String destino = parts[1];
-		System.out.println(origen + "->" + destino);
-		
-		
+
+		if (jugadas.size() == 0) {
+
+			JOptionPane.showMessageDialog(saltos, "NO SE HA REALIZADO NINGUNA JUGADA");
+		} else {
+
+			System.out.println(jugadas);
+			System.out.println(movimientosJugadas);
+			String a = jugadas.get(jugadas.size() - 1);
+			int posMover = movimientosJugadas.get(movimientosJugadas.size() - 1);
+
+			String[] parts = a.split("-");
+			String origen = parts[0];
+			String destino = parts[1];
+			System.out.println(origen + "->" + destino);
+			System.out.println(posMover);
+
+			if (posMover == 1) {
+
+				
+				
+				
+				
+			} else if (posMover == 3) {
+
+				
+				
+				
+				
+			}
+
+		}
 	}
-	
+
 	public boolean hacer(int posX, int posY) {
-		
+
 		boolean checkOtherOption = true;
-		
+
 		if (movimientoRealizado) {
-			movimientoRealizado = false;	
+			movimientoRealizado = false;
 			return true;
 		} else {
 
 			if ((posX >= 3) && checkOtherOption == true) { // Para mirar la primera a la izquierda la primera posicion
 				// debe de ser la 3 y que la de la izquierda no se realizara
-				
+
 				if (matrizBotones[0][posX] != null && ((buscaCarta(matrizBotones[0][posX].getLabel())
 						.getNumero() == (buscaCarta(matrizBotones[0][posX - 3].getLabel()).getNumero()))
 						|| (buscaCarta(matrizBotones[0][posX].getLabel())
@@ -574,9 +637,9 @@ public class PanelSaltos extends JPanel implements ActionListener {
 					// izquierda hay
 					// una que
 					// empareja
-					//System.out.println("En tres: " +  buscaCarta(matrizBotones[0][posX].getLabel()).toString() + "-" +  buscaCarta(matrizBotones[0][posX - 3].getLabel()).toString());
-					comprobarMoviminetos(posX,3,false); // Enviamos la posicion destino
-					 movimientoRealizado = true;
+
+					comprobarMoviminetos(posX, 3, false); // Enviamos la posicion destino
+					movimientoRealizado = true;
 					checkOtherOption = false;// Cambiamos el falg para que no mire otras opciones
 				}
 			}
@@ -592,10 +655,9 @@ public class PanelSaltos extends JPanel implements ActionListener {
 					// inmediatamente a
 					// la
 					// izquierda emparejan
-					//System.out.println("En uno: " +  buscaCarta(matrizBotones[0][posX].getLabel()).toString() + "-" +  buscaCarta(matrizBotones[0][posX - 1].getLabel()).toString());
 
-					comprobarMoviminetos(posX, 1,false);// Enviamos la posicion destino
-					 movimientoRealizado = true;
+					comprobarMoviminetos(posX, 1, false);// Enviamos la posicion destino
+					movimientoRealizado = true;
 					checkOtherOption = false;// Cambiamos el falg para que no mire otras opciones
 
 				}
@@ -603,7 +665,7 @@ public class PanelSaltos extends JPanel implements ActionListener {
 		}
 		System.out.println(posX);
 		return hacer(posX + 1, posY);
-		
+
 	}
 
 	public void printMatrix() {
