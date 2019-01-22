@@ -85,13 +85,7 @@ public class VentanaClasico extends JFrame implements ActionListener {
 		archivo = new JMenu("Archivo");
 		menuBar.add(archivo);
 
-		nuevo = new JMenu("Nuevo");
-		archivo.add(nuevo);
-
-		btnNuevoSaltos = new JMenuItem("Clasico");
-		nuevo.add(btnNuevoSaltos);
-		btnNuevoSaltos.addActionListener(this);
-
+		
 		btnCargar = new JMenuItem("Cargar");
 		archivo.add(btnCargar);
 		btnCargar.addActionListener(this);
@@ -104,7 +98,7 @@ public class VentanaClasico extends JFrame implements ActionListener {
 		archivo.add(btnSalvarComo);
 		btnSalvarComo.addActionListener(this);
 
-		btnSalir = new JMenuItem("Salir");
+		btnSalir = new JMenuItem("Salir de clasico");
 		archivo.add(btnSalir);
 		btnSalir.addActionListener(this);
 
@@ -152,8 +146,8 @@ public class VentanaClasico extends JFrame implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 
-		if (e.getActionCommand().equals("Clasico")) {
-			clasico.iniciarJuegoClasico();
+		if (e.getActionCommand().equals("Salir de clasico")) {
+			dispose();
 
 		}
 

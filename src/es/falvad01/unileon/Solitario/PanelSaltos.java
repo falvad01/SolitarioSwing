@@ -62,7 +62,7 @@ public class PanelSaltos extends JPanel implements ActionListener {
 	 * 
 	 * @param panel
 	 * 
-	 *              Contructor de clase
+	 *              Constructor de clase
 	 */
 	public PanelSaltos(JPanel panel) {
 		// setPreferredSize(new Dimension(200, 200));
@@ -103,10 +103,10 @@ public class PanelSaltos extends JPanel implements ActionListener {
 		if (primeraPartida) {
 			primeraPartida = false;
 			pintarCartas();
-			
+
 		} else {
-			System.out.println(primeraPartida);
-			repintarCartas();
+			System.out.println("Repintar Cartas");
+			// repintarCartas();
 		}
 
 	}
@@ -183,7 +183,7 @@ public class PanelSaltos extends JPanel implements ActionListener {
 				matrizBotones[j][k].setIcon(nul);
 
 			}
-}
+		}
 
 		printMatrix();
 
@@ -193,48 +193,8 @@ public class PanelSaltos extends JPanel implements ActionListener {
 		sacarCarta.addActionListener(this);
 
 	}
+
 	
-	private void repintarCartas() {
-		
-		StringBuilder nombre = new StringBuilder();
-		
-		for(int i = 0; i < 40; i++) {
-			
-			nombre.append(ABaraja[i]);
-
-			Image img = ABaraja[i].getImageIcon().getImage();
-
-			img = img.getScaledInstance(95, 100, Image.SCALE_SMOOTH);// Reescalamos la imagen
-
-			ImageIcon icono = new ImageIcon(img);
-			
-			matrizBotones[0][i].setLabel(nombre.toString());
-			matrizBotones[0][i].setIcon(icono);
-			
-			nombre.delete(0, nombre.length());
-		}
-		
-		/**
-		 * Rellenamos el resto de la matriz
-		 */
-		ImageIcon nul = null;
-		try {
-			nul = new ImageIcon(getClass().getResource("/imagenesBarajaE/reversoE.jpg"));
-		} catch (Exception e) {
-			System.out.println("Carta no encontrada");
-		}
-		for (int j = 1; j < 40; j++) {
-			for (int k = 0; k < 40; k++) {
-
-				matrizBotones[j][k] = new JButton("NuLo");
-				matrizBotones[j][k].setIcon(nul);
-
-			}
-}
-		
-		printMatrix();
-		
-	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -244,6 +204,7 @@ public class PanelSaltos extends JPanel implements ActionListener {
 			if (cartaASacar < contarNotNull()) {
 				matrizBotones[0][cartaASacar].setVisible(true);
 				cartaASacar++;
+				System.out.println("Carta a cacar " + cartaASacar);
 			} else {
 				JOptionPane.showMessageDialog(saltos, "TODAS LAS CARTAS FUERA");
 			}
@@ -329,7 +290,7 @@ public class PanelSaltos extends JPanel implements ActionListener {
 			}
 		}
 
-	} 
+	}
 
 	/**
 	 * 
@@ -353,9 +314,9 @@ public class PanelSaltos extends JPanel implements ActionListener {
 				iconoIzquierda(horizontal, 1);
 				todosIconosIzquierda(horizontal);
 				matrizBotones[0][posToDelete].setVisible(false);
-				matrizBotones[0][posToDelete--].setLabel("NuLo");
-				matrizBotones[0][posToDelete--].setIcon(nul);
-
+//				matrizBotones[0][posToDelete--].setLabel("NuLo");
+//				matrizBotones[0][posToDelete--].setIcon(nul);
+				matrizBotones[0][posToDelete--] = null;
 
 			}
 
@@ -373,8 +334,9 @@ public class PanelSaltos extends JPanel implements ActionListener {
 				iconoIzquierda(horizontal, 3);
 				todosIconosIzquierda(horizontal);
 				matrizBotones[0][posToDelete].setVisible(false);
-				matrizBotones[0][posToDelete--].setLabel("NuLo");
-				matrizBotones[0][posToDelete--].setIcon(nul);
+//				matrizBotones[0][posToDelete--].setLabel("NuLo");
+//				matrizBotones[0][posToDelete--].setIcon(nul);
+				matrizBotones[0][posToDelete--] = null;
 
 			}
 
@@ -482,9 +444,11 @@ public class PanelSaltos extends JPanel implements ActionListener {
 		for (int i = 0; i < 40; i++) {
 
 			if (matrizBotones[0][i] != null) {
+
 				ret++;
 			}
 		}
+		System.out.println(ret);
 		return ret;
 
 	}
@@ -641,7 +605,6 @@ public class PanelSaltos extends JPanel implements ActionListener {
 	public void deshacer() {
 
 		if (jugadas.size() == 0) {
-
 			JOptionPane.showMessageDialog(saltos, "NO SE HA REALIZADO NINGUNA JUGADA");
 		} else {
 
@@ -657,12 +620,8 @@ public class PanelSaltos extends JPanel implements ActionListener {
 			System.out.println(posMover);
 
 			if (posMover == 1) {
-				
-				
 
 			} else if (posMover == 3) {
-				
-				
 
 			}
 

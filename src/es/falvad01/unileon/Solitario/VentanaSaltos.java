@@ -11,6 +11,7 @@ import javax.swing.JLayeredPane;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 public class VentanaSaltos extends JFrame implements ActionListener {
@@ -84,12 +85,7 @@ public class VentanaSaltos extends JFrame implements ActionListener {
 		archivo = new JMenu("Archivo");
 		menuBar.add(archivo);
 
-		nuevo = new JMenu("Nuevo");
-		archivo.add(nuevo);
-
-		btnNuevoSaltos = new JMenuItem("Saltos");
-		nuevo.add(btnNuevoSaltos);
-		btnNuevoSaltos.addActionListener(this);
+		
 
 		btnCargar = new JMenuItem("Cargar");
 		archivo.add(btnCargar);
@@ -103,7 +99,7 @@ public class VentanaSaltos extends JFrame implements ActionListener {
 		archivo.add(btnSalvarComo);
 		btnSalvarComo.addActionListener(this);
 
-		btnSalir = new JMenuItem("Salir");
+		btnSalir = new JMenuItem("Salir de saltos");
 		archivo.add(btnSalir);
 		btnSalir.addActionListener(this);
 
@@ -151,10 +147,16 @@ public class VentanaSaltos extends JFrame implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 
-		if (e.getActionCommand().equals("Saltos")) {
+		if (e.getActionCommand().equals("Salir de saltos")) {
 			
-			saltos.iniciarJuegoSaltos();
+			dispose();
 
+		}else if (e.getActionCommand().equals("Resolver")) {
+		
+
+			if (saltos.resolverAuto(1, 0)) {
+				JOptionPane.showMessageDialog(saltos, "Resuelto");
+			}
 		}
 
 	}
