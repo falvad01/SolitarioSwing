@@ -10,7 +10,6 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import java.awt.Color;
 
-
 @SuppressWarnings("serial")
 public class VentanaPrincipal extends JFrame {
 
@@ -40,8 +39,8 @@ public class VentanaPrincipal extends JFrame {
 
 	private JMenuItem btnInfo;
 
-	JLayeredPane juegoClasico;
-	JPanel juegoSaltos;
+//	JLayeredPane juegoClasico;
+	// JPanel juegoSaltos;
 	Listeners listen;
 
 	public VentanaPrincipal() {
@@ -68,27 +67,7 @@ public class VentanaPrincipal extends JFrame {
 
 		getContentPane().setLayout(null);
 
-		juegoSaltos = new JPanel();
-		PanelSaltos saltos = new PanelSaltos(juegoSaltos);
-		juegoSaltos.setBackground(new Color(0, 120, 0));
-		juegoSaltos.setBounds(0, 0, PHEIGH, PWIDTH);
-		juegoSaltos.setLayout(null);
-		juegoSaltos.setVisible(false);
-		
-
-		juegoClasico = new 	JLayeredPane();
-		PanelClasico clasico = new PanelClasico(juegoClasico,getContentPane());
-		
-		juegoClasico.setBackground(new Color(0, 120, 0));
-		juegoClasico.setBounds(0, 0, PHEIGH, PWIDTH);
-		juegoClasico.setVisible(false);
-		juegoClasico.setLayout(null);
-
-		getContentPane().add(juegoClasico);
-		getContentPane().add(juegoSaltos);
-
-		listen = new Listeners(this.getContentPane(), juegoClasico, juegoSaltos);
-		
+		listen = new Listeners(this.getContentPane());
 
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
@@ -111,32 +90,9 @@ public class VentanaPrincipal extends JFrame {
 		archivo.add(btnCargar);
 		btnCargar.addActionListener(listen);
 
-		btnSalvar = new JMenuItem("Salvar");
-		archivo.add(btnSalvar);
-		btnSalvar.addActionListener(listen);
-
-		btnSalvarComo = new JMenuItem("Salvar Como");
-		archivo.add(btnSalvarComo);
-		btnSalvarComo.addActionListener(listen);
-
 		btnSalir = new JMenuItem("Salir");
 		archivo.add(btnSalir);
 		btnSalir.addActionListener(listen);
-
-		editar = new JMenu("Editar");
-		menuBar.add(editar);
-
-		btnDeshacer = new JMenuItem("Deshacer");
-		editar.add(btnDeshacer);
-		btnDeshacer.addActionListener(listen);
-
-		btnHacer = new JMenuItem("Hacer");
-		editar.add(btnHacer);
-		btnHacer.addActionListener(listen);
-
-		btnResolver = new JMenuItem("Resolver");
-		editar.add(btnResolver);
-		btnResolver.addActionListener(listen);
 
 		historial = new JMenu("Historial");
 		menuBar.add(historial);

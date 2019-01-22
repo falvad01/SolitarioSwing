@@ -329,7 +329,7 @@ public class PanelSaltos extends JPanel implements ActionListener {
 			}
 		}
 
-	}
+	} 
 
 	/**
 	 * 
@@ -338,6 +338,7 @@ public class PanelSaltos extends JPanel implements ActionListener {
 	 */
 	private void comprobarMoviminetos(int horizontal, int posAMover, boolean auto) {
 
+		ImageIcon nul = null;
 		if (posAMover == 1) {
 
 			if (matrizBotones[1][horizontal].getLabel() != "NuLo") {
@@ -352,7 +353,9 @@ public class PanelSaltos extends JPanel implements ActionListener {
 				iconoIzquierda(horizontal, 1);
 				todosIconosIzquierda(horizontal);
 				matrizBotones[0][posToDelete].setVisible(false);
-				matrizBotones[0][posToDelete--] = null;
+				matrizBotones[0][posToDelete--].setLabel("NuLo");
+				matrizBotones[0][posToDelete--].setIcon(nul);
+
 
 			}
 
@@ -370,7 +373,8 @@ public class PanelSaltos extends JPanel implements ActionListener {
 				iconoIzquierda(horizontal, 3);
 				todosIconosIzquierda(horizontal);
 				matrizBotones[0][posToDelete].setVisible(false);
-				matrizBotones[0][posToDelete--] = null;
+				matrizBotones[0][posToDelete--].setLabel("NuLo");
+				matrizBotones[0][posToDelete--].setIcon(nul);
 
 			}
 
@@ -653,8 +657,12 @@ public class PanelSaltos extends JPanel implements ActionListener {
 			System.out.println(posMover);
 
 			if (posMover == 1) {
+				
+				
 
 			} else if (posMover == 3) {
+				
+				
 
 			}
 
