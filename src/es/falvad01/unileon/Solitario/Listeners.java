@@ -82,10 +82,9 @@ public class Listeners implements ActionListener {
 						JOptionPane.ERROR_MESSAGE);// Comprobamos que la extension del archivo sea la correcta
 			} else {
 
-				//pSaltos.cargarJuego(loadGame.getPath());
-				juego = EJuego.Saltos;
-				juegoClasico.setVisible(false);
-				juegoSaltos.setVisible(true);
+				VentanaSaltos ventanaSaltos = new VentanaSaltos();
+				//ventanaSaltos.setVisible(true);
+				ventanaSaltos.cargarJuego(loadGame.getPath());
 			}
 
 		} else if (e.getActionCommand().equals("Salvar")) {

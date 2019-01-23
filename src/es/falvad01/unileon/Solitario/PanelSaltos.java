@@ -29,6 +29,7 @@ import javax.swing.border.Border;
 public class PanelSaltos extends JPanel implements ActionListener {
 
 	private JPanel saltos;
+	ImageIcon[] icono = new ImageIcon[40];
 	private boolean primeraPartida = true;
 	private CartaEspaniola[] ABaraja;
 
@@ -127,7 +128,7 @@ public class PanelSaltos extends JPanel implements ActionListener {
 
 			img = img.getScaledInstance(95, 100, Image.SCALE_SMOOTH);// Reescalamos la imagen
 
-			ImageIcon icono = new ImageIcon(img);
+			icono[i] = new ImageIcon(img, nombre.toString());
 
 			if (i < 10) {// fila 1
 
@@ -159,7 +160,7 @@ public class PanelSaltos extends JPanel implements ActionListener {
 			}
 
 			saltos.add(matrizBotones[0][i], new Integer(-2));
-			matrizBotones[0][i].setIcon(icono);
+			matrizBotones[0][i].setIcon(icono[i]);
 
 			matrizBotones[0][i].addActionListener(this);
 
@@ -193,8 +194,6 @@ public class PanelSaltos extends JPanel implements ActionListener {
 		sacarCarta.addActionListener(this);
 
 	}
-
-	
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -462,14 +461,29 @@ public class PanelSaltos extends JPanel implements ActionListener {
 		try {
 			FileWriter fichero = new FileWriter(rutaJuego);
 			PrintWriter pw = new PrintWriter(fichero);
-			pw.println("Solitario Saltos");
+			pw.println("Solitario saltos");
 
-			for (int x = 0; x < 39; x++) {
+			for (int i = 0; i < 40; i++) {
+
+				if (matrizBotones[0][i] != null && !matrizBotones[0][i].isVisible()) {
+
+					pw.print(matrizBotones[0][i].getLabel() + " ");
+					System.out.print(matrizBotones[0][i].getLabel());
+
+				}
+			}
+
+			pw.println();
+
+			for (int x = 0; x < 40; x++) {
 				for (int y = 39; y >= 0; y--) {
 
-					if (matrizBotones[y][x] != null) {
-						if (matrizBotones[y][x].getLabel().equals("NuLo") == false)
-							pw.print(matrizBotones[y][x].getLabel() + "-");
+					if (matrizBotones[y][x] != null && matrizBotones[y][x].isVisible()) {
+
+						if (matrizBotones[y][x].getLabel().equals("NuLo") == false) {
+
+							pw.print(matrizBotones[y][x].getLabel() + " ");
+						}
 					}
 				}
 
@@ -519,31 +533,84 @@ public class PanelSaltos extends JPanel implements ActionListener {
 	}
 
 	public void cargarJuego(String ruta) {
+		
+		String[] guardar = new String[42];
+		String cadena;
+		int i = 0;
 
-		String[] linea = new String[40];
-		String[] parts;
 		try {
 			FileReader fr = new FileReader(ruta);
 			BufferedReader br = new BufferedReader(fr);
 			System.out.println(ruta);
 
-			for (int i = 0; i < 40; i++) {
+			while ((cadena = br.readLine()) != null) {
+				guardar[i] = cadena;
 
-				linea[i] = br.readLine();
-				System.out.println(linea[i]);
-				parts = linea[i].split("-");
-
-				for (int j = 0; j < 40; j++) {
-					for (int h = 0; h < 40; h++) {
-
-					}
-				}
+				i++;
 			}
+			br.close();
 
 		} catch (Exception a) {
 			System.out.println("Error leyendo fichero " + ruta + ": " + a);
 		}
 
+//		for (int j = 0; j < guardar.length; j++) {
+//			System.out.println(guardar[j]);
+//		}
+
+		String[] ocultas = guardar[1].split(" ");
+
+		for (int j = 2; j < guardar.length - 1; j++) {
+			String[] montones = guardar[j].split(" ");
+
+			int b = 0;
+			for (int h = montones.length - 1; h >= 0; h--) {
+
+				matrizBotones[h][j - 2].setLabel(montones[b]);
+				matrizBotones[h][j - 2].setIcon(buscarIcono(montones[b]));
+				b++;
+			}
+
+		}
+		
+		if (ocultas.length != 1) { // Solo hacer esta parte si hay cartas ocultas
+			int n = 0;
+			for (int k = 0; k < 40; k++) {
+				matrizBotones[0][k].setVisible(true);
+				if (matrizBotones[0][k].getLabel().equals("")) {
+					matrizBotones[0][k].setLabel(ocultas[n]);
+					matrizBotones[0][k].setIcon(buscarIcono(ocultas[n]));
+					matrizBotones[0][k].setVisible(false);
+
+					n++;
+				}
+			}
+			System.out.println(n);
+			cartaASacar = 39-n;
+			matrizBotones[0][39].setLabel(ocultas[ocultas.length-1]);
+			matrizBotones[0][39].setIcon(buscarIcono(ocultas[ocultas.length-1]));
+			matrizBotones[0][39].setVisible(false);
+		}
+		
+
+		System.out.println();
+		printMatrix();
+
+	}
+
+	private ImageIcon buscarIcono(String card) {
+
+		ImageIcon ret = null;
+
+		for (int i = 0; i < 40; i++) {
+
+			if (icono[i].getDescription().equals(card)) {
+
+				ret = icono[i];
+			}
+		}
+
+		return ret;
 	}
 
 	public boolean resolverAuto(int posX, int posY) {
