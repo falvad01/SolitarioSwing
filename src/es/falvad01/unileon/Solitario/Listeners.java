@@ -28,16 +28,16 @@ public class Listeners implements ActionListener {
 	JLayeredPane juegoClasico;
 	JPanel juegoSaltos;
 
-	//PanelClasico pClasico;
-	//PanelSaltos pSaltos;
+	// PanelClasico pClasico;
+	// PanelSaltos pSaltos;
 
 	public Listeners(Container container) {
 
 		this.panel = container;
-	//	this.juegoClasico = juegoClasico2;
+		// this.juegoClasico = juegoClasico2;
 		this.juegoSaltos = juegoSaltos;
-		//pClasico = new PanelClasico(juegoClasico2, container);
-		//pSaltos = new PanelSaltos(juegoSaltos);
+		// pClasico = new PanelClasico(juegoClasico2, container);
+		// pSaltos = new PanelSaltos(juegoSaltos);
 
 	}
 
@@ -50,19 +50,18 @@ public class Listeners implements ActionListener {
 //			juegoClasico.setVisible(true);
 //			juegoSaltos.setVisible(false);
 //			pClasico.iniciarJuegoClasico();
-			
+
 			VentanaClasico ventanaClasico = new VentanaClasico();
 			ventanaClasico.setVisible(true);
-			
 
 		} else if (e.getActionCommand().equals("Saltos")) {
 //			juego = EJuego.Saltos;
 //			juegoClasico.setVisible(false);
 //			juegoSaltos.setVisible(true);
 //			pSaltos.iniciarJuegoSaltos();
-			
+
 			VentanaSaltos ventanaSaltos = new VentanaSaltos();
-			
+
 			ventanaSaltos.setVisible(true);
 
 		} else if (e.getActionCommand().equals("Cargar")) {
@@ -82,34 +81,40 @@ public class Listeners implements ActionListener {
 						JOptionPane.ERROR_MESSAGE);// Comprobamos que la extension del archivo sea la correcta
 			} else {
 
-				VentanaSaltos ventanaSaltos = new VentanaSaltos();
-				//ventanaSaltos.setVisible(true);
-				ventanaSaltos.cargarJuego(loadGame.getPath());
+				String[] guardar = new String[42];
+				String cadena;
+				int hy = 0;
+
+				try {
+					FileReader fr = new FileReader(loadGame.getPath());
+					BufferedReader br = new BufferedReader(fr);
+					System.out.println(loadGame.getPath());
+
+					while ((cadena = br.readLine()) != null) {
+						guardar[hy] = cadena;
+
+						hy++;
+					}
+					br.close();
+
+				} catch (Exception a) {
+					System.out.println("Error leyendo fichero " + loadGame.getPath() + ": " + a);
+				}
+
+				if (guardar[0].equals("Solitario saltos")) {
+					
+					System.out.println("CARGANDO SOLITARIO SALTOS");
+					VentanaSaltos ventanaSaltos = new VentanaSaltos();
+					ventanaSaltos.cargarJuego(loadGame.getPath());
+					
+				}else if(guardar[0].equals("Solitario clásico")) {
+					
+					System.out.println("CARGANDO SOLITARIO Clasico");
+					
+					
+					
+				}
 			}
-
-		} else if (e.getActionCommand().equals("Salvar")) {
-
-//			String ruta;
-//
-//			if (juego == EJuego.Clasico) {
-//				//ruta = pClasico.getRutaJuego();
-//				if (ruta == null) {// actua como guardar como
-//					guardarComo();
-//				} else if (ruta != null) {
-//					//pClasico.guardar(ruta);
-//
-//				}
-//
-//			} else if (juego == EJuego.Saltos) {
-//				//ruta = pSaltos.getRutaJuego();
-//				if (ruta == null) {// actua como guardar como
-//					guardarComo();
-//				} else if (ruta != null) {
-//					//pSaltos.guardar(ruta);
-//
-//				}
-//
-//			}
 
 		} else if (e.getActionCommand().equals("Salvar Como")) {
 
@@ -121,44 +126,6 @@ public class Listeners implements ActionListener {
 					JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) { // Pregunta si esta seguro de que desea
 																			// salir
 				System.exit(0);
-			}
-		}
-
-		/////////////////////////////// EDITAR//////////////////////////////////////////
-
-		if (e.getActionCommand().equals("Resolver")) {
-
-			if (juego == EJuego.Saltos) {
-
-//				if (pSaltos.resolverAuto(1, 0)) {
-//					JOptionPane.showMessageDialog(panel, "Resuelto");
-//				}
-			} else if (juego == EJuego.Clasico) {
-
-			} else {
-				JOptionPane.showMessageDialog(panel, "ERROR, ningun solitario cargado");
-			}
-
-		} else if (e.getActionCommand().equals("Deshacer")) {
-//			if (juego == EJuego.Saltos) {
-//
-//				pSaltos.deshacer();
-//			} else if (juego == EJuego.Clasico) {
-//
-//			} else {
-//				JOptionPane.showMessageDialog(panel, "ERROR, ningun solitario cargado");
-//			}
-
-		} else if (e.getActionCommand().equals("Hacer")) {
-			if (juego == EJuego.Saltos) {
-
-//				if (pSaltos.hacer(1, 0)) {
-//
-//				}
-			} else if (juego == EJuego.Clasico) {
-
-			} else {
-				JOptionPane.showMessageDialog(panel, "ERROR, ningun solitario cargado");
 			}
 		}
 
@@ -234,13 +201,13 @@ public class Listeners implements ActionListener {
 					if (JOptionPane.YES_NO_OPTION == JOptionPane.showConfirmDialog(panel,
 							"El fichero existe,deseas reemplazarlo?", "Titulo", JOptionPane.YES_NO_OPTION)) {
 
-						//pClasico.guardar(saveGame.getAbsolutePath());
+						// pClasico.guardar(saveGame.getAbsolutePath());
 
 						System.out.println(saveGame.getAbsolutePath());
 					}
 				} else {
 
-					//pClasico.guardar(saveGame.getAbsolutePath());
+					// pClasico.guardar(saveGame.getAbsolutePath());
 
 					System.out.println(saveGame.getAbsolutePath());
 
@@ -253,12 +220,12 @@ public class Listeners implements ActionListener {
 					if (JOptionPane.YES_NO_OPTION == JOptionPane.showConfirmDialog(panel,
 							"El fichero existe,deseas reemplazarlo?", "Titulo", JOptionPane.YES_NO_OPTION)) {
 
-						//pSaltos.guardar(saveGame.getAbsolutePath());
+						// pSaltos.guardar(saveGame.getAbsolutePath());
 
 						System.out.println(saveGame.getAbsolutePath());
 					}
 				} else {
-					//pSaltos.guardar(saveGame.getAbsolutePath());
+					// pSaltos.guardar(saveGame.getAbsolutePath());
 
 					System.out.println(saveGame.getAbsolutePath());
 				}

@@ -533,7 +533,7 @@ public class PanelSaltos extends JPanel implements ActionListener {
 	}
 
 	public void cargarJuego(String ruta) {
-		
+
 		String[] guardar = new String[42];
 		String cadena;
 		int i = 0;
@@ -572,26 +572,32 @@ public class PanelSaltos extends JPanel implements ActionListener {
 			}
 
 		}
-		
+		System.out.println("Ocultas " + ocultas.length);
 		if (ocultas.length != 1) { // Solo hacer esta parte si hay cartas ocultas
 			int n = 0;
+			int contador = 0;
 			for (int k = 0; k < 40; k++) {
 				matrizBotones[0][k].setVisible(true);
 				if (matrizBotones[0][k].getLabel().equals("")) {
 					matrizBotones[0][k].setLabel(ocultas[n]);
 					matrizBotones[0][k].setIcon(buscarIcono(ocultas[n]));
 					matrizBotones[0][k].setVisible(false);
+					System.out.println(n);
 
-					n++;
+					if (n < ocultas.length-1) {
+						System.out.println(n);
+
+						n++;
+					}
+					contador++;
 				}
 			}
 			System.out.println(n);
-			cartaASacar = 39-n;
-			matrizBotones[0][39].setLabel(ocultas[ocultas.length-1]);
-			matrizBotones[0][39].setIcon(buscarIcono(ocultas[ocultas.length-1]));
+			cartaASacar = 39 - contador;
+			matrizBotones[0][39].setLabel(ocultas[ocultas.length - 1]);
+			matrizBotones[0][39].setIcon(buscarIcono(ocultas[ocultas.length - 1]));
 			matrizBotones[0][39].setVisible(false);
 		}
-		
 
 		System.out.println();
 		printMatrix();
