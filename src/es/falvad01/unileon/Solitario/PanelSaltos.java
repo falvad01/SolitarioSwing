@@ -104,6 +104,7 @@ public class PanelSaltos extends JPanel implements ActionListener {
 		if (primeraPartida) {
 			primeraPartida = false;
 			pintarCartas();
+			sumarEstadisticas();
 
 		} else {
 			System.out.println("Repintar Cartas");
@@ -506,7 +507,7 @@ public class PanelSaltos extends JPanel implements ActionListener {
 
 		String fichero = "./Estadisticas/Estadisticas.txt";
 		String[] linea = new String[6];
-
+		String h = "HOla";
 		try {
 			FileReader fr = new FileReader(fichero);
 			BufferedReader br = new BufferedReader(fr);
@@ -521,18 +522,50 @@ public class PanelSaltos extends JPanel implements ActionListener {
 			int interntosExito = Integer.parseInt(linea[2]);
 
 			if (!flagIntentos) {
-				intentos++;
+				intentos = intentos + 1;
+				System.out.println(intentos);
+				h = Integer.toString(intentos);
+				
+				System.out.println("Intentos" + intentos);
 				flagIntentos = true;
+				System.out.println(h);
 
 				// TODO BUSCAR COMO ACTUALIZAR ESTOS DOS PARAMETROS
 
 			}
 
 			// TODO PONER CONDICION DE INTENTO CON EXITO
+			
+			
+			
+			
+			
+			
 
 		} catch (Exception a) {
 			System.out.println("Error leyendo fichero " + fichero + ": " + a);
 		}
+		
+		
+		try {
+			FileWriter fichero2 = new FileWriter(fichero);
+			PrintWriter pw = new PrintWriter(fichero2);
+			
+			pw.println(linea[0]);
+			pw.println(h);
+			pw.println(linea[2]);
+			pw.println(linea[3]);
+			pw.println(linea[4]);
+			pw.println(linea[5]);
+			
+			pw.close();
+		} catch (IOException e) {
+			System.out.println("Error escribiendo fichero " + fichero + ": " + e);
+
+		}
+		
+		
+		
 
 	}
 
@@ -618,7 +651,7 @@ public class PanelSaltos extends JPanel implements ActionListener {
 				}
 			}
 		}
-		System.out.println("posTODelete "  + ((i + ocultas.length) - 3));
+		
 		posToDelete = (i + ocultas.length) - 3;
 		System.out.println();
 		printMatrix();

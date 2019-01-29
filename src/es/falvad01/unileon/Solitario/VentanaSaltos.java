@@ -122,21 +122,21 @@ public class VentanaSaltos extends JFrame implements ActionListener {
 		editar.add(btnResolver);
 		btnResolver.addActionListener(this);
 
-		historial = new JMenu("Historial");
-		menuBar.add(historial);
+//		historial = new JMenu("Historial");
+//		menuBar.add(historial);
+//
+//		btnEstadisticas = new JMenuItem("Estadisticas");
+//		historial.add(btnEstadisticas);
+//		btnEstadisticas.addActionListener(this);
+//		btnEstadisticasFichero = new JMenuItem("Estadisticas Fichero");
+//		historial.add(btnEstadisticasFichero);
+//		btnEstadisticasFichero.addActionListener(this);
 
-		btnEstadisticas = new JMenuItem("Estadisticas");
-		historial.add(btnEstadisticas);
-		btnEstadisticas.addActionListener(this);
-		btnEstadisticasFichero = new JMenuItem("Estadisticas Fichero");
-		historial.add(btnEstadisticasFichero);
-		btnEstadisticasFichero.addActionListener(this);
-
-		ayuda = new JMenu("Ayuda");
-		menuBar.add(ayuda);
-		btnInfo = new JMenuItem("Informacion");
-		ayuda.add(btnInfo);
-		btnInfo.addActionListener(this);
+//		ayuda = new JMenu("Ayuda");
+//		menuBar.add(ayuda);
+//		btnInfo = new JMenuItem("Informacion");
+//		ayuda.add(btnInfo);
+//		btnInfo.addActionListener(this);
 
 	}
 
