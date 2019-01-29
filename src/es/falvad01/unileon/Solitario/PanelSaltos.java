@@ -59,6 +59,8 @@ public class PanelSaltos extends JPanel implements ActionListener {
 
 	private int cartaASacar = 10;
 
+	private String rutaEstadisticas = "./Estadisticas/Estadisticas.txt";
+
 	/**
 	 * 
 	 * @param panel
@@ -73,6 +75,10 @@ public class PanelSaltos extends JPanel implements ActionListener {
 		jugadas = new ArrayList<String>();
 		movimientosJugadas = new ArrayList<Integer>();
 
+	}
+
+	public void rutaStadisticas(String ruta) {
+		this.rutaEstadisticas = ruta;
 	}
 
 	/**
@@ -200,7 +206,7 @@ public class PanelSaltos extends JPanel implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 
 		if (e.getActionCommand().equals("Sacar Carta")) {
-			System.out.println("NOT NULL"  + contarNotNull());
+			System.out.println("NOT NULL" + contarNotNull());
 			if (cartaASacar < contarNotNull()) {
 				matrizBotones[0][cartaASacar].setVisible(true);
 				cartaASacar++;
@@ -314,8 +320,7 @@ public class PanelSaltos extends JPanel implements ActionListener {
 				iconoIzquierda(horizontal, 1);
 				todosIconosIzquierda(horizontal);
 				matrizBotones[0][posToDelete].setVisible(false);
-//				matrizBotones[0][posToDelete--].setLabel("NuLo");
-//				matrizBotones[0][posToDelete--].setIcon(nul);
+
 				matrizBotones[0][posToDelete--] = null;
 
 			}
@@ -334,13 +339,13 @@ public class PanelSaltos extends JPanel implements ActionListener {
 				iconoIzquierda(horizontal, 3);
 				todosIconosIzquierda(horizontal);
 				matrizBotones[0][posToDelete].setVisible(false);
-//				matrizBotones[0][posToDelete--].setLabel("NuLo");
-//				matrizBotones[0][posToDelete--].setIcon(nul);
+
 				matrizBotones[0][posToDelete--] = null;
 
 			}
 
 		}
+		sumarEstadisticas();
 		printMatrix();
 
 		if (auto) {
@@ -505,11 +510,12 @@ public class PanelSaltos extends JPanel implements ActionListener {
 
 	public void sumarEstadisticas() {
 
-		String fichero = "./Estadisticas/Estadisticas.txt";
 		String[] linea = new String[6];
-		String h = "HOla";
+		String aImprimir1 = "HOLA";
+		String aImprimir2 = "GOLa";
+		System.out.println(rutaEstadisticas);
 		try {
-			FileReader fr = new FileReader(fichero);
+			FileReader fr = new FileReader(rutaEstadisticas);
 			BufferedReader br = new BufferedReader(fr);
 
 			for (int i = 0; i < 6; i++) {
@@ -517,56 +523,53 @@ public class PanelSaltos extends JPanel implements ActionListener {
 				linea[i] = br.readLine();
 
 			}
-
+			aImprimir1 = linea[1];
+			aImprimir2 = linea[2];
 			int intentos = Integer.parseInt(linea[1]);
-			int interntosExito = Integer.parseInt(linea[2]);
+			int intentosExito = Integer.parseInt(linea[2]);
 
 			if (!flagIntentos) {
 				intentos = intentos + 1;
-				System.out.println(intentos);
-				h = Integer.toString(intentos);
-				
-				System.out.println("Intentos" + intentos);
-				flagIntentos = true;
-				System.out.println(h);
 
-				// TODO BUSCAR COMO ACTUALIZAR ESTOS DOS PARAMETROS
+				aImprimir1 = Integer.toString(intentos);
+				flagIntentos = true;
 
 			}
 
-			// TODO PONER CONDICION DE INTENTO CON EXITO
-			
-			
-			
-			
-			
-			
+			int nulo = 0;
+			for (int i = 0; i < 40; i++) {
+				if (matrizBotones[i][0].getLabel().equals("NuLo")) {
+					nulo++;
+				}
+
+			}
+
+			System.out.println("NuLo" + nulo);
+			if (nulo == 0) {
+				intentosExito = intentosExito + 1;
+				aImprimir2 = Integer.toString(intentosExito);
+			}
 
 		} catch (Exception a) {
-			System.out.println("Error leyendo fichero " + fichero + ": " + a);
+			System.out.println("Error leyendo fichero " + rutaEstadisticas + ": " + a);
 		}
-		
-		
+
 		try {
-			FileWriter fichero2 = new FileWriter(fichero);
+			FileWriter fichero2 = new FileWriter(rutaEstadisticas);
 			PrintWriter pw = new PrintWriter(fichero2);
-			
+
 			pw.println(linea[0]);
-			pw.println(h);
-			pw.println(linea[2]);
+			pw.println(aImprimir1);
+			pw.println(aImprimir2);
 			pw.println(linea[3]);
 			pw.println(linea[4]);
 			pw.println(linea[5]);
-			
+
 			pw.close();
 		} catch (IOException e) {
-			System.out.println("Error escribiendo fichero " + fichero + ": " + e);
+			System.out.println("Error escribiendo fichero " + rutaEstadisticas + ": " + e);
 
 		}
-		
-		
-		
-
 	}
 
 	public void cargarJuego(String ruta) {
@@ -608,50 +611,41 @@ public class PanelSaltos extends JPanel implements ActionListener {
 					matrizBotones[h][j - 2].setLabel(montones[b]);
 					matrizBotones[h][j - 2].setIcon(buscarIcono(montones[b]));
 					b++;
-					matrizBotones[0][j-2].setVisible(true);
+					matrizBotones[0][j - 2].setVisible(true);
 				}
 			}
 		}
 
-		System.out.println("Ocultas " + ocultas.length);
-		System.out.println("I + ocultas " + (i + ocultas.length));
 		if (ocultas.length != 1) { // Solo hacer esta parte si hay cartas ocultas
 			int n = 0;
 
-			
-			for (int k = i-2; k < 40; k++) {
+			for (int k = i - 2; k < 40; k++) {
 
-			
-			
-					matrizBotones[0][k].setLabel(ocultas[n]);
-					matrizBotones[0][k].setIcon(buscarIcono(ocultas[n]));
-					matrizBotones[0][k].setVisible(false);
+				matrizBotones[0][k].setLabel(ocultas[n]);
+				matrizBotones[0][k].setIcon(buscarIcono(ocultas[n]));
+				matrizBotones[0][k].setVisible(false);
 
-					
-					if (n < ocultas.length - 1) {
-						System.out.println("N" + n);
+				if (n < ocultas.length - 1) {
+					System.out.println("N" + n);
 
-						n++;
-					}
-					
-					
-					
+					n++;
+				}
 			}
-			System.out.println(n);
+
 			cartaASacar = i - 3;
 			matrizBotones[0][39].setLabel(ocultas[ocultas.length - 1]);
 			matrizBotones[0][39].setIcon(buscarIcono(ocultas[ocultas.length - 1]));
 			matrizBotones[0][39].setVisible(false);
-			
-			for(int h = 0; h < 40; h++) {
-				if( h >= (i + ocultas.length) - 2) {
+
+			for (int h = 0; h < 40; h++) {
+				if (h >= (i + ocultas.length) - 2) {
 					matrizBotones[0][h].setVisible(false);
 					matrizBotones[0][h] = null;
-					
+
 				}
 			}
 		}
-		
+
 		posToDelete = (i + ocultas.length) - 3;
 		System.out.println();
 		printMatrix();

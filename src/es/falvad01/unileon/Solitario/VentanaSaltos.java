@@ -52,6 +52,8 @@ public class VentanaSaltos extends JFrame implements ActionListener {
 
 	File loadGame;
 	File saveGame;
+	
+	static String rutaEstadisticas;
 
 	public VentanaSaltos() {
 
@@ -73,6 +75,10 @@ public class VentanaSaltos extends JFrame implements ActionListener {
 		initPanel();
 
 	}
+	
+	public static void rutaStadisticas(String ruta) {
+		rutaEstadisticas = ruta;
+	}
 
 	private void initComponents() {
 
@@ -82,6 +88,7 @@ public class VentanaSaltos extends JFrame implements ActionListener {
 		juegoSaltos.setBounds(0, 0, PHEIGH, PWIDTH);
 		juegoSaltos.setLayout(null);
 		juegoSaltos.setVisible(false);
+		
 
 		getContentPane().add(juegoSaltos);
 
@@ -144,6 +151,7 @@ public class VentanaSaltos extends JFrame implements ActionListener {
 
 		juegoSaltos.setVisible(true);
 		saltos.iniciarJuegoSaltos();
+		saltos.rutaStadisticas(rutaEstadisticas);
 
 	}
 
