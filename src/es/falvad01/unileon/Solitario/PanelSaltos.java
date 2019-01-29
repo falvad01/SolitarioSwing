@@ -605,7 +605,7 @@ public class PanelSaltos extends JPanel implements ActionListener {
 					
 			}
 			System.out.println(n);
-			cartaASacar = i - 2;
+			cartaASacar = i - 3;
 			matrizBotones[0][39].setLabel(ocultas[ocultas.length - 1]);
 			matrizBotones[0][39].setIcon(buscarIcono(ocultas[ocultas.length - 1]));
 			matrizBotones[0][39].setVisible(false);
@@ -618,8 +618,8 @@ public class PanelSaltos extends JPanel implements ActionListener {
 				}
 			}
 		}
-		System.out.println("posTODelete "  + ((i + ocultas.length) - 2));
-		posToDelete = (i + ocultas.length) - 1;
+		System.out.println("posTODelete "  + ((i + ocultas.length) - 3));
+		posToDelete = (i + ocultas.length) - 3;
 		System.out.println();
 		printMatrix();
 
