@@ -199,7 +199,7 @@ public class PanelSaltos extends JPanel implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 
 		if (e.getActionCommand().equals("Sacar Carta")) {
-
+			System.out.println("NOT NULL"  + contarNotNull());
 			if (cartaASacar < contarNotNull()) {
 				matrizBotones[0][cartaASacar].setVisible(true);
 				cartaASacar++;
@@ -455,7 +455,7 @@ public class PanelSaltos extends JPanel implements ActionListener {
 	public void guardar(String saveGame) {
 
 		rutaJuego = saveGame;
-
+		int visible = 0;
 		System.out.println("GUARDANDO");
 
 		try {
@@ -470,13 +470,15 @@ public class PanelSaltos extends JPanel implements ActionListener {
 					pw.print(matrizBotones[0][i].getLabel() + " ");
 					System.out.print(matrizBotones[0][i].getLabel());
 
+				} else if (matrizBotones[0][i] != null && matrizBotones[0][i].isVisible()) {
+					visible++;
 				}
 			}
 
 			pw.println();
 
-			for (int x = 0; x < 40; x++) {
-				for (int y = 39; y >= 0; y--) {
+			for (int x = 0; x < visible; x++) {
+				for (int y = visible - 1; y >= 0; y--) {
 
 					if (matrizBotones[y][x] != null && matrizBotones[y][x].isVisible()) {
 
@@ -487,7 +489,9 @@ public class PanelSaltos extends JPanel implements ActionListener {
 					}
 				}
 
-				pw.println();
+				if (x != visible - 1) {
+					pw.println();
+				}
 			}
 			fichero.close();
 
@@ -561,44 +565,61 @@ public class PanelSaltos extends JPanel implements ActionListener {
 		String[] ocultas = guardar[1].split(" ");
 
 		for (int j = 2; j < guardar.length - 1; j++) {
-			String[] montones = guardar[j].split(" ");
 
-			int b = 0;
-			for (int h = montones.length - 1; h >= 0; h--) {
+			if (guardar[j] != null) {
+				String[] montones = guardar[j].split(" ");
 
-				matrizBotones[h][j - 2].setLabel(montones[b]);
-				matrizBotones[h][j - 2].setIcon(buscarIcono(montones[b]));
-				b++;
+				int b = 0;
+				for (int h = montones.length - 1; h >= 0; h--) {
+
+					matrizBotones[h][j - 2].setLabel(montones[b]);
+					matrizBotones[h][j - 2].setIcon(buscarIcono(montones[b]));
+					b++;
+					matrizBotones[0][j-2].setVisible(true);
+				}
 			}
-
 		}
+
 		System.out.println("Ocultas " + ocultas.length);
+		System.out.println("I + ocultas " + (i + ocultas.length));
 		if (ocultas.length != 1) { // Solo hacer esta parte si hay cartas ocultas
 			int n = 0;
-			int contador = 0;
-			for (int k = 0; k < 40; k++) {
-				matrizBotones[0][k].setVisible(true);
-				if (matrizBotones[0][k].getLabel().equals("")) {
+
+			
+			for (int k = i-2; k < 40; k++) {
+
+			
+			
 					matrizBotones[0][k].setLabel(ocultas[n]);
 					matrizBotones[0][k].setIcon(buscarIcono(ocultas[n]));
 					matrizBotones[0][k].setVisible(false);
-					System.out.println(n);
 
-					if (n < ocultas.length-1) {
-						System.out.println(n);
+					
+					if (n < ocultas.length - 1) {
+						System.out.println("N" + n);
 
 						n++;
 					}
-					contador++;
-				}
+					
+					
+					
 			}
 			System.out.println(n);
-			cartaASacar = 39 - contador;
+			cartaASacar = i - 2;
 			matrizBotones[0][39].setLabel(ocultas[ocultas.length - 1]);
 			matrizBotones[0][39].setIcon(buscarIcono(ocultas[ocultas.length - 1]));
 			matrizBotones[0][39].setVisible(false);
+			
+			for(int h = 0; h < 40; h++) {
+				if( h >= (i + ocultas.length) - 2) {
+					matrizBotones[0][h].setVisible(false);
+					matrizBotones[0][h] = null;
+					
+				}
+			}
 		}
-
+		System.out.println("posTODelete "  + ((i + ocultas.length) - 2));
+		posToDelete = (i + ocultas.length) - 1;
 		System.out.println();
 		printMatrix();
 

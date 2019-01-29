@@ -2,7 +2,7 @@ package es.falvad01.unileon.Solitario;
 
 import java.awt.Image;
 
-//TODO BORRAR EL ARRAY DE CARTAS Y VOLVER A PONER NEXT A 0 CUANDO SE INICIE OTRO PANEL
+
 import javax.swing.ImageIcon;
 
 public class Baraja {

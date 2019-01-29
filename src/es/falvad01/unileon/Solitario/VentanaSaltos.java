@@ -5,7 +5,9 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -173,6 +175,56 @@ public class VentanaSaltos extends JFrame implements ActionListener {
 
 			guardarComo();
 
+		} else if (e.getActionCommand().equals("Cargar")) {
+
+			System.out.println("Cargar archivo");
+
+			JFileChooser select = new JFileChooser();
+			select.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+
+			int i = select.showOpenDialog(juegoSaltos);// Cargamos el archivo
+
+			loadGame = select.getSelectedFile();
+
+			if ((loadGame == null)
+					|| !(loadGame.getName().substring(loadGame.getName().lastIndexOf(".") + 1).equals("txt"))) {
+				JOptionPane.showMessageDialog(juegoSaltos, "Tipo de archivo incorrecto", "Tipo de archivo incorrecto",
+						JOptionPane.ERROR_MESSAGE);// Comprobamos que la extension del archivo sea la correcta
+			} else {
+
+				String[] guardar = new String[42];
+				String cadena;
+				int hy = 0;
+
+				try {
+					FileReader fr = new FileReader(loadGame.getPath());
+					BufferedReader br = new BufferedReader(fr);
+					System.out.println(loadGame.getPath());
+
+					while ((cadena = br.readLine()) != null) {
+						guardar[hy] = cadena;
+
+						hy++;
+					}
+					br.close();
+
+				} catch (Exception a) {
+					System.out.println("Error leyendo fichero " + loadGame.getPath() + ": " + a);
+				}
+
+				if (guardar[0].equals("Solitario saltos")) {
+
+					System.out.println("CARGANDO SOLITARIO SALTOS");
+					setVisible(true);
+					saltos.cargarJuego(loadGame.getPath());
+
+				} else if (guardar[0].equals("Solitario clásico")) {
+
+					System.out.println("CARGANDO SOLITARIO Clasico");
+
+				}
+			}
+
 		}
 
 	}
@@ -194,7 +246,7 @@ public class VentanaSaltos extends JFrame implements ActionListener {
 
 					System.out.println(saveGame.getAbsolutePath());
 				}
-				
+
 			} else {
 				saltos.guardar(saveGame.getAbsolutePath());
 				System.out.println(saveGame.getAbsolutePath());
@@ -203,10 +255,9 @@ public class VentanaSaltos extends JFrame implements ActionListener {
 		}
 
 	}// Fin del metodo guardarComo
-	
+
 	public void cargarJuego(String ruta) {
-		
-		System.out.println("jhdlñaidlñahsdñoiahdoñiajsdñohiaddlñhasdfñih");
+
 		setVisible(true);
 		saltos.cargarJuego(ruta);
 	}
