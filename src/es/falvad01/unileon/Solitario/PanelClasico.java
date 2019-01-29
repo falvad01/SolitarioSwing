@@ -117,9 +117,6 @@ public class PanelClasico extends JPanel implements ActionListener {
 
 	}
 
-	/**
-	 * TODO MIRAR LA COLOCACION DE LAS CARTAS, ENCIMA Y DEBAJO
-	 */
 	private void pintarCartas() {
 
 		StringBuilder nombre = new StringBuilder();
