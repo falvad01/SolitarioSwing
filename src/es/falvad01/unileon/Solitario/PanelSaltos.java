@@ -509,13 +509,13 @@ public class PanelSaltos extends JPanel implements ActionListener {
 	}
 
 	public void sumarEstadisticas() {
-
+		String ruta = "./Estadisticas/Estadisticas.txt";
 		String[] linea = new String[6];
 		String aImprimir1 = "HOLA";
 		String aImprimir2 = "GOLa";
 		System.out.println(rutaEstadisticas);
 		try {
-			FileReader fr = new FileReader(rutaEstadisticas);
+			FileReader fr = new FileReader(ruta);
 			BufferedReader br = new BufferedReader(fr);
 
 			for (int i = 0; i < 6; i++) {
@@ -551,11 +551,11 @@ public class PanelSaltos extends JPanel implements ActionListener {
 			}
 
 		} catch (Exception a) {
-			System.out.println("Error leyendo fichero " + rutaEstadisticas + ": " + a);
+			System.out.println("Error leyendo fichero " + ruta + ": " + a);
 		}
 
 		try {
-			FileWriter fichero2 = new FileWriter(rutaEstadisticas);
+			FileWriter fichero2 = new FileWriter(ruta);
 			PrintWriter pw = new PrintWriter(fichero2);
 
 			pw.println(linea[0]);
@@ -567,7 +567,7 @@ public class PanelSaltos extends JPanel implements ActionListener {
 
 			pw.close();
 		} catch (IOException e) {
-			System.out.println("Error escribiendo fichero " + rutaEstadisticas + ": " + e);
+			System.out.println("Error escribiendo fichero " + ruta + ": " + e);
 
 		}
 	}
