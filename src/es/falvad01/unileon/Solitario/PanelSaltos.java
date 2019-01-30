@@ -7,10 +7,18 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
+import java.io.Writer;
+import java.net.URL;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
@@ -509,14 +517,15 @@ public class PanelSaltos extends JPanel implements ActionListener {
 	}
 
 	public void sumarEstadisticas() {
-		String ruta = "/estadisticas/Estadisticas.txt";
+		URL resource = getClass().getResource("/estadisticas/Estadisticas.txt");
 		String[] linea = new String[6];
 		String aImprimir1 = "HOLA";
 		String aImprimir2 = "GOLa";
 		System.out.println(rutaEstadisticas);
 		try {
-			FileReader fr = new FileReader(ruta);
-			BufferedReader br = new BufferedReader(fr);
+			InputStream is = resource.openStream();
+			InputStreamReader isr = new InputStreamReader(is, "UTF-8");
+			BufferedReader br = new BufferedReader(isr);
 
 			for (int i = 0; i < 6; i++) {
 
@@ -551,23 +560,22 @@ public class PanelSaltos extends JPanel implements ActionListener {
 			}
 
 		} catch (Exception a) {
-			System.out.println("Error leyendo fichero " + ruta + ": " + a);
+			System.out.println("Error leyendo fichero " + resource.getFile() + ": " + a);
 		}
 
 		try {
-			FileWriter fichero2 = new FileWriter(ruta);
-			PrintWriter pw = new PrintWriter(fichero2);
+			Writer out = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(resource.getPath()), "UTF-8"));//TODO REVISAR ESTO
 
-			pw.println(linea[0]);
-			pw.println(aImprimir1);
-			pw.println(aImprimir2);
-			pw.println(linea[3]);
-			pw.println(linea[4]);
-			pw.println(linea[5]);
+			out.write(linea[0] + "\n");
+			out.write(aImprimir1 + "\n");
+			out.write(aImprimir2 + "\n");
+			out.write(linea[3] + "\n");
+			out.write(linea[4] + "\n");
+			out.write(linea[5] + "\n");
 
-			pw.close();
+			out.close();
 		} catch (IOException e) {
-			System.out.println("Error escribiendo fichero " + ruta + ": " + e);
+			System.out.println("Error escribiendo fichero " + resource.getFile() + ": " + e);
 
 		}
 	}

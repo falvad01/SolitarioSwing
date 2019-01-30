@@ -4,7 +4,10 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.net.URL;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Image;
@@ -2376,14 +2379,16 @@ public class PanelClasico extends JPanel implements ActionListener {
 	
 	public void sumarEstadisticas() {
 		
-		String ruta = "/estadisticas/Estadisticas.txt";
+	
+		URL resource = getClass().getResource("/estadisticas/Estadisticas.txt");
 		String[] linea = new String[6];
 		String aImprimir1 = "HOLA";
 		String aImprimir2 = "GOLa";
 		//System.out.println(rutaEstadisticas);
 		try {
-			FileReader fr = new FileReader(ruta);
-			BufferedReader br = new BufferedReader(fr);
+			InputStream is = resource.openStream();
+			InputStreamReader isr = new InputStreamReader(is, "UTF-8");
+			BufferedReader br = new BufferedReader(isr);
 
 			for (int i = 0; i < 6; i++) {
 
@@ -2427,11 +2432,11 @@ public class PanelClasico extends JPanel implements ActionListener {
 			}
 
 		} catch (Exception a) {
-			System.out.println("Error leyendo fichero " + ruta + ": " + a);
+			System.out.println("Error leyendo fichero " + resource.getFile() + ": " + a);
 		}
 
 		try {
-			FileWriter fichero2 = new FileWriter(ruta);
+			FileWriter fichero2 = new FileWriter(resource.getFile());
 			PrintWriter pw = new PrintWriter(fichero2);
 
 			pw.println(linea[0]);
@@ -2443,7 +2448,7 @@ public class PanelClasico extends JPanel implements ActionListener {
 
 			pw.close();
 		} catch (IOException e) {
-			System.out.println("Error escribiendo fichero " + ruta + ": " + e);
+			System.out.println("Error escribiendo fichero " + resource.getFile() + ": " + e);
 
 		}
 		

@@ -7,6 +7,8 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.URL;
 
 import javax.swing.JPanel;
 
@@ -26,7 +28,7 @@ public class Listeners implements ActionListener {
 	Container panel;
 	JLayeredPane juegoClasico;
 	JPanel juegoSaltos;
-	private String rutaEstadisticas = "src/estadisticas/Estadisticas.txt";
+	private String rutaEstadisticas = "estadisticas/Estadisticas.txt";
 
 	public Listeners(Container container) {
 
@@ -119,12 +121,16 @@ public class Listeners implements ActionListener {
 
 			String[] linea = new String[6];
 
+			URL resource = getClass().getResource("/estadisticas/Estadisticas.txt");
+			
+			
 			try {
-				FileReader fr = new FileReader(rutaEstadisticas);
-				BufferedReader br = new BufferedReader(fr);
+				InputStream is = resource.openStream();
+				InputStreamReader isr = new InputStreamReader(is, "UTF-8");
+				BufferedReader br = new BufferedReader(isr);
 
 				for (int i = 0; i < 6; i++) {
-
+					;
 					linea[i] = br.readLine();
 
 				}
@@ -150,7 +156,7 @@ public class Listeners implements ActionListener {
 
 				JOptionPane.showMessageDialog(panel, message.toString());
 
-				fr.close();
+				isr.close();
 			} catch (Exception a) {
 				System.out.println("Error leyendo fichero " + rutaEstadisticas + ": " + a);
 			}
