@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.io.InputStream;
 
 import javax.swing.JPanel;
 
@@ -25,13 +26,12 @@ public class Listeners implements ActionListener {
 	Container panel;
 	JLayeredPane juegoClasico;
 	JPanel juegoSaltos;
-	private String rutaEstadisticas = "./Estadisticas/Estadisticas.txt";
+	private String rutaEstadisticas = "src/estadisticas/Estadisticas.txt";
 
 	public Listeners(Container container) {
 
 		this.panel = container;
-		//this.juegoSaltos = juegoSaltos;
-		
+		// this.juegoSaltos = juegoSaltos;
 
 	}
 
@@ -40,19 +40,11 @@ public class Listeners implements ActionListener {
 
 		/////////////////////////////// ARCHIVO/////////////////////////////////////////
 		if (e.getActionCommand().equals("Clasico")) {
-//			juego = EJuego.Clasico;
-//			juegoClasico.setVisible(true);
-//			juegoSaltos.setVisible(false);
-//			pClasico.iniciarJuegoClasico();
 
 			VentanaClasico ventanaClasico = new VentanaClasico();
 			ventanaClasico.setVisible(true);
 
 		} else if (e.getActionCommand().equals("Saltos")) {
-//			juego = EJuego.Saltos;
-//			juegoClasico.setVisible(false);
-//			juegoSaltos.setVisible(true);
-//			pSaltos.iniciarJuegoSaltos();
 
 			VentanaSaltos ventanaSaltos = new VentanaSaltos();
 
@@ -69,8 +61,8 @@ public class Listeners implements ActionListener {
 
 			loadStadistics = select.getSelectedFile();
 
-			if ((loadStadistics == null)
-					|| !(loadStadistics.getName().substring(loadStadistics.getName().lastIndexOf(".") + 1).equals("txt"))) {
+			if ((loadStadistics == null) || !(loadStadistics.getName()
+					.substring(loadStadistics.getName().lastIndexOf(".") + 1).equals("txt"))) {
 				JOptionPane.showMessageDialog(panel, "Tipo de archivo incorrecto", "Tipo de archivo incorrecto",
 						JOptionPane.ERROR_MESSAGE);// Comprobamos que la extension del archivo sea la correcta
 			} else {
@@ -96,17 +88,15 @@ public class Listeners implements ActionListener {
 				}
 
 				if (guardar[0].equals("Solitario saltos")) {
-					
+
 					System.out.println("CARGANDO SOLITARIO SALTOS");
 					VentanaSaltos ventanaSaltos = new VentanaSaltos();
 					ventanaSaltos.cargarJuego(loadStadistics.getPath());
-					
-				}else if(guardar[0].equals("Solitario clásico")) {
-					
+
+				} else if (guardar[0].equals("Solitario clásico")) {
+
 					System.out.println("CARGANDO SOLITARIO Clasico");
-					
-					
-					
+
 				}
 			}
 
@@ -116,7 +106,7 @@ public class Listeners implements ActionListener {
 
 		} else if (e.getActionCommand().equals("Salir")) {
 
-			if (JOptionPane.showConfirmDialog(panel, "Â¿Desea cerrar el programa?", "Â¿Desea cerrar el programa?",
+			if (JOptionPane.showConfirmDialog(panel, "¿Desea cerrar el programa?", "¿Desea cerrar el programa?",
 					JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) { // Pregunta si esta seguro de que desea
 																			// salir
 				System.exit(0);
@@ -127,7 +117,6 @@ public class Listeners implements ActionListener {
 
 		if (e.getActionCommand().equals("Estadisticas")) {
 
-		
 			String[] linea = new String[6];
 
 			try {
@@ -167,7 +156,7 @@ public class Listeners implements ActionListener {
 			}
 
 		} else if (e.getActionCommand().equals("Estadisticas Fichero")) {
-			
+
 			JFileChooser select = new JFileChooser();
 			select.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
 
@@ -175,18 +164,17 @@ public class Listeners implements ActionListener {
 
 			loadStadistics = select.getSelectedFile();
 
-			if ((loadStadistics == null)
-					|| !(loadStadistics.getName().substring(loadStadistics.getName().lastIndexOf(".") + 1).equals("txt"))) {
+			if ((loadStadistics == null) || !(loadStadistics.getName()
+					.substring(loadStadistics.getName().lastIndexOf(".") + 1).equals("txt"))) {
 				JOptionPane.showMessageDialog(panel, "Tipo de archivo incorrecto", "Tipo de archivo incorrecto",
 						JOptionPane.ERROR_MESSAGE);// Comprobamos que la extension del archivo sea la correcta
 			} else {
-				
+
 				try {
 					FileReader fr = new FileReader(loadStadistics.getPath());
 					BufferedReader br = new BufferedReader(fr);
 					System.out.println(loadStadistics.getPath());
 
-				
 					VentanaSaltos.rutaStadisticas(loadStadistics.getPath());
 					rutaEstadisticas = loadStadistics.getPath();
 
@@ -194,7 +182,6 @@ public class Listeners implements ActionListener {
 					System.out.println("Error leyendo fichero " + loadStadistics.getPath() + ": " + a);
 				}
 			}
-			
 
 			/////////////////////////////// AYUDA///////////////////////////////////////////
 

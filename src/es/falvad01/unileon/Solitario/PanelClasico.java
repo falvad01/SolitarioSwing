@@ -2376,7 +2376,7 @@ public class PanelClasico extends JPanel implements ActionListener {
 	
 	public void sumarEstadisticas() {
 		
-		String ruta = "./Estadisticas/Estadisticas.txt";
+		String ruta = "/estadisticas/Estadisticas.txt";
 		String[] linea = new String[6];
 		String aImprimir1 = "HOLA";
 		String aImprimir2 = "GOLa";
