@@ -26,12 +26,7 @@ public class VentanaSaltos extends JFrame implements ActionListener {
 
 	private JMenu archivo;
 	private JMenu editar;
-	private JMenu historial;
-	private JMenu ayuda;
 
-	private JMenu nuevo;
-
-	private JMenuItem btnNuevoSaltos;
 	private JMenuItem btnCargar;
 	private JMenuItem btnSalvar;
 	private JMenuItem btnSalvarComo;
@@ -41,10 +36,7 @@ public class VentanaSaltos extends JFrame implements ActionListener {
 	private JMenuItem btnHacer;
 	private JMenuItem btnResolver;
 
-	private JMenuItem btnEstadisticas;
-	private JMenuItem btnEstadisticasFichero;
-
-	private JMenuItem btnInfo;
+	
 
 	JPanel juegoSaltos;
 
@@ -98,9 +90,7 @@ public class VentanaSaltos extends JFrame implements ActionListener {
 		archivo = new JMenu("Archivo");
 		menuBar.add(archivo);
 
-		btnCargar = new JMenuItem("Cargar");
-		archivo.add(btnCargar);
-		btnCargar.addActionListener(this);
+		
 
 		btnSalvar = new JMenuItem("Salvar");
 		archivo.add(btnSalvar);
@@ -129,21 +119,6 @@ public class VentanaSaltos extends JFrame implements ActionListener {
 		editar.add(btnResolver);
 		btnResolver.addActionListener(this);
 
-//		historial = new JMenu("Historial");
-//		menuBar.add(historial);
-//
-//		btnEstadisticas = new JMenuItem("Estadisticas");
-//		historial.add(btnEstadisticas);
-//		btnEstadisticas.addActionListener(this);
-//		btnEstadisticasFichero = new JMenuItem("Estadisticas Fichero");
-//		historial.add(btnEstadisticasFichero);
-//		btnEstadisticasFichero.addActionListener(this);
-
-//		ayuda = new JMenu("Ayuda");
-//		menuBar.add(ayuda);
-//		btnInfo = new JMenuItem("Informacion");
-//		ayuda.add(btnInfo);
-//		btnInfo.addActionListener(this);
 
 	}
 
@@ -182,56 +157,6 @@ public class VentanaSaltos extends JFrame implements ActionListener {
 		} else if (e.getActionCommand().equals("Salvar Como")) {
 
 			guardarComo();
-
-		} else if (e.getActionCommand().equals("Cargar")) {
-
-			System.out.println("Cargar archivo");
-
-			JFileChooser select = new JFileChooser();
-			select.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
-
-			int i = select.showOpenDialog(juegoSaltos);// Cargamos el archivo
-
-			loadGame = select.getSelectedFile();
-
-			if ((loadGame == null)
-					|| !(loadGame.getName().substring(loadGame.getName().lastIndexOf(".") + 1).equals("txt"))) {
-				JOptionPane.showMessageDialog(juegoSaltos, "Tipo de archivo incorrecto", "Tipo de archivo incorrecto",
-						JOptionPane.ERROR_MESSAGE);// Comprobamos que la extension del archivo sea la correcta
-			} else {
-
-				String[] guardar = new String[42];
-				String cadena;
-				int hy = 0;
-
-				try {
-					FileReader fr = new FileReader(loadGame.getPath());
-					BufferedReader br = new BufferedReader(fr);
-					System.out.println(loadGame.getPath());
-
-					while ((cadena = br.readLine()) != null) {
-						guardar[hy] = cadena;
-
-						hy++;
-					}
-					br.close();
-
-				} catch (Exception a) {
-					System.out.println("Error leyendo fichero " + loadGame.getPath() + ": " + a);
-				}
-
-				if (guardar[0].equals("Solitario saltos")) {
-
-					System.out.println("CARGANDO SOLITARIO SALTOS");
-					setVisible(true);
-					saltos.cargarJuego(loadGame.getPath());
-
-				} else if (guardar[0].equals("Solitario clásico")) {
-
-					System.out.println("CARGANDO SOLITARIO Clasico");
-
-				}
-			}
 
 		}
 

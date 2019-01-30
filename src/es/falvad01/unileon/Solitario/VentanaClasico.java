@@ -21,13 +21,7 @@ public class VentanaClasico extends JFrame implements ActionListener {
 
 	private JMenu archivo;
 	private JMenu editar;
-	private JMenu historial;
-	private JMenu ayuda;
-
-	private JMenu nuevo;
 	
-	private JMenuItem btnNuevoSaltos;
-	private JMenuItem btnCargar;
 	private JMenuItem btnSalvar;
 	private JMenuItem btnSalvarComo;
 	private JMenuItem btnSalir;
@@ -36,10 +30,7 @@ public class VentanaClasico extends JFrame implements ActionListener {
 	private JMenuItem btnHacer;
 	private JMenuItem btnResolver;
 
-	private JMenuItem btnEstadisticas;
-	private JMenuItem btnEstadisticasFichero;
 
-	private JMenuItem btnInfo;
 
 	
 	JLayeredPane juegoClasico;
@@ -85,11 +76,6 @@ public class VentanaClasico extends JFrame implements ActionListener {
 		archivo = new JMenu("Archivo");
 		menuBar.add(archivo);
 
-		
-		btnCargar = new JMenuItem("Cargar");
-		archivo.add(btnCargar);
-		btnCargar.addActionListener(this);
-
 		btnSalvar = new JMenuItem("Salvar");
 		archivo.add(btnSalvar);
 		btnSalvar.addActionListener(this);
@@ -117,21 +103,7 @@ public class VentanaClasico extends JFrame implements ActionListener {
 		editar.add(btnResolver);
 		btnResolver.addActionListener(this);
 
-		historial = new JMenu("Historial");
-		menuBar.add(historial);
-
-		btnEstadisticas = new JMenuItem("Estadisticas");
-		historial.add(btnEstadisticas);
-		btnEstadisticas.addActionListener(this);
-		btnEstadisticasFichero = new JMenuItem("Estadisticas Fichero");
-		historial.add(btnEstadisticasFichero);
-		btnEstadisticasFichero.addActionListener(this);
-
-		ayuda = new JMenu("Ayuda");
-		menuBar.add(ayuda);
-		btnInfo = new JMenuItem("Informacion");
-		ayuda.add(btnInfo);
-		btnInfo.addActionListener(this);
+		
 
 	}
 

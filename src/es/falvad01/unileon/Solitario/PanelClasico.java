@@ -1,5 +1,7 @@
 package es.falvad01.unileon.Solitario;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -64,6 +66,8 @@ public class PanelClasico extends JPanel implements ActionListener {
 	CartaFrancesa cartaDestino;
 
 	private int borrarInicio = 22;
+	
+	private boolean flagIntentos = false;
 
 	public PanelClasico(JLayeredPane juegoClasico, Container container) {
 
@@ -300,6 +304,7 @@ public class PanelClasico extends JPanel implements ActionListener {
 		fin4[0].addActionListener(this);
 
 		rellenarMontones();
+		sumarEstadisticas();
 		printArrays();
 		clasico.add(barajaInicial[0]);
 
@@ -511,7 +516,7 @@ public class PanelClasico extends JPanel implements ActionListener {
 		}
 
 		if (primeraPulsacion && segundaPulsacion) {
-
+			sumarEstadisticas();
 			switch (mazoAMover) {
 			case "barajaInicial"://////////////////////////////////////////////////////////////////////////////////
 
@@ -2367,6 +2372,81 @@ public class PanelClasico extends JPanel implements ActionListener {
 			e.printStackTrace();
 		}
 
+	}
+	
+	public void sumarEstadisticas() {
+		
+		String ruta = "./Estadisticas/Estadisticas.txt";
+		String[] linea = new String[6];
+		String aImprimir1 = "HOLA";
+		String aImprimir2 = "GOLa";
+		//System.out.println(rutaEstadisticas);
+		try {
+			FileReader fr = new FileReader(ruta);
+			BufferedReader br = new BufferedReader(fr);
+
+			for (int i = 0; i < 6; i++) {
+
+				linea[i] = br.readLine();
+
+			}
+			aImprimir1 = linea[4];
+			aImprimir2 = linea[5];
+			int intentos = Integer.parseInt(linea[4]);
+			int intentosExito = Integer.parseInt(linea[5]);
+
+			if (!flagIntentos) {
+				intentos = intentos + 1;
+
+				aImprimir1 = Integer.toString(intentos);
+				flagIntentos = true;
+
+			}
+
+			int nulo = 0;
+			for (int i = 0; i < 13; i++) {
+				if (monton1[i].getLabel().equals("NuLo")) {
+					nulo++;
+				}
+				if (monton2[i].getLabel().equals("NuLo")) {
+					nulo++;
+				}
+				if (monton3[i].getLabel().equals("NuLo")) {
+					nulo++;
+				}
+				if (monton4[i].getLabel().equals("NuLo")) {
+					nulo++;
+				}
+
+			}
+
+			System.out.println("NuLo" + nulo);
+			if (nulo == 0) {
+				intentosExito = intentosExito + 1;
+				aImprimir2 = Integer.toString(intentosExito);
+			}
+
+		} catch (Exception a) {
+			System.out.println("Error leyendo fichero " + ruta + ": " + a);
+		}
+
+		try {
+			FileWriter fichero2 = new FileWriter(ruta);
+			PrintWriter pw = new PrintWriter(fichero2);
+
+			pw.println(linea[0]);
+			pw.println(linea[1]);
+			pw.println(linea[2]);
+			pw.println(linea[3]);
+			pw.println(aImprimir1);
+			pw.println(aImprimir2);
+
+			pw.close();
+		} catch (IOException e) {
+			System.out.println("Error escribiendo fichero " + ruta + ": " + e);
+
+		}
+		
 	}
 
 	private void printArrays() {
