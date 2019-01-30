@@ -69,7 +69,7 @@ public class PanelClasico extends JPanel implements ActionListener {
 	CartaFrancesa cartaDestino;
 
 	private int borrarInicio = 22;
-	
+
 	private boolean flagIntentos = false;
 
 	public PanelClasico(JLayeredPane juegoClasico, Container container) {
@@ -119,7 +119,7 @@ public class PanelClasico extends JPanel implements ActionListener {
 
 		} else {
 			System.out.println(primeraPartida);
-			//repintarCartas();
+			// repintarCartas();
 		}
 
 	}
@@ -314,8 +314,6 @@ public class PanelClasico extends JPanel implements ActionListener {
 		barajaInicial[0].addActionListener(this);
 
 	}
-
-	
 
 	private void rellenarMontones() {
 		ImageIcon nul = null;
@@ -2115,10 +2113,10 @@ public class PanelClasico extends JPanel implements ActionListener {
 
 			if (posCartaAMover == 19) {
 				monton1[posCartaAMover].setIcon(null);
-				monton1[posCartaAMover].setLabel("Vacio");
+				monton1[posCartaAMover].setLabel("vacio");
 			} else {
 				monton1[posCartaAMover].setIcon(null);
-				monton1[posCartaAMover].setLabel("Vacio");
+				monton1[posCartaAMover].setLabel("vacio");
 				monton1[posCartaAMover].setVisible(false);
 				monton1[posCartaAMover + 1].setEnabled(true);
 				// monton1[posCartaAMover + 1].setIcon(icono[posSiguiente]);
@@ -2129,11 +2127,11 @@ public class PanelClasico extends JPanel implements ActionListener {
 
 			if (posCartaAMover == 19) {
 				monton2[posCartaAMover].setIcon(null);
-				monton2[posCartaAMover].setLabel("Vacio");
+				monton2[posCartaAMover].setLabel("vacio");
 			} else {
 				int posSiguiente = buscarPosBarajaInicial(buscaCarta(monton2[posCartaAMover + 1].getLabel()));
 				monton2[posCartaAMover].setIcon(null);
-				monton2[posCartaAMover].setLabel("Vacio");
+				monton2[posCartaAMover].setLabel("vacio");
 				monton2[posCartaAMover].setVisible(false);
 				monton2[posCartaAMover + 1].setEnabled(true);
 				monton2[posCartaAMover + 1].setIcon(icono[posSiguiente]);
@@ -2144,10 +2142,10 @@ public class PanelClasico extends JPanel implements ActionListener {
 
 			if (posCartaAMover == 19) {
 				monton3[posCartaAMover].setIcon(null);
-				monton3[posCartaAMover].setLabel("Vacio");
+				monton3[posCartaAMover].setLabel("vacio");
 			} else {
 				monton3[posCartaAMover].setIcon(null);
-				monton3[posCartaAMover].setLabel("Vacio");
+				monton3[posCartaAMover].setLabel("vacio");
 				monton3[posCartaAMover].setVisible(false);
 				monton3[posCartaAMover + 1].setEnabled(true);
 				monton3[posCartaAMover + 1].setIcon(icono[posSiguiente]);
@@ -2157,11 +2155,11 @@ public class PanelClasico extends JPanel implements ActionListener {
 
 			if (posCartaAMover == 19) {
 				monton4[posCartaAMover].setIcon(null);
-				monton4[posCartaAMover].setLabel("Vacio");
+				monton4[posCartaAMover].setLabel("vacio");
 			} else {
 				int posSiguiente = buscarPosBarajaInicial(buscaCarta(monton4[posCartaAMover + 1].getLabel()));
 				monton4[posCartaAMover].setIcon(null);
-				monton4[posCartaAMover].setLabel("Vacio");
+				monton4[posCartaAMover].setLabel("vacio");
 				monton4[posCartaAMover].setVisible(false);
 				monton4[posCartaAMover + 1].setEnabled(true);
 				monton4[posCartaAMover + 1].setIcon(icono[posSiguiente]);
@@ -2171,11 +2169,11 @@ public class PanelClasico extends JPanel implements ActionListener {
 
 			if (posCartaAMover == 19) {
 				monton5[posCartaAMover].setIcon(null);
-				monton5[posCartaAMover].setLabel("Vacio");
+				monton5[posCartaAMover].setLabel("vacio");
 			} else {
 				int posSiguiente = buscarPosBarajaInicial(buscaCarta(monton5[posCartaAMover + 1].getLabel()));
 				monton5[posCartaAMover].setIcon(null);
-				monton5[posCartaAMover].setLabel("Vacio");
+				monton5[posCartaAMover].setLabel("vacio");
 				monton5[posCartaAMover].setVisible(false);
 				monton5[posCartaAMover + 1].setEnabled(true);
 				monton5[posCartaAMover + 1].setIcon(icono[posSiguiente]);
@@ -2185,12 +2183,12 @@ public class PanelClasico extends JPanel implements ActionListener {
 
 			if (posCartaAMover == 19) {
 				monton6[posCartaAMover].setIcon(null);
-				monton6[posCartaAMover].setLabel("Vacio");
+				monton6[posCartaAMover].setLabel("vacio");
 			} else {
 				int posSiguiente = buscarPosBarajaInicial(buscaCarta(monton6[posCartaAMover + 1].getLabel()));
 
 				monton6[posCartaAMover].setIcon(null);
-				monton6[posCartaAMover].setLabel("Vacio");
+				monton6[posCartaAMover].setLabel("vacio");
 				monton6[posCartaAMover].setVisible(false);
 				monton6[posCartaAMover + 1].setEnabled(true);
 				monton6[posCartaAMover + 1].setIcon(icono[posSiguiente]);
@@ -2200,12 +2198,12 @@ public class PanelClasico extends JPanel implements ActionListener {
 
 			if (posCartaAMover == 19) {
 				monton7[posCartaAMover].setIcon(null);
-				monton7[posCartaAMover].setLabel("Vacio");
+				monton7[posCartaAMover].setLabel("vacio");
 			} else {
 				int posSiguiente = buscarPosBarajaInicial(buscaCarta(monton7[posCartaAMover + 1].getLabel()));
 
 				monton7[posCartaAMover].setIcon(null);
-				monton7[posCartaAMover].setLabel("Vacio");
+				monton7[posCartaAMover].setLabel("vacio");
 				monton7[posCartaAMover].setVisible(false);
 				monton7[posCartaAMover + 1].setEnabled(true);
 				monton7[posCartaAMover + 1].setIcon(icono[posSiguiente]);
@@ -2220,7 +2218,7 @@ public class PanelClasico extends JPanel implements ActionListener {
 
 		if (cartaStr.equals("F1") || cartaStr.equals("F2") || cartaStr.equals("F3") || cartaStr.equals("F4")) {
 			return new CartaFrancesa('F', 'F', null, null);
-		} else if (cartaStr.equals("Vacio")) {
+		} else if (cartaStr.equals("vacio")) {
 			return new CartaFrancesa('V', 'A', null, null);
 		} else {
 			char chtNum = parts[0].charAt(0);
@@ -2360,6 +2358,7 @@ public class PanelClasico extends JPanel implements ActionListener {
 	public void guardar(String saveGame) {
 
 		rutaJuego = saveGame;
+		int[] enabled = { 0, 0, 0, 0, 0, 0, 0 };
 
 		try {
 			FileWriter fichero = new FileWriter(rutaJuego);
@@ -2367,6 +2366,166 @@ public class PanelClasico extends JPanel implements ActionListener {
 			pw.println("Solitario Clasico");
 
 			// TODO ESCRIBIR AQUI TODO LO QUE SE VAYA A GUARDAR EN EL ARCHIVO
+
+			for (int i = barajaInicial.length - 1; i >= 0; i--) {
+
+				if (barajaInicial[i].getLabel() != "NuLo") {
+					pw.print(barajaInicial[i].getLabel() + " ");
+				}
+			}
+
+			pw.println();
+
+			for (int i = barajaDescartes.length - 1; i >= 0; i--) {
+
+				if (barajaDescartes[i].getLabel() != "NuLo") {
+					pw.print(barajaDescartes[i].getLabel() + " ");
+				}
+			}
+
+			for (int i = 0; i < monton1.length; i++) {
+
+				if (!monton1[i].isEnabled()) {
+					enabled[0]++;
+				}
+				if (!monton2[i].isEnabled()) {
+					enabled[1]++;
+				}
+				if (!monton3[i].isEnabled()) {
+					enabled[2]++;
+				}
+				if (!monton4[i].isEnabled()) {
+					enabled[3]++;
+				}
+				if (!monton5[i].isEnabled()) {
+					enabled[4]++;
+				}
+				if (!monton6[i].isEnabled()) {
+					enabled[5]++;
+				}
+				if (!monton7[i].isEnabled()) {
+					enabled[6]++;
+				}
+			}
+
+			pw.println();
+			pw.print("* ");
+			for (int i = monton1.length - 1; i >= 0; i--) {
+				if (monton1[i].getLabel() != "vacio") {
+					pw.write(monton1[i].getLabel() + " ");
+				}
+			}
+
+			pw.println();
+
+			for (int i = monton2.length - 1; i >= 0; i--) {
+				if (monton2[i].getLabel() != "vacio") {
+
+					if (i == monton2.length - enabled[1] - 1) {
+						pw.print("* ");
+					}
+					pw.write(monton2[i].getLabel() + " ");
+				}
+			}
+
+			pw.println();
+
+			for (int i = monton3.length - 1; i >= 0; i--) {
+				if (monton3[i].getLabel() != "vacio") {
+
+					if (i == monton3.length - enabled[2] - 1) {
+						pw.print("* ");
+					}
+					pw.write(monton3[i].getLabel() + " ");
+				}
+			}
+
+			pw.println();
+
+			for (int i = monton4.length - 1; i >= 0; i--) {
+				if (monton4[i].getLabel() != "vacio") {
+
+					if (i == monton4.length - enabled[3] - 1) {
+						pw.print("* ");
+					}
+					pw.write(monton4[i].getLabel() + " ");
+				}
+			}
+
+			pw.println();
+
+			for (int i = monton5.length - 1; i >= 0; i--) {
+				if (monton5[i].getLabel() != "vacio") {
+
+					if (i == monton5.length - enabled[4] - 1) {
+						pw.print("* ");
+					}
+					pw.write(monton5[i].getLabel() + " ");
+				}
+			}
+
+			pw.println();
+
+			for (int i = monton6.length - 1; i >= 0; i--) {
+				if (monton6[i].getLabel() != "vacio") {
+
+					if (i == monton6.length - enabled[5] - 1) {
+						pw.print("* ");
+					}
+					pw.write(monton6[i].getLabel() + " ");
+				}
+			}
+
+			pw.println();
+
+			for (int i = monton7.length - 1; i >= 0; i--) {
+				if (monton7[i].getLabel() != "vacio") {
+
+					if (i == monton7.length - enabled[6] - 1) {
+						pw.print("* ");
+					}
+					pw.write(monton7[i].getLabel() + " ");
+				}
+			}
+
+			pw.println();
+
+			for (int i = fin1.length - 1; i >= 0; i--) {
+
+				if (fin1[i].getLabel() != "NuLo" && fin1[i].getLabel() != "F1") {
+					pw.print(fin1[i].getLabel() + " ");
+
+				}
+			}
+			pw.println();
+
+			for (int i = fin2.length - 1; i >= 0; i--) {
+
+				if (fin2[i].getLabel() != "NuLo" && fin2[i].getLabel() != "F2") {
+					pw.print(fin2[i].getLabel() + " ");
+
+				}
+			}
+			
+			pw.println();
+
+			for (int i = fin3.length - 1; i >= 0; i--) {
+
+				if (fin3[i].getLabel() != "NuLo" && fin3[i].getLabel() != "F3") {
+					pw.print(fin3[i].getLabel() + " ");
+
+				}
+			}
+			
+			pw.println();
+
+			for (int i = fin4.length - 1; i >= 0; i--) {
+
+				if (fin4[i].getLabel() != "NuLo" && fin4[i].getLabel() != "F4") {
+					pw.print(fin4[i].getLabel() + " ");
+
+				}
+			}
 
 			fichero.close();
 
@@ -2376,15 +2535,14 @@ public class PanelClasico extends JPanel implements ActionListener {
 		}
 
 	}
-	
+
 	public void sumarEstadisticas() {
-		
-	
+
 		URL resource = getClass().getResource("/estadisticas/Estadisticas.txt");
 		String[] linea = new String[6];
 		String aImprimir1 = "HOLA";
 		String aImprimir2 = "GOLa";
-		//System.out.println(rutaEstadisticas);
+		// System.out.println(rutaEstadisticas);
 		try {
 			InputStream is = resource.openStream();
 			InputStreamReader isr = new InputStreamReader(is, "UTF-8");
@@ -2451,7 +2609,7 @@ public class PanelClasico extends JPanel implements ActionListener {
 			System.out.println("Error escribiendo fichero " + resource.getFile() + ": " + e);
 
 		}
-		
+
 	}
 
 	private void printArrays() {

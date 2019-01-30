@@ -98,6 +98,8 @@ public class Listeners implements ActionListener {
 				} else if (guardar[0].equals("Solitario clásico")) {
 
 					System.out.println("CARGANDO SOLITARIO Clasico");
+					
+					
 
 				}
 			}
@@ -130,7 +132,7 @@ public class Listeners implements ActionListener {
 				BufferedReader br = new BufferedReader(isr);
 
 				for (int i = 0; i < 6; i++) {
-					;
+					
 					linea[i] = br.readLine();
 
 				}

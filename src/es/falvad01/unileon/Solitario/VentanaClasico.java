@@ -5,23 +5,26 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLayeredPane;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 public class VentanaClasico extends JFrame implements ActionListener {
-	
+
 	Toolkit screen;
 	private static final int PWIDTH = 550;
 	private static final int PHEIGH = 1000;
 
 	private JMenu archivo;
 	private JMenu editar;
-	
+
 	private JMenuItem btnSalvar;
 	private JMenuItem btnSalvarComo;
 	private JMenuItem btnSalir;
@@ -30,14 +33,13 @@ public class VentanaClasico extends JFrame implements ActionListener {
 	private JMenuItem btnHacer;
 	private JMenuItem btnResolver;
 
-
-
-	
+	File loadGame;
+	File saveGame;
 	JLayeredPane juegoClasico;
 
 	PanelClasico clasico;
 
-	public VentanaClasico()  {
+	public VentanaClasico() {
 
 		screen = Toolkit.getDefaultToolkit();
 
@@ -103,13 +105,10 @@ public class VentanaClasico extends JFrame implements ActionListener {
 		editar.add(btnResolver);
 		btnResolver.addActionListener(this);
 
-		
-
 	}
 
 	private void initPanel() {
 
-		
 		juegoClasico.setVisible(true);
 		clasico.iniciarJuegoClasico();
 
@@ -121,8 +120,51 @@ public class VentanaClasico extends JFrame implements ActionListener {
 		if (e.getActionCommand().equals("Salir de clasico")) {
 			dispose();
 
+		} else if (e.getActionCommand().equals("Salvar")) {
+
+			String ruta;
+
+			ruta = clasico.getRutaJuego();
+			if (ruta == null) {// actua como guardar como
+				guardarComo();
+			} else if (ruta != null) {
+				clasico.guardar(ruta);
+
+			}
+
+		} else if (e.getActionCommand().equals("Salvar Como")) {
+
+			guardarComo();
+
 		}
 
 	}
+
+	private void guardarComo() {
+
+		System.out.println("LISTENRS GUARDAR COMO");
+		JFileChooser save = new JFileChooser();
+
+		if (save.showSaveDialog(null) == save.APPROVE_OPTION) {
+			saveGame = save.getSelectedFile();
+
+			if (new File(saveGame.getPath()).exists()) {
+
+				if (JOptionPane.YES_NO_OPTION == JOptionPane.showConfirmDialog(juegoClasico,
+						"El fichero existe,deseas reemplazarlo?", "Titulo", JOptionPane.YES_NO_OPTION)) {
+
+					clasico.guardar(saveGame.getAbsolutePath());
+
+					System.out.println(saveGame.getAbsolutePath());
+				}
+
+			} else {
+				clasico.guardar(saveGame.getAbsolutePath());
+				System.out.println(saveGame.getAbsolutePath());
+			}
+
+		}
+
+	}// Fin del metodo guardarComo
 
 }

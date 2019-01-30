@@ -27,7 +27,7 @@ public class VentanaSaltos extends JFrame implements ActionListener {
 	private JMenu archivo;
 	private JMenu editar;
 
-	private JMenuItem btnCargar;
+	
 	private JMenuItem btnSalvar;
 	private JMenuItem btnSalvarComo;
 	private JMenuItem btnSalir;
@@ -35,9 +35,7 @@ public class VentanaSaltos extends JFrame implements ActionListener {
 	private JMenuItem btnDeshacer;
 	private JMenuItem btnHacer;
 	private JMenuItem btnResolver;
-
 	
-
 	JPanel juegoSaltos;
 
 	PanelSaltos saltos;
