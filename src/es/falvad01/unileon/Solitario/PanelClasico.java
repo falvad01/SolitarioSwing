@@ -49,43 +49,32 @@ public class PanelClasico extends JPanel implements ActionListener {
 	private JButton[] monton5;
 	private JButton[] monton6;
 	private JButton[] monton7;
-
 	private ImageIcon[] icono;
 	private ImageIcon reverso;
-
 	boolean primeraPulsacion = false;
 	boolean segundaPulsacion = false;
-
 	private String strAMover;
 	private String strDestino;
-
 	private String mazoAMover;
 	private String mazoDestino;
-
 	private int posCartaAMover = 0;
 	private int posCartaDestino = 0;
-
 	CartaFrancesa cartaAMover;
 	CartaFrancesa cartaDestino;
-
 	private int borrarInicio = 22;
-
 	private boolean flagIntentos = false;
 
 	public PanelClasico(JLayeredPane juegoClasico, Container container) {
 
 		this.clasico = juegoClasico;
 		this.container = container;
-
 		barajaInicial = new JButton[23];
 		barajaDescartes = new JButton[24];
-
 		fin1 = new JButton[14];// Tiene uno mas de tamaño de lo que deberia debido a la carta cebo que esta en
-								// primer lugar
+								// // primer lugar
 		fin2 = new JButton[14];
 		fin3 = new JButton[14];
 		fin4 = new JButton[14];
-
 		monton1 = new JButton[20];
 		monton2 = new JButton[20];
 		monton3 = new JButton[20];
@@ -93,7 +82,6 @@ public class PanelClasico extends JPanel implements ActionListener {
 		monton5 = new JButton[20];
 		monton6 = new JButton[20];
 		monton7 = new JButton[20];
-
 		icono = new ImageIcon[52];
 		juegoClasico.setBackground(Color.BLUE);
 	}
@@ -148,7 +136,7 @@ public class PanelClasico extends JPanel implements ActionListener {
 			img = img.getScaledInstance(90, 120, Image.SCALE_SMOOTH);
 			imgReverso = imgReverso.getScaledInstance(90, 120, Image.SCALE_SMOOTH);
 
-			icono[i] = new ImageIcon(img);
+			icono[i] = new ImageIcon(img, nombre.toString());
 			reverso = new ImageIcon(imgReverso);
 
 			if (i < 23) {// Baraja Principal
@@ -2363,10 +2351,11 @@ public class PanelClasico extends JPanel implements ActionListener {
 		try {
 			FileWriter fichero = new FileWriter(rutaJuego);
 			PrintWriter pw = new PrintWriter(fichero);
-			pw.println("Solitario Clasico");
+			pw.println("Solitario clasico");
 
-			// TODO ESCRIBIR AQUI TODO LO QUE SE VAYA A GUARDAR EN EL ARCHIVO
-
+			/*
+			 * Guardar inicio y descartes
+			 */
 			for (int i = barajaInicial.length - 1; i >= 0; i--) {
 
 				if (barajaInicial[i].getLabel() != "NuLo") {
@@ -2407,7 +2396,9 @@ public class PanelClasico extends JPanel implements ActionListener {
 					enabled[6]++;
 				}
 			}
-
+			/*
+			 * Guardar montones
+			 */
 			pw.println();
 			pw.print("* ");
 			for (int i = monton1.length - 1; i >= 0; i--) {
@@ -2489,7 +2480,9 @@ public class PanelClasico extends JPanel implements ActionListener {
 			}
 
 			pw.println();
-
+			/*
+			 * Guardar montones finales
+			 */
 			for (int i = fin1.length - 1; i >= 0; i--) {
 
 				if (fin1[i].getLabel() != "NuLo" && fin1[i].getLabel() != "F1") {
@@ -2506,7 +2499,7 @@ public class PanelClasico extends JPanel implements ActionListener {
 
 				}
 			}
-			
+
 			pw.println();
 
 			for (int i = fin3.length - 1; i >= 0; i--) {
@@ -2516,7 +2509,7 @@ public class PanelClasico extends JPanel implements ActionListener {
 
 				}
 			}
-			
+
 			pw.println();
 
 			for (int i = fin4.length - 1; i >= 0; i--) {
@@ -2534,6 +2527,95 @@ public class PanelClasico extends JPanel implements ActionListener {
 			e.printStackTrace();
 		}
 
+	}
+
+	public void cargarJuego(String ruta) {
+
+		String[] guardar = new String[14];
+		String cadena;
+
+		try {
+			FileReader fr = new FileReader(ruta);
+			BufferedReader br = new BufferedReader(fr);
+			System.out.println(ruta);
+			int i = 0;
+
+			while ((cadena = br.readLine()) != null) {
+				guardar[i] = cadena;
+
+				i++;
+			}
+			br.close();
+
+		} catch (Exception a) {
+			System.out.println("Error leyendo fichero " + ruta + ": " + a);
+		}
+
+//		for (int j = 0; j < guardar.length; j++) {
+//			System.out.println(guardar[j]);
+//		}
+
+		String[] iniciales = guardar[1].split(" ");
+		String[] descartadas = guardar[2].split(" ");
+		String[] mon1 = guardar[3].split(" ");
+		String[] mon2 = guardar[4].split(" ");
+		String[] mon3 = guardar[5].split(" ");
+		String[] mon4 = guardar[6].split(" ");
+		String[] mon5 = guardar[7].split(" ");
+		String[] mon6 = guardar[8].split(" ");
+		String[] mon7 = guardar[9].split(" ");
+		String[] f1 = guardar[10].split(" ");
+		String[] f2 = guardar[11].split(" ");
+		String[] f3 = guardar[12].split(" ");
+		String[] f4 = guardar[13].split(" ");
+
+		for (int j = 0; j < mon4.length; j++) {
+			System.out.println(mon4[j]);
+			System.out.println("****");
+		}
+
+		int h = 0;
+		for (int i = iniciales.length - 1; i >= 0; i--) {
+
+			barajaInicial[h].setLabel(iniciales[i]);
+			barajaInicial[h].setIcon(buscarIcono(iniciales[i]));
+
+			h++;
+		}
+
+		for (int i = h; i < 23; i++) {
+			barajaInicial[i].setLabel("NuLo");
+			barajaInicial[i].setIcon(null);
+		}
+
+		int j = 0;
+		for (int i = descartadas.length - 1; i >= 0; i--) {
+
+			barajaDescartes[j].setLabel(descartadas[i]);
+			barajaDescartes[j].setIcon(buscarIcono(descartadas[i]));
+			j++;
+		}
+		
+		
+		
+		
+		printArrays();
+
+	}
+
+	private ImageIcon buscarIcono(String card) {
+
+		ImageIcon ret = null;
+
+		for (int i = 0; i < 52; i++) {
+
+			if (icono[i].getDescription().equals(card)) {
+
+				ret = icono[i];
+			}
+		}
+
+		return ret;
 	}
 
 	public void sumarEstadisticas() {

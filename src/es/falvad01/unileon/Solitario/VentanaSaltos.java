@@ -27,7 +27,6 @@ public class VentanaSaltos extends JFrame implements ActionListener {
 	private JMenu archivo;
 	private JMenu editar;
 
-	
 	private JMenuItem btnSalvar;
 	private JMenuItem btnSalvarComo;
 	private JMenuItem btnSalir;
@@ -35,14 +34,14 @@ public class VentanaSaltos extends JFrame implements ActionListener {
 	private JMenuItem btnDeshacer;
 	private JMenuItem btnHacer;
 	private JMenuItem btnResolver;
-	
+
 	JPanel juegoSaltos;
 
 	PanelSaltos saltos;
 
 	File loadGame;
 	File saveGame;
-	
+
 	static String rutaEstadisticas;
 
 	public VentanaSaltos() {
@@ -65,7 +64,7 @@ public class VentanaSaltos extends JFrame implements ActionListener {
 		initPanel();
 
 	}
-	
+
 	public static void rutaStadisticas(String ruta) {
 		rutaEstadisticas = ruta;
 	}
@@ -78,7 +77,6 @@ public class VentanaSaltos extends JFrame implements ActionListener {
 		juegoSaltos.setBounds(0, 0, PHEIGH, PWIDTH);
 		juegoSaltos.setLayout(null);
 		juegoSaltos.setVisible(false);
-		
 
 		getContentPane().add(juegoSaltos);
 
@@ -87,8 +85,6 @@ public class VentanaSaltos extends JFrame implements ActionListener {
 
 		archivo = new JMenu("Archivo");
 		menuBar.add(archivo);
-
-		
 
 		btnSalvar = new JMenuItem("Salvar");
 		archivo.add(btnSalvar);
@@ -116,7 +112,6 @@ public class VentanaSaltos extends JFrame implements ActionListener {
 		btnResolver = new JMenuItem("Resolver");
 		editar.add(btnResolver);
 		btnResolver.addActionListener(this);
-
 
 	}
 
@@ -162,7 +157,7 @@ public class VentanaSaltos extends JFrame implements ActionListener {
 
 	private void guardarComo() {
 
-		System.out.println("LISTENRS GUARDAR COMO");
+	
 		JFileChooser save = new JFileChooser();
 
 		if (save.showSaveDialog(null) == save.APPROVE_OPTION) {

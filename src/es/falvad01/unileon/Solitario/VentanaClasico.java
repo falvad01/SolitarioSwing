@@ -166,5 +166,11 @@ public class VentanaClasico extends JFrame implements ActionListener {
 		}
 
 	}// Fin del metodo guardarComo
+	
+	public void cargarJuego(String ruta) {
+
+		setVisible(true);
+		clasico.cargarJuego(ruta);
+	}
 
 }

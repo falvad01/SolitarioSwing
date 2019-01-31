@@ -23,6 +23,7 @@ public class Listeners implements ActionListener {
 
 	File loadStadistics;
 	File saveGame;
+	File chargeGame;
 	EJuego juego = null;
 	Baraja baraja;
 	Container panel;
@@ -61,10 +62,10 @@ public class Listeners implements ActionListener {
 
 			int i = select.showOpenDialog(panel);// Cargamos el archivo
 
-			loadStadistics = select.getSelectedFile();
+			chargeGame = select.getSelectedFile();
 
-			if ((loadStadistics == null) || !(loadStadistics.getName()
-					.substring(loadStadistics.getName().lastIndexOf(".") + 1).equals("txt"))) {
+			if ((chargeGame == null)
+					|| !(chargeGame.getName().substring(chargeGame.getName().lastIndexOf(".") + 1).equals("txt"))) {
 				JOptionPane.showMessageDialog(panel, "Tipo de archivo incorrecto", "Tipo de archivo incorrecto",
 						JOptionPane.ERROR_MESSAGE);// Comprobamos que la extension del archivo sea la correcta
 			} else {
@@ -74,9 +75,9 @@ public class Listeners implements ActionListener {
 				int hy = 0;
 
 				try {
-					FileReader fr = new FileReader(loadStadistics.getPath());
+					FileReader fr = new FileReader(chargeGame.getPath());
 					BufferedReader br = new BufferedReader(fr);
-					System.out.println(loadStadistics.getPath());
+					System.out.println(chargeGame.getPath());
 
 					while ((cadena = br.readLine()) != null) {
 						guardar[hy] = cadena;
@@ -86,21 +87,25 @@ public class Listeners implements ActionListener {
 					br.close();
 
 				} catch (Exception a) {
-					System.out.println("Error leyendo fichero " + loadStadistics.getPath() + ": " + a);
+					System.out.println("Error leyendo fichero " + chargeGame.getPath() + ": " + a);
 				}
 
 				if (guardar[0].equals("Solitario saltos")) {
 
 					System.out.println("CARGANDO SOLITARIO SALTOS");
 					VentanaSaltos ventanaSaltos = new VentanaSaltos();
-					ventanaSaltos.cargarJuego(loadStadistics.getPath());
+					ventanaSaltos.cargarJuego(chargeGame.getPath());
 
-				} else if (guardar[0].equals("Solitario clásico")) {
+				} else if (guardar[0].equals("Solitario clasico")) {
 
 					System.out.println("CARGANDO SOLITARIO Clasico");
-					
-					
+					VentanaClasico ventanaClasico = new VentanaClasico();
+					ventanaClasico.cargarJuego(chargeGame.getPath());
 
+				} else {
+					JOptionPane.showMessageDialog(panel,
+							"Tipo de solitario incorrecto o clasico puesto con tilde, debe ir sin la tilde en el archivo de guardado ya que acarrea fallos de funcionamiento",
+							"ERRROR", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 
@@ -124,15 +129,14 @@ public class Listeners implements ActionListener {
 			String[] linea = new String[6];
 
 			URL resource = getClass().getResource("/estadisticas/Estadisticas.txt");
-			
-			
+
 			try {
 				InputStream is = resource.openStream();
 				InputStreamReader isr = new InputStreamReader(is, "UTF-8");
 				BufferedReader br = new BufferedReader(isr);
 
 				for (int i = 0; i < 6; i++) {
-					
+
 					linea[i] = br.readLine();
 
 				}
