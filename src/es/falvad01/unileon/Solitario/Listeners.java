@@ -129,7 +129,7 @@ public class Listeners implements ActionListener {
 			String[] linea = new String[6];
 
 			URL resource = getClass().getResource("/estadisticas/Estadisticas.txt");
-
+ 
 			try {
 				InputStream is = resource.openStream();
 				InputStreamReader isr = new InputStreamReader(is, "UTF-8");

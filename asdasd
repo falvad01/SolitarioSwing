@@ -133,3 +133,89 @@
 
 			nombre.delete(0, nombre.length());
 		} 5H
+		
+		
+		
+		
+		
+		
+		
+		
+		int ast = 0;
+
+		/// MON1
+		for (int i = 0; i < mon1.length; i++) {
+
+			if (mon1[i].equals("*")) {
+
+				ast = i;
+			}
+		}
+
+		j = 19;
+		for (int i = mon1.length - 1; i >= 0; i--) {
+
+			if (i > ast) {
+
+				monton1[j].setLabel(mon1[i]);
+				monton1[j].setIcon(buscarIcono(mon1[i]));
+				// monton1[j].setEnabled(false);
+			}
+			j--;
+		}
+		/// MON2
+		for (int i = 0; i < mon2.length; i++) {
+
+			if (mon2[i].equals("*")) {
+
+				ast = i;
+			}
+		}
+
+		j = 19;
+		for (int i = 0; i < mon2.length; i++) {
+
+			if (i > ast) {
+
+				monton2[j].setLabel(mon2[i]);
+				monton2[j].setIcon(buscarIcono(mon2[i]));
+				monton2[j].setEnabled(true);
+			} else if (i == ast) {
+
+				monton2[j].setLabel(mon2[i]);
+				monton2[j].setIcon(buscarIcono(mon2[i]));
+				monton2[j].setEnabled(true);
+				
+			} else if (i < ast) {
+				monton2[j].setLabel(mon2[i-1]);
+				monton2[j].setIcon(buscarIcono(mon2[i-1]));
+				monton2[j].setEnabled(false);
+			}
+			j--;
+		}
+
+		/// MON3
+
+		for (int i = 0; i < mon3.length; i++) {
+
+			if (mon3[i].equals("*")) {
+
+				ast = i;
+			}
+		}
+
+		j = 19;
+		for (int i = mon3.length - 1; i >= 0; i--) {
+
+			if (i > ast) {
+
+				monton3[j - 1].setLabel(mon3[i]);
+				monton3[j - 1].setIcon(buscarIcono(mon3[i]));
+				monton3[j - 1].setEnabled(true);
+			} else if (i < ast) {
+				monton3[j].setLabel(mon3[i]);
+				monton3[j].setIcon(buscarIcono(mon3[i]));
+				monton3[j].setEnabled(false);
+			}
+			j--;
+		}

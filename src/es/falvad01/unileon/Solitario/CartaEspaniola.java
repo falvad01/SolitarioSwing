@@ -34,7 +34,7 @@ public class CartaEspaniola {
 	/**
 	 * 
 	 * @param num
-	 */
+	 */ 
 	private void setNumero(char num) {
 		this.numero = num;
 	}

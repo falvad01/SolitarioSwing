@@ -22,10 +22,6 @@ import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 
-
-
-
-
 @SuppressWarnings({ "deprecation", "serial" })
 public class PanelClasico extends JPanel implements ActionListener {
 
@@ -66,7 +62,7 @@ public class PanelClasico extends JPanel implements ActionListener {
 	public PanelClasico(JLayeredPane juegoClasico, Container container) {
 
 		this.clasico = juegoClasico;
-	
+
 		barajaInicial = new JButton[23];
 		barajaDescartes = new JButton[24];
 		fin1 = new JButton[14];// Tiene uno mas de tamaño de lo que deberia debido a la carta cebo que esta en
@@ -2555,13 +2551,13 @@ public class PanelClasico extends JPanel implements ActionListener {
 
 		String[] iniciales = guardar[1].split(" ");
 		String[] descartadas = guardar[2].split(" ");
-		String[] mon1 = guardar[3].split(" ");
-		String[] mon2 = guardar[4].split(" ");
-		String[] mon3 = guardar[5].split(" ");
-		String[] mon4 = guardar[6].split(" ");
-		String[] mon5 = guardar[7].split(" ");
-		String[] mon6 = guardar[8].split(" ");
-		String[] mon7 = guardar[9].split(" ");
+		String[] mon1 = guardar[3].split("\\* ");
+		String[] mon2 = guardar[4].split("\\* ");
+		String[] mon3 = guardar[5].split("\\* ");
+		String[] mon4 = guardar[6].split("\\* ");
+		String[] mon5 = guardar[7].split("\\* ");
+		String[] mon6 = guardar[8].split("\\* ");
+		String[] mon7 = guardar[9].split("\\* ");
 		String[] f1 = guardar[10].split(" ");
 		String[] f2 = guardar[11].split(" ");
 		String[] f3 = guardar[12].split(" ");
@@ -2588,11 +2584,169 @@ public class PanelClasico extends JPanel implements ActionListener {
 			barajaDescartes[j].setIcon(buscarIcono(descartadas[i]));
 			j++;
 		}
+		// carga de montones intermedios
+		String[] mon11 = mon1[0].split(" ");
+		String[] mon12 = mon1[1].split(" ");
 
+		String[] mon21 = mon2[0].split(" ");
+		String[] mon22 = mon2[1].split(" ");
+
+		String[] mon31 = mon3[0].split(" ");
+		String[] mon32 = mon3[1].split(" ");
+
+		String[] mon41 = mon4[0].split(" ");
+		String[] mon42 = mon4[1].split(" ");
+
+		String[] mon51 = mon5[0].split(" ");
+		String[] mon52 = mon5[1].split(" ");
+
+		String[] mon61 = mon6[0].split(" ");
+		String[] mon62 = mon6[1].split(" ");
+
+		String[] mon71 = mon7[0].split(" ");
+		String[] mon72 = mon7[1].split(" ");
+
+		
+		//carga monton1
+		j = 19;
+		for (int i = 0 ; i < mon12.length; i++) {
+
+			monton1[j].setLabel(mon12[i]);
+			monton1[j].setIcon(buscarIcono(mon12[i]));
+			monton1[j].setVisible(true);
+			j--;
+		}
+		
+		//carga monton 2
+		
+		j = 19;
+		for (int i = 0; i < mon21.length; i++) {
+
+			monton2[j].setLabel(mon21[i]);
+			monton2[j].setIcon(reverso);
+			monton2[j].setEnabled(false);
+			monton2[j].setVisible(true);
+			j--;
+		}
+		
+		for(int i = 0; i < mon22.length; i++) {
+			monton2[j].setLabel(mon22[i]);
+			monton2[j].setIcon(buscarIcono(mon22[i]));
+			monton2[j].setEnabled(true);
+			monton2[j].setVisible(true);
+			j--;
+		}
+		
+		//carga monton 3
+		
+		j = 19;
+		for (int i = 0; i < mon31.length; i++) {
+
+			monton3[j].setLabel(mon31[i]);
+			monton3[j].setIcon(reverso);
+			monton3[j].setEnabled(false);
+			monton3[j].setVisible(true);
+			j--;
+		}
+		
+		for(int i = 0; i < mon32.length; i++) {
+			monton3[j].setLabel(mon32[i]);
+			monton3[j].setIcon(buscarIcono(mon32[i]));
+			monton3[j].setEnabled(true);
+			monton3[j].setVisible(true);
+			j--;
+		}
+		
+		
+		//carga monton 4
+		
+		
+		j = 19;
+		for (int i = 0; i < mon41.length; i++) {
+
+			monton4[j].setLabel(mon41[i]);
+			monton4[j].setIcon(reverso);
+			monton4[j].setEnabled(false);
+			monton4[j].setVisible(true);
+			j--;
+		}
+		
+		for(int i = 0; i < mon42.length; i++) {
+			monton4[j].setLabel(mon42[i]);
+			monton4[j].setIcon(buscarIcono(mon42[i]));
+			monton4[j].setEnabled(true);
+			monton4[j].setVisible(true);
+			j--;
+		}
+		
+		//carga monton 5
+		
+
+		j = 19;
+		for (int i = 0; i < mon51.length; i++) {
+
+			monton5[j].setLabel(mon51[i]);
+			monton5[j].setIcon(reverso);
+			monton5[j].setEnabled(false);
+			monton5[j].setVisible(true);
+			j--;
+		}
+		
+		for(int i = 0; i < mon52.length; i++) {
+			monton5[j].setLabel(mon52[i]);
+			monton5[j].setIcon(buscarIcono(mon52[i]));
+			monton5[j].setEnabled(true);
+			monton5[j].setVisible(true);
+			j--;
+		}
+		
+		//carga monton 6
+		
+		j = 19;
+		for (int i = 0; i < mon61.length; i++) {
+
+			monton6[j].setLabel(mon61[i]);
+			monton6[j].setIcon(reverso);
+			monton6[j].setEnabled(false);
+			monton6[j].setVisible(true);
+			
+			j--;
+		}
+		
+		for(int i = 0; i < mon62.length; i++) {
+			monton6[j].setLabel(mon62[i]);
+			monton6[j].setIcon(buscarIcono(mon62[i]));
+			monton6[j].setEnabled(true);
+			monton6[j].setVisible(true);
+			j--;
+		}
+		
+		//carga monton 7
+		
+		j = 19;
+		for (int i = 0; i < mon71.length; i++) {
+
+			monton7[j].setLabel(mon71[i]);
+			monton7[j].setIcon(reverso);
+			monton7[j].setEnabled(false);
+			monton7[j].setVisible(true);
+			j--;
+		}
+		
+		for(int i = 0; i < mon72.length; i++) {
+			monton7[j].setLabel(mon72[i]);
+			monton7[j].setIcon(buscarIcono(mon72[i]));
+			monton7[j].setEnabled(true);
+			monton7[j].setVisible(true);
+			j--;
+		}
+		
+		
+		// carga de montones finales
 		j = 0;
-		System.out.println(f1.length);
+
 		for (int i = 0; i < f1.length; i++) {
-			System.out.println("I:" + i + "J: " + j);
+
 			fin1[j].setLabel(f1[i]);
 			fin1[j].setIcon(buscarIcono(f1[i]));
 			j++;
@@ -2620,32 +2774,32 @@ public class PanelClasico extends JPanel implements ActionListener {
 		}
 
 		if (f1.length == 1) {
-			fin1[f1.length - 1].setLabel("F1");
-			fin1[f1.length - 1].setIcon(null);
+			fin1[f1.length + 1].setLabel("F1");
+			fin1[f1.length + 1].setIcon(null);
 		} else {
 			fin1[f1.length].setLabel("F1");
 			fin1[f1.length].setIcon(null);
 		}
 
 		if (f2.length == 1) {
-			fin2[f2.length - 1].setLabel("F2");
-			fin2[f2.length - 1].setIcon(null);
+			fin2[f2.length + 1].setLabel("F2");
+			fin2[f2.length + 1].setIcon(null);
 		} else {
 			fin2[f2.length].setLabel("F2");
 			fin2[f2.length].setIcon(null);
 		}
 
 		if (f3.length == 1) {
-			fin3[f3.length - 1].setLabel("F3");
-			fin3[f3.length - 1].setIcon(null);
+			fin3[f3.length + 1].setLabel("F3");
+			fin3[f3.length + 1].setIcon(null);
 		} else {
 			fin3[f3.length].setLabel("F3");
 			fin3[f3.length].setIcon(null);
 		}
 
 		if (f4.length == 1) {
-			fin4[f4.length - 1].setLabel("F4");
-			fin4[f4.length - 1].setIcon(null);
+			fin4[f4.length + 1].setLabel("F4");
+			fin4[f4.length + 1].setIcon(null);
 		} else {
 			fin4[f4.length].setLabel("F4");
 			fin4[f4.length].setIcon(null);
