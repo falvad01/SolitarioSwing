@@ -14,8 +14,9 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 
+
+@SuppressWarnings("serial")
 public class VentanaClasico extends JFrame implements ActionListener {
 
 	Toolkit screen;
@@ -140,6 +141,7 @@ public class VentanaClasico extends JFrame implements ActionListener {
 
 	}
 
+	@SuppressWarnings("static-access")
 	private void guardarComo() {
 
 		System.out.println("LISTENRS GUARDAR COMO");

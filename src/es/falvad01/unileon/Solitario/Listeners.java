@@ -96,7 +96,7 @@ public class Listeners implements ActionListener {
 					VentanaSaltos ventanaSaltos = new VentanaSaltos();
 					ventanaSaltos.cargarJuego(chargeGame.getPath());
 
-				} else if (guardar[0].equals("Solitario clasico")) {
+				} else if (guardar[0].equals("Solitario clÃ¡sico")) {
 
 					System.out.println("CARGANDO SOLITARIO Clasico");
 					VentanaClasico ventanaClasico = new VentanaClasico();
@@ -115,7 +115,7 @@ public class Listeners implements ActionListener {
 
 		} else if (e.getActionCommand().equals("Salir")) {
 
-			if (JOptionPane.showConfirmDialog(panel, "¿Desea cerrar el programa?", "¿Desea cerrar el programa?",
+			if (JOptionPane.showConfirmDialog(panel, "ï¿½Desea cerrar el programa?", "ï¿½Desea cerrar el programa?",
 					JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) { // Pregunta si esta seguro de que desea
 																			// salir
 				System.exit(0);

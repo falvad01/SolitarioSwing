@@ -1,13 +1,11 @@
 package es.falvad01.unileon.Solitario;
 
-import java.awt.Image;
-
 
 import javax.swing.ImageIcon;
 
 public class Baraja {
 
-	private EJuego juego;
+	
 	private CartaEspaniola[] barajaEspaniola;
 	private CartaFrancesa[] barajaFrancesa;
 	
@@ -19,7 +17,7 @@ public class Baraja {
 	 */
 	public Baraja(EJuego juego) {
 		this.next = 0;
-		setJuego(juego);
+		
 
 	}
 
@@ -27,9 +25,7 @@ public class Baraja {
 	 * 
 	 * @param juego
 	 */
-	public void setJuego(EJuego juego) {
-		this.juego = juego;
-	}
+	
 
 	/**
 	 * 

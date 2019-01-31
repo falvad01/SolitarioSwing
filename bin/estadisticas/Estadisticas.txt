@@ -1,6 +1,6 @@
 Solitario Saltos
-12
+5
 0
 Solitario Clasico
-24
-171
+38
+175

@@ -22,15 +22,14 @@ import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 
-import sun.awt.dnd.SunDragSourceContextPeer;
 
-import javax.swing.JFrame;
 
-@SuppressWarnings("deprecation")
+
+
+@SuppressWarnings({ "deprecation", "serial" })
 public class PanelClasico extends JPanel implements ActionListener {
 
 	private JLayeredPane clasico;
-	private Container container;
 	private boolean primeraPartida = true;
 	private CartaFrancesa[] ABaraja;
 	private String rutaJuego = null;
@@ -67,7 +66,7 @@ public class PanelClasico extends JPanel implements ActionListener {
 	public PanelClasico(JLayeredPane juegoClasico, Container container) {
 
 		this.clasico = juegoClasico;
-		this.container = container;
+	
 		barajaInicial = new JButton[23];
 		barajaDescartes = new JButton[24];
 		fin1 = new JButton[14];// Tiene uno mas de tamaño de lo que deberia debido a la carta cebo que esta en
@@ -617,8 +616,7 @@ public class PanelClasico extends JPanel implements ActionListener {
 					boolean comFin = comprobarMovFin();
 
 					if (comFin) {
-						System.out.println("HOla");
-						// TODO en proceso de terminar fin para cunado ya hay cartas
+
 						if (mazoDestino == "fin1") {
 							System.out.println("Mazo 1");
 							for (int i = 13; i >= 0; i--) {
@@ -2351,7 +2349,7 @@ public class PanelClasico extends JPanel implements ActionListener {
 		try {
 			FileWriter fichero = new FileWriter(rutaJuego);
 			PrintWriter pw = new PrintWriter(fichero);
-			pw.println("Solitario clasico");
+			pw.println("Solitario clásico");
 
 			/*
 			 * Guardar inicio y descartes
@@ -2483,7 +2481,7 @@ public class PanelClasico extends JPanel implements ActionListener {
 			/*
 			 * Guardar montones finales
 			 */
-			for (int i = fin1.length - 1; i >= 0; i--) {
+			for (int i = 0; i < fin1.length; i++) {
 
 				if (fin1[i].getLabel() != "NuLo" && fin1[i].getLabel() != "F1") {
 					pw.print(fin1[i].getLabel() + " ");
@@ -2492,7 +2490,7 @@ public class PanelClasico extends JPanel implements ActionListener {
 			}
 			pw.println();
 
-			for (int i = fin2.length - 1; i >= 0; i--) {
+			for (int i = 0; i < fin2.length; i++) {
 
 				if (fin2[i].getLabel() != "NuLo" && fin2[i].getLabel() != "F2") {
 					pw.print(fin2[i].getLabel() + " ");
@@ -2502,7 +2500,7 @@ public class PanelClasico extends JPanel implements ActionListener {
 
 			pw.println();
 
-			for (int i = fin3.length - 1; i >= 0; i--) {
+			for (int i = 0; i < fin3.length; i++) {
 
 				if (fin3[i].getLabel() != "NuLo" && fin3[i].getLabel() != "F3") {
 					pw.print(fin3[i].getLabel() + " ");
@@ -2512,14 +2510,14 @@ public class PanelClasico extends JPanel implements ActionListener {
 
 			pw.println();
 
-			for (int i = fin4.length - 1; i >= 0; i--) {
+			for (int i = 0; i < fin4.length; i++) {
 
 				if (fin4[i].getLabel() != "NuLo" && fin4[i].getLabel() != "F4") {
 					pw.print(fin4[i].getLabel() + " ");
 
 				}
 			}
-
+			pw.println();
 			fichero.close();
 
 		} catch (IOException e) {
@@ -2531,7 +2529,7 @@ public class PanelClasico extends JPanel implements ActionListener {
 
 	public void cargarJuego(String ruta) {
 
-		String[] guardar = new String[14];
+		String[] guardar = new String[15];
 		String cadena;
 
 		try {
@@ -2551,9 +2549,9 @@ public class PanelClasico extends JPanel implements ActionListener {
 			System.out.println("Error leyendo fichero " + ruta + ": " + a);
 		}
 
-//		for (int j = 0; j < guardar.length; j++) {
-//			System.out.println(guardar[j]);
-//		}
+		for (int j = 0; j < guardar.length; j++) {
+			System.out.println(guardar[j]);
+		}
 
 		String[] iniciales = guardar[1].split(" ");
 		String[] descartadas = guardar[2].split(" ");
@@ -2568,11 +2566,6 @@ public class PanelClasico extends JPanel implements ActionListener {
 		String[] f2 = guardar[11].split(" ");
 		String[] f3 = guardar[12].split(" ");
 		String[] f4 = guardar[13].split(" ");
-
-		for (int j = 0; j < mon4.length; j++) {
-			System.out.println(mon4[j]);
-			System.out.println("****");
-		}
 
 		int h = 0;
 		for (int i = iniciales.length - 1; i >= 0; i--) {
@@ -2595,10 +2588,69 @@ public class PanelClasico extends JPanel implements ActionListener {
 			barajaDescartes[j].setIcon(buscarIcono(descartadas[i]));
 			j++;
 		}
-		
-		
-		
-		
+
+		j = 0;
+		System.out.println(f1.length);
+		for (int i = 0; i < f1.length; i++) {
+			System.out.println("I:" + i + "J: " + j);
+			fin1[j].setLabel(f1[i]);
+			fin1[j].setIcon(buscarIcono(f1[i]));
+			j++;
+		}
+
+		j = 0;
+		for (int i = 0; i < f2.length; i++) {
+			fin2[j].setLabel(f2[i]);
+			fin2[j].setIcon(buscarIcono(f2[i]));
+			j++;
+		}
+
+		j = 0;
+		for (int i = 0; i < f3.length; i++) {
+			fin3[j].setLabel(f3[i]);
+			fin3[j].setIcon(buscarIcono(f3[i]));
+			j++;
+		}
+
+		j = 0;
+		for (int i = 0; i < f4.length; i++) {
+			fin4[j].setLabel(f4[i]);
+			fin4[j].setIcon(buscarIcono(f4[i]));
+			j++;
+		}
+
+		if (f1.length == 1) {
+			fin1[f1.length - 1].setLabel("F1");
+			fin1[f1.length - 1].setIcon(null);
+		} else {
+			fin1[f1.length].setLabel("F1");
+			fin1[f1.length].setIcon(null);
+		}
+
+		if (f2.length == 1) {
+			fin2[f2.length - 1].setLabel("F2");
+			fin2[f2.length - 1].setIcon(null);
+		} else {
+			fin2[f2.length].setLabel("F2");
+			fin2[f2.length].setIcon(null);
+		}
+
+		if (f3.length == 1) {
+			fin3[f3.length - 1].setLabel("F3");
+			fin3[f3.length - 1].setIcon(null);
+		} else {
+			fin3[f3.length].setLabel("F3");
+			fin3[f3.length].setIcon(null);
+		}
+
+		if (f4.length == 1) {
+			fin4[f4.length - 1].setLabel("F4");
+			fin4[f4.length - 1].setIcon(null);
+		} else {
+			fin4[f4.length].setLabel("F4");
+			fin4[f4.length].setIcon(null);
+		}
+
 		printArrays();
 
 	}
