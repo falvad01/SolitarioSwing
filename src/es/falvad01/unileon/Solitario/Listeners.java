@@ -90,6 +90,7 @@ public class Listeners implements ActionListener {
 					System.out.println("Error leyendo fichero " + chargeGame.getPath() + ": " + a);
 				}
 
+				System.out.println(guardar[0]);
 				if (guardar[0].equals("Solitario saltos")) {
 
 					System.out.println("CARGANDO SOLITARIO SALTOS");
@@ -103,9 +104,8 @@ public class Listeners implements ActionListener {
 					ventanaClasico.cargarJuego(chargeGame.getPath());
 
 				} else {
-					JOptionPane.showMessageDialog(panel,
-							"Tipo de solitario incorrecto o clasico puesto con tilde, debe ir sin la tilde en el archivo de guardado ya que acarrea fallos de funcionamiento",
-							"ERRROR", JOptionPane.ERROR_MESSAGE);
+					VentanaClasico ventanaClasico = new VentanaClasico();
+					ventanaClasico.cargarJuego(chargeGame.getPath());
 				}
 			}
 
