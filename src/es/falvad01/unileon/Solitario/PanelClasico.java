@@ -137,13 +137,14 @@ public class PanelClasico extends JPanel implements ActionListener {
 			if (i < 23) {// Baraja Principal
 				barajaInicial[i] = new JButton(nombre.toString());
 				barajaInicial[i].setIcon(icono[i]);
-				barajaInicial[0].setBounds(20, 10, 90, 120);
+				barajaInicial[0].setBounds(20, 10, 90, 122);
 
 			} else if (i == 23) { // Baraja Descartes
 
 				barajaDescartes[0] = new JButton(nombre.toString());
-				barajaDescartes[0].setIcon(icono[i]);
+				
 				barajaDescartes[0].setBounds(125, 10, 90, 120);
+				barajaDescartes[0].setIcon(icono[i]);
 				clasico.add(barajaDescartes[0]);
 				barajaDescartes[0].addActionListener(this);
 
